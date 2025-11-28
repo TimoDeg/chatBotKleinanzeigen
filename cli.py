@@ -149,19 +149,28 @@ def send_and_offer(
         logger.info("=" * 60)
         logger.info("Workflow Results:")
         logger.info("=" * 60)
-        logger.info(f"Browser Setup: {'✅' if result['browser_setup'] else '❌'}")
-        logger.info(f"Authentication: {'✅' if result['authentication'] else '❌'}")
-        logger.info(f"Message Sent: {'✅' if result['message_sent'] else '❌'}")
-        logger.info(f"Conversation Opened: {'✅' if result['conversation_opened'] else '❌'}")
-        logger.info(f"Offer Sent: {'✅' if result['offer_sent'] else '❌'}")
+        logger.info(f"Success: {'✅' if result.get('success') else '❌'}")
+        logger.info(f"Steps Completed: {', '.join(result.get('steps_completed', []))}")
+        if result.get('errors'):
+            logger.error(f"Errors: {', '.join(result.get('errors', []))}")
         logger.info("=" * 60)
         
-        # Exit with appropriate code
-        exit_code = result["exit_code"]
-        
-        if exit_code == EXIT_SUCCESS:
-            logger.info("✅ All steps completed successfully!")
+        # Determine exit code based on result
+        if result.get('success'):
+            logger.info("✅✅✅ All steps completed successfully!")
+            exit_code = EXIT_SUCCESS
         else:
+            errors = result.get('errors', [])
+            if 'Login fehlgeschlagen' in str(errors):
+                exit_code = EXIT_LOGIN_FAILED
+            elif 'Message senden fehlgeschlagen' in str(errors):
+                exit_code = EXIT_MESSAGE_FAILED
+            elif 'Conversation navigation fehlgeschlagen' in str(errors):
+                exit_code = EXIT_CONVERSATION_NOT_FOUND
+            elif 'Angebot machen fehlgeschlagen' in str(errors):
+                exit_code = EXIT_OFFER_FAILED
+            else:
+                exit_code = EXIT_BROWSER_FAILED
             logger.error(f"❌ Workflow failed with exit code: {exit_code}")
         
         sys.exit(exit_code)

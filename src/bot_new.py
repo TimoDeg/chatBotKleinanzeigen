@@ -532,7 +532,7 @@ class KleinanzeigenBot:
         except Exception as e:
             logger.error(f"❌ Workflow exception: {e}")
             result["errors"].append(str(e))
-                                                      
+        
         finally:
             await self.close()
         

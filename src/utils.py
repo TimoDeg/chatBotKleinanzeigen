@@ -34,6 +34,43 @@ async def random_delay(min_seconds: float = 1.0, max_seconds: float = 3.0) -> No
     await asyncio.sleep(delay)
 
 
+async def find_element_with_fallbacks(
+    page,
+    selectors_list: list,
+    timeout: int = 5000,
+    logger_instance=None
+):
+    """
+    Versucht mehrere Selektoren nacheinander.
+    Loggt welcher funktioniert.
+    Returniert das Element oder None.
+    
+    Args:
+        page: Playwright page object
+        selectors_list: List of selector strings to try
+        timeout: Timeout per selector in milliseconds
+        logger_instance: Logger instance (optional)
+        
+    Returns:
+        Element if found, None otherwise
+    """
+    log = logger_instance if logger_instance else logger
+    
+    for i, selector in enumerate(selectors_list):
+        try:
+            log.debug(f"Versuch {i+1}/{len(selectors_list)}: {selector}")
+            element = await page.wait_for_selector(selector, timeout=timeout)
+            if element:
+                log.info(f"✅ Element gefunden mit: {selector}")
+                return element
+        except Exception as e:
+            log.debug(f"Selector fehlgeschlagen: {selector} - {e}")
+            if i == len(selectors_list) - 1:
+                log.error(f"❌ Alle {len(selectors_list)} Selektoren fehlgeschlagen")
+                return None
+    return None
+
+
 def setup_logging(debug: bool = False) -> None:
     """
     Configure loguru logger with file and console output.
