@@ -881,3 +881,208 @@ Call log:
 2025-11-28T21:56:55 | INFO     | __main__:send_and_offer | Offer Sent: ❌
 2025-11-28T21:56:55 | INFO     | __main__:send_and_offer | ============================================================
 2025-11-28T21:56:55 | ERROR    | __main__:send_and_offer | ❌ Workflow failed with exit code: 1
+2025-11-28T22:19:28 | INFO     | src.utils:setup_logging | Logging initialized
+2025-11-28T22:19:28 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T22:19:28 | INFO     | __main__:send_and_offer | Kleinanzeigen Message & Offer Bot
+2025-11-28T22:19:28 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T22:19:28 | INFO     | __main__:send_and_offer | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-28T22:19:28 | INFO     | __main__:send_and_offer | Email: degtyarevsemen@gmail.com
+2025-11-28T22:19:28 | INFO     | __main__:send_and_offer | Message: Ist noch verfügbar?...
+2025-11-28T22:19:28 | INFO     | __main__:send_and_offer | Offer: €100.0, Delivery: pickup
+2025-11-28T22:19:28 | INFO     | __main__:send_and_offer | Headless: False
+2025-11-28T22:19:28 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T22:19:28 | INFO     | src.bot:__init__ | Bot initialized (headless=False)
+2025-11-28T22:19:28 | INFO     | src.bot:setup_browser | Setting up browser with anti-detection...
+2025-11-28T22:19:30 | INFO     | src.bot:setup_browser | ✅ Cookies geladen
+2025-11-28T22:19:31 | INFO     | src.bot:setup_browser | ✅ Browser setup erfolgreich
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: FPLC
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: _lr_geo_location
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: zsc
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: MR
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: MR
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: MR
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: admtr
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: lidc
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: TPC
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: done_redirects271
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: rc
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1690576109
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1337645486
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1089243121
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1856549281
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1170752139
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1388357392
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1475507400
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: pubsyncexp
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: done_redirects200
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: done_redirects280414
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: _sv3_7
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: __kuid
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: MR
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: bm_mi
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ak_bmsc
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ak_bmsc
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: _uetsid
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: _clsk
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: bm_sz
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: bm_sv
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: tis_lhY
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: bm_sv
+2025-11-28T22:19:31 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ac_r
+2025-11-28T22:19:31 | INFO     | src.auth:load_cookies | ✅ Cookies loaded from ./cookies.json (329 valid cookies)
+2025-11-28T22:19:37 | DEBUG    | src.bot:authenticate | Cookies invalid, performing fresh login...
+2025-11-28T22:19:37 | INFO     | src.auth:login | Starting login process...
+2025-11-28T22:19:37 | INFO     | src.auth:login | Navigating directly to login page: https://www.kleinanzeigen.de/m-einloggen.html
+2025-11-28T22:19:40 | DEBUG    | src.auth:accept_cookie_banner | Checking for cookie banner...
+2025-11-28T22:19:40 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Alle akzeptieren')
+2025-11-28T22:19:43 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button:has-text('Alle akzeptieren')
+2025-11-28T22:19:43 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Akzeptieren')
+2025-11-28T22:19:46 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button:has-text('Akzeptieren')
+2025-11-28T22:19:46 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[id*='accept']
+2025-11-28T22:19:49 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button[id*='accept']
+2025-11-28T22:19:49 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[class*='accept']
+2025-11-28T22:19:52 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button[class*='accept']
+2025-11-28T22:19:52 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: [data-testid*='cookie-banner-accept']
+2025-11-28T22:19:55 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: [data-testid*='cookie-banner-accept']
+2025-11-28T22:19:55 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: [data-qa*='cookie-banner-accept']
+2025-11-28T22:19:58 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: [data-qa*='cookie-banner-accept']
+2025-11-28T22:19:58 | WARNING  | src.utils:wait_for_selector_with_fallbacks | None of the selectors matched: ["button:has-text('Alle akzeptieren')", "button:has-text('Akzeptieren')", "button[id*='accept']", "button[class*='accept']", "[data-testid*='cookie-banner-accept']", "[data-qa*='cookie-banner-accept']"]
+2025-11-28T22:19:58 | ERROR    | src.utils:safe_click | Could not find cookie banner to click
+2025-11-28T22:20:07 | INFO     | src.auth:login | On login page, ready to fill credentials...
+2025-11-28T22:20:07 | INFO     | src.auth:login | Filling email...
+2025-11-28T22:20:07 | DEBUG    | src.utils:random_delay | ⏳ Random delay: 1.57s
+2025-11-28T22:20:08 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[name='email']
+2025-11-28T22:20:18 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: input[name='email']
+2025-11-28T22:20:18 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[type='email']
+2025-11-28T22:20:18 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: input[type='email']
+2025-11-28T22:20:18 | DEBUG    | src.utils:safe_fill | Filled email field with: degtyarevsemen@gmail.com...
+2025-11-28T22:20:18 | INFO     | src.auth:login | Filling password...
+2025-11-28T22:20:18 | DEBUG    | src.utils:random_delay | ⏳ Random delay: 3.54s
+2025-11-28T22:20:22 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[name='password']
+2025-11-28T22:20:22 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: input[name='password']
+2025-11-28T22:20:22 | DEBUG    | src.utils:safe_fill | Filled password field with: SamD1990*...
+2025-11-28T22:20:22 | INFO     | src.auth:login | Submitting login form...
+2025-11-28T22:20:22 | DEBUG    | src.auth:login | Trying submit selector: button#login-submit
+2025-11-28T22:20:22 | DEBUG    | src.auth:login | Submit button found - visible: True, enabled: True
+2025-11-28T22:20:22 | DEBUG    | src.utils:random_delay | ⏳ Random delay: 1.58s
+2025-11-28T22:20:24 | INFO     | src.auth:login | ✅ Submit button clicked with: button#login-submit
+2025-11-28T22:20:24 | INFO     | src.auth:login | Waiting for login to complete...
+2025-11-28T22:20:26 | DEBUG    | src.auth:login | Initial URL: https://www.kleinanzeigen.de/m-einloggen.html
+2025-11-28T22:20:36 | WARNING  | src.auth:login | URL did not change after login attempt
+2025-11-28T22:20:44 | INFO     | src.auth:login | Current URL after login attempt: https://www.kleinanzeigen.de/m-einloggen.html
+2025-11-28T22:20:44 | INFO     | src.auth:login | Checking if login was successful (even if URL didn't change)...
+2025-11-28T22:21:05 | WARNING  | src.auth:login | Still on login page, checking if login actually failed...
+2025-11-28T22:21:17 | WARNING  | src.auth:login | ⚠️ No error found, but still on login page - might be CAPTCHA or slow redirect
+2025-11-28T22:21:17 | DEBUG    | src.utils:take_screenshot | Screenshot saved: ./screenshots/login_still_on_page_20251128_222117.png
+2025-11-28T22:21:17 | ERROR    | src.bot:authenticate | ❌ Authentication failed
+2025-11-28T22:21:18 | INFO     | src.bot:close | Browser closed
+2025-11-28T22:21:18 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T22:21:18 | INFO     | __main__:send_and_offer | Workflow Results:
+2025-11-28T22:21:18 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T22:21:18 | INFO     | __main__:send_and_offer | Success: ❌
+2025-11-28T22:21:18 | INFO     | __main__:send_and_offer | Steps Completed: browser_setup
+2025-11-28T22:21:18 | ERROR    | __main__:send_and_offer | Errors: Login fehlgeschlagen
+2025-11-28T22:21:18 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T22:21:18 | ERROR    | __main__:send_and_offer | ❌ Workflow failed with exit code: 1
+2025-11-28T22:27:55 | INFO     | src.utils:setup_logging | Logging initialized
+2025-11-28T22:27:55 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T22:27:55 | INFO     | __main__:send_and_offer | Kleinanzeigen Message & Offer Bot
+2025-11-28T22:27:55 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T22:27:55 | INFO     | __main__:send_and_offer | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-28T22:27:55 | INFO     | __main__:send_and_offer | Email: degtyarevsemen@gmail.com
+2025-11-28T22:27:55 | INFO     | __main__:send_and_offer | Message: Ist noch verfügbar?...
+2025-11-28T22:27:55 | INFO     | __main__:send_and_offer | Offer: €100.0, Delivery: pickup
+2025-11-28T22:27:55 | INFO     | __main__:send_and_offer | Headless: False
+2025-11-28T22:27:55 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T22:27:55 | INFO     | src.bot:__init__ | Bot initialized (headless=False)
+2025-11-28T22:27:55 | INFO     | src.bot:setup_browser | Setting up browser with anti-detection...
+2025-11-28T22:27:57 | INFO     | src.bot:setup_browser | ✅ Cookies geladen
+2025-11-28T22:27:58 | INFO     | src.bot:setup_browser | ✅ Browser setup erfolgreich
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: FPLC
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: _lr_geo_location
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: zsc
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: MR
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: MR
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: MR
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: admtr
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: lidc
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: TPC
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: done_redirects271
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: rc
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1690576109
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1337645486
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1089243121
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1856549281
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1170752139
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1388357392
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1475507400
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: pubsyncexp
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: done_redirects200
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: done_redirects280414
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: _sv3_7
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: __kuid
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: MR
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: bm_mi
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ak_bmsc
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ak_bmsc
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: _uetsid
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: _clsk
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: bm_sz
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: bm_sv
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: tis_lhY
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: bm_sv
+2025-11-28T22:27:58 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ac_r
+2025-11-28T22:27:58 | INFO     | src.auth:load_cookies | ✅ Cookies loaded from ./cookies.json (329 valid cookies)
+2025-11-28T22:28:05 | DEBUG    | src.bot:authenticate | Cookies invalid, performing fresh login...
+2025-11-28T22:28:05 | INFO     | src.auth:login | Starting login process...
+2025-11-28T22:28:05 | INFO     | src.auth:login | Navigating directly to login page: https://www.kleinanzeigen.de/m-einloggen.html
+2025-11-28T22:28:07 | DEBUG    | src.auth:accept_cookie_banner | Checking for cookie banner...
+2025-11-28T22:28:07 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Alle akzeptieren')
+2025-11-28T22:28:10 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button:has-text('Alle akzeptieren')
+2025-11-28T22:28:10 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Akzeptieren')
+2025-11-28T22:28:13 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button:has-text('Akzeptieren')
+2025-11-28T22:28:13 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[id*='accept']
+2025-11-28T22:28:16 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button[id*='accept']
+2025-11-28T22:28:16 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[class*='accept']
+2025-11-28T22:28:19 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button[class*='accept']
+2025-11-28T22:28:19 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: [data-testid*='cookie-banner-accept']
+2025-11-28T22:28:22 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: [data-testid*='cookie-banner-accept']
+2025-11-28T22:28:22 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: [data-qa*='cookie-banner-accept']
+2025-11-28T22:28:25 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: [data-qa*='cookie-banner-accept']
+2025-11-28T22:28:25 | WARNING  | src.utils:wait_for_selector_with_fallbacks | None of the selectors matched: ["button:has-text('Alle akzeptieren')", "button:has-text('Akzeptieren')", "button[id*='accept']", "button[class*='accept']", "[data-testid*='cookie-banner-accept']", "[data-qa*='cookie-banner-accept']"]
+2025-11-28T22:28:25 | ERROR    | src.utils:safe_click | Could not find cookie banner to click
+2025-11-28T22:28:35 | INFO     | src.auth:login | On login page, ready to fill credentials...
+2025-11-28T22:28:36 | INFO     | src.auth:login | Filling email...
+2025-11-28T22:28:36 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[name='email']
+2025-11-28T22:28:46 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: input[name='email']
+2025-11-28T22:28:46 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[type='email']
+2025-11-28T22:28:46 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: input[type='email']
+2025-11-28T22:28:46 | DEBUG    | src.utils:safe_fill | Filled email field with: degtyarevsemen@gmail.com...
+2025-11-28T22:28:46 | INFO     | src.auth:login | Waiting 1 second before password...
+2025-11-28T22:28:47 | INFO     | src.auth:login | Filling password...
+2025-11-28T22:28:47 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[name='password']
+2025-11-28T22:28:47 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: input[name='password']
+2025-11-28T22:28:47 | DEBUG    | src.utils:safe_fill | Filled password field with: SamD1990*...
+2025-11-28T22:28:47 | INFO     | src.auth:login | Waiting 1 second before clicking login button...
+2025-11-28T22:28:48 | INFO     | src.auth:login | Submitting login form...
+2025-11-28T22:28:48 | DEBUG    | src.auth:login | Trying submit selector: button#login-submit
+2025-11-28T22:28:49 | DEBUG    | src.auth:login | Submit button found - visible: True, enabled: True
+2025-11-28T22:28:49 | INFO     | src.auth:login | ✅ Submit button clicked with: button#login-submit
+2025-11-28T22:28:49 | INFO     | src.auth:login | Waiting for login to complete...
+2025-11-28T22:28:51 | DEBUG    | src.auth:login | Initial URL: https://www.kleinanzeigen.de/m-einloggen.html
+2025-11-28T22:29:01 | WARNING  | src.auth:login | URL did not change after login attempt
+2025-11-28T22:29:09 | INFO     | src.auth:login | Current URL after login attempt: https://www.kleinanzeigen.de/m-einloggen.html
+2025-11-28T22:29:09 | INFO     | src.auth:login | Checking if login was successful (even if URL didn't change)...
+2025-11-28T22:29:30 | WARNING  | src.auth:login | Still on login page, checking if login actually failed...
+2025-11-28T22:29:44 | WARNING  | src.auth:login | ⚠️ No error found, but still on login page - might be CAPTCHA or slow redirect
+2025-11-28T22:29:44 | DEBUG    | src.utils:take_screenshot | Screenshot saved: ./screenshots/login_still_on_page_20251128_222944.png
+2025-11-28T22:29:44 | ERROR    | src.bot:authenticate | ❌ Authentication failed
+2025-11-28T22:29:45 | INFO     | src.bot:close | Browser closed
+2025-11-28T22:29:45 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T22:29:45 | INFO     | __main__:send_and_offer | Workflow Results:
+2025-11-28T22:29:45 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T22:29:45 | INFO     | __main__:send_and_offer | Success: ❌
+2025-11-28T22:29:45 | INFO     | __main__:send_and_offer | Steps Completed: browser_setup
+2025-11-28T22:29:45 | ERROR    | __main__:send_and_offer | Errors: Login fehlgeschlagen
+2025-11-28T22:29:45 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T22:29:45 | ERROR    | __main__:send_and_offer | ❌ Workflow failed with exit code: 1

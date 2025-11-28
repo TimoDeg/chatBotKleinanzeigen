@@ -173,40 +173,15 @@ async def login(
     try:
         logger.info("Starting login process...")
         
-        # Navigate directly to login page (as specified by user)
-        logger.info("Navigating directly to login page: https://www.kleinanzeigen.de/m-einloggen.html")
-        await page.goto("https://www.kleinanzeigen.de/m-einloggen.html", wait_until="domcontentloaded")
-        await page.wait_for_timeout(2000)  # Wait for page to settle
-        
-        # Accept cookie banner
+        # We're already on the login page (navigated in authenticate), just accept cookie banner
+        logger.info("Accepting cookie banner...")
         await accept_cookie_banner(page)
         
-        # Check if already logged in (by checking for user menu or messages link)
-        if not force_fresh:
-            try:
-                # Check for logged-in indicators
-                logged_in_indicators = [
-                    "a[href*='/nachrichtenbox']",
-                    "[class*='user-menu']",
-                    "a:has-text('Meine Anzeigen')",
-                ]
-                
-                for indicator in logged_in_indicators:
-                    try:
-                        await page.wait_for_selector(indicator, timeout=3000)
-                        logger.info("Already logged in (cookies valid)")
-                        return True
-                    except:
-                        continue
-            except:
-                pass
-        
-        # We're already on the login page (navigated directly), no need to click login link
+        # We're already on the login page, ready to fill credentials
         logger.info("On login page, ready to fill credentials...")
         
-        # Fill email - try multiple approaches with human-like typing
+        # Fill email - with 1 second delay
         logger.info("Filling email...")
-        await random_delay(1, 2)  # Wait before typing
         email_filled = await safe_fill(
             page,
             EMAIL_FIELD,
@@ -238,9 +213,12 @@ async def login(
                 return True
             return False
         
-        # Fill password - try multiple approaches with human-like typing
+        # Wait exactly 1 second before filling password
+        logger.info("Waiting 1 second before password...")
+        await page.wait_for_timeout(1000)
+        
+        # Fill password - with 1 second delay after email
         logger.info("Filling password...")
-        await random_delay(1, 2)  # Wait before typing (human pause)
         password_filled = await safe_fill(
             page,
             PASSWORD_FIELD,
@@ -266,6 +244,10 @@ async def login(
             await take_screenshot(page, prefix="login_password_error")
             return False
         
+        # Wait 2 seconds before clicking login button (1s more as requested)
+        logger.info("Waiting 2 seconds before clicking login button...")
+        await page.wait_for_timeout(2000)
+        
         # Submit login form - try multiple approaches with better error handling
         logger.info("Submitting login form...")
         
@@ -282,7 +264,7 @@ async def login(
                     
                     if is_visible and is_enabled:
                         await submit_button.scroll_into_view_if_needed()
-                        await random_delay(1.5, 3.0)  # Longer delay before click (human behavior)
+                        # No additional delay - already waited 1 second before
                         
                         # Try multiple click methods
                         try:

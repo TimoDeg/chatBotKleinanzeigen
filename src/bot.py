@@ -172,22 +172,24 @@ class KleinanzeigenBot:
             logger.error("Browser not initialized")
             return False
         
-        # Try to load cookies first
+        # Navigate directly to login page FIRST
+        logger.info("Navigating directly to login page...")
+        await self.page.goto("https://www.kleinanzeigen.de/m-einloggen.html", wait_until="domcontentloaded")
+        await self.page.wait_for_timeout(1000)  # Short wait for page to load
+        
+        # Try to load cookies first (quick check)
         if not force_fresh:
             cookies_loaded = await load_cookies(self.context)
             if cookies_loaded:
-                # Navigate to check if cookies are valid
-                await self.page.goto("https://www.kleinanzeigen.de", wait_until="domcontentloaded")
-                await self.page.wait_for_timeout(2000)
-                
-                # Check if already logged in
+                # Quick check if already logged in - no waiting
                 try:
-                    await self.page.wait_for_selector(
-                        "a[href*='/nachrichtenbox'], [class*='user-menu']",
-                        timeout=3000
+                    logged_in = await self.page.wait_for_selector(
+                        "a[href*='/nachrichtenbox'], [class*='user-menu'], a:has-text('Meine Anzeigen')",
+                        timeout=2000
                     )
-                    logger.info("✅ Authenticated via cookies")
-                    return True
+                    if logged_in:
+                        logger.info("✅ Authenticated via cookies")
+                        return True
                 except:
                     logger.debug("Cookies invalid, performing fresh login...")
         
