@@ -64,6 +64,10 @@ run_*.sh
 *.log
 logs/
 
+# Screenshots and cookies
+screenshots/
+cookies.json
+
 # OS
 .DS_Store
 .DS_Store?
