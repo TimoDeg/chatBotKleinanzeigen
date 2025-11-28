@@ -4,6 +4,8 @@ Utility functions for logging, screenshots, retries, and helpers.
 
 import os
 import time
+import random
+import asyncio
 from datetime import datetime
 from pathlib import Path
 from typing import Optional, Callable, Any
@@ -12,6 +14,19 @@ from loguru import logger
 from playwright.async_api import Page, TimeoutError as PlaywrightTimeoutError
 
 from src.config import LOGS_DIR, SCREENSHOTS_DIR, LOG_FILE, MAX_RETRIES, RETRY_BACKOFF
+
+
+async def random_delay(min_seconds: float = 1.0, max_seconds: float = 3.0) -> None:
+    """
+    Random delay between actions to avoid bot detection.
+    
+    Args:
+        min_seconds: Minimum delay in seconds
+        max_seconds: Maximum delay in seconds
+    """
+    delay = random.uniform(min_seconds, max_seconds)
+    logger.debug(f"⏳ Random delay: {delay:.2f}s")
+    await asyncio.sleep(delay)
 
 
 def setup_logging(debug: bool = False) -> None:

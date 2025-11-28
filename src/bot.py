@@ -43,6 +43,7 @@ from src.utils import (
     take_screenshot,
     wait_for_selector_with_fallbacks,
     validate_url,
+    random_delay,
 )
 
 
@@ -90,17 +91,40 @@ class KleinanzeigenBot:
             logger.info("Setting up browser...")
             self.playwright = await async_playwright().start()
             
+            # Enhanced anti-detection args
+            anti_detection_args = BROWSER_ARGS + [
+                "--disable-extensions",
+                "--disable-plugins",
+                "--start-maximized",
+            ]
+            
             self.browser = await self.playwright.chromium.launch(
                 headless=self.headless,
-                args=BROWSER_ARGS,
+                args=anti_detection_args,
             )
             
             self.context = await self.browser.new_context(
                 viewport={"width": 1920, "height": 1080},
                 user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                extra_http_headers={
+                    "Accept-Language": "de-DE,de;q=0.9,en;q=0.8",
+                },
             )
             
             self.page = await self.context.new_page()
+            
+            # Stealth mode: Hide webdriver property
+            await self.page.add_init_script("""
+                Object.defineProperty(navigator, 'webdriver', {
+                    get: () => false,
+                });
+                window.navigator.chrome = {
+                    runtime: {},
+                };
+                Object.defineProperty(navigator, 'plugins', {
+                    get: () => [1, 2, 3, 4, 5],
+                });
+            """)
             
             logger.info("✅ Browser setup complete")
             return True
@@ -166,7 +190,7 @@ class KleinanzeigenBot:
     
     async def send_message(self, listing_url: str, message: str) -> bool:
         """
-        Send a message to a listing.
+        Send a message to a listing with improved selectors and delays.
         
         Args:
             listing_url: URL of the listing
@@ -184,69 +208,182 @@ class KleinanzeigenBot:
             return False
         
         try:
-            logger.info(f"Sending message to listing: {listing_url}")
+            logger.info(f"📝 Sending message to listing: {listing_url}")
             
             # Navigate to listing
-            await self.page.goto(listing_url, wait_until="domcontentloaded")
-            await self.page.wait_for_timeout(TIMEOUTS["page_load"] * 1000)
+            await self.page.goto(listing_url, wait_until="networkidle", timeout=30000)
+            await random_delay(2, 3)
             
-            # Click message button
-            logger.debug("Looking for message button...")
-            message_clicked = await safe_click(
-                self.page,
-                MESSAGE_BUTTON,
-                timeout=TIMEOUTS["selector_wait"],
-                description="message button"
-            )
+            # Click message button - try multiple selectors
+            logger.info("🔍 Looking for message button...")
+            message_button_selectors = [
+                "button:has-text('Nachricht schreiben')",
+                "a:has-text('Nachricht schreiben')",
+                "button:has-text('Nachricht senden')",
+                "a[href*='nachricht']",
+                "button[class*='contact']",
+                "button[class*='message']",
+                "[data-testid*='contact']",
+                "[data-qa*='contact']",
+            ]
+            
+            message_clicked = False
+            for selector in message_button_selectors:
+                try:
+                    logger.debug(f"Trying message button selector: {selector}")
+                    button = await self.page.wait_for_selector(selector, timeout=5000, state="visible")
+                    if button:
+                        await button.scroll_into_view_if_needed()
+                        await random_delay(0.5, 1.0)
+                        await button.click()
+                        logger.info(f"✅ Message button clicked with: {selector}")
+                        message_clicked = True
+                        break
+                except Exception as e:
+                    logger.debug(f"Selector failed: {selector} - {e}")
+                    continue
             
             if not message_clicked:
-                logger.error("Could not find message button")
+                logger.error("❌ Could not find message button")
                 await take_screenshot(self.page, prefix="message_button_error")
                 return False
             
-            # Wait for message modal/form
-            logger.debug("Waiting for message form...")
-            await self.page.wait_for_timeout(TIMEOUTS["modal_appearance"] * 1000)
+            # Wait for modal/form to appear with longer timeout
+            logger.info("⏳ Waiting for message form to appear...")
+            await random_delay(2, 4)
             
-            # Fill message textarea
-            logger.debug("Filling message text...")
-            message_filled = await safe_fill(
-                self.page,
-                MESSAGE_TEXTAREA,
-                message,
-                timeout=TIMEOUTS["selector_wait"],
-                description="message textarea"
-            )
+            # Try to wait for modal container first
+            try:
+                await self.page.wait_for_selector(
+                    ".modal, [class*='modal'], [class*='dialog'], [class*='form'], iframe",
+                    timeout=10000
+                )
+                logger.debug("Modal/dialog detected")
+            except:
+                logger.debug("No explicit modal detected, continuing...")
+            
+            # Fill message textarea - try many different selectors
+            logger.info("🔍 Looking for message textarea...")
+            textarea_selectors = [
+                "textarea[placeholder*='Nachricht']",
+                "textarea[placeholder*='Ihre Nachricht']",
+                "textarea[placeholder*='Nachricht an']",
+                "textarea[name*='message']",
+                "textarea[id*='message']",
+                "textarea[class*='message']",
+                "textarea[data-testid*='message']",
+                "textarea[data-qa*='message']",
+                "iframe[src*='nachricht'] >> textarea",
+                "iframe >> textarea",
+                "textarea",
+                "div[contenteditable='true']",  # Sometimes it's a contenteditable div
+            ]
+            
+            message_filled = False
+            for selector in textarea_selectors:
+                try:
+                    logger.debug(f"Trying textarea selector: {selector}")
+                    if "iframe" in selector:
+                        # Handle iframe case
+                        try:
+                            iframe = await self.page.wait_for_selector("iframe", timeout=5000)
+                            if iframe:
+                                frame = await iframe.content_frame()
+                                if frame:
+                                    textarea = await frame.wait_for_selector("textarea", timeout=5000)
+                                    if textarea:
+                                        await textarea.fill(message)
+                                        logger.info(f"✅ Message filled in iframe textarea")
+                                        message_filled = True
+                                        break
+                        except:
+                            continue
+                    else:
+                        textarea = await self.page.wait_for_selector(selector, timeout=5000, state="visible")
+                        if textarea:
+                            await textarea.scroll_into_view_if_needed()
+                            await random_delay(0.5, 1.0)
+                            # Check if it's contenteditable div
+                            if "contenteditable" in selector:
+                                await textarea.fill("")  # Clear first
+                                await textarea.type(message, delay=50)  # Type with delay
+                            else:
+                                await textarea.fill(message)
+                            logger.info(f"✅ Message filled with selector: {selector}")
+                            message_filled = True
+                            break
+                except Exception as e:
+                    logger.debug(f"Textarea selector failed: {selector} - {e}")
+                    continue
             
             if not message_filled:
-                logger.error("Could not find message textarea")
+                logger.error("❌ Could not find message textarea")
                 await take_screenshot(self.page, prefix="message_textarea_error")
+                # Try to get page HTML for debugging
+                try:
+                    content = await self.page.content()
+                    logger.debug(f"Page content length: {len(content)}")
+                    if "textarea" in content.lower():
+                        logger.warning("Page contains 'textarea' but selector didn't match")
+                except:
+                    pass
                 return False
             
-            # Click send button
-            logger.debug("Clicking send button...")
-            send_clicked = await safe_click(
-                self.page,
-                MESSAGE_SEND,
-                timeout=TIMEOUTS["selector_wait"],
-                description="send button"
-            )
+            await random_delay(1, 2)
+            
+            # Click send button - try multiple selectors
+            logger.info("🔍 Looking for send button...")
+            send_button_selectors = [
+                "button:has-text('Nachricht senden')",
+                "button:has-text('Senden')",
+                "button[type='submit']",
+                "button[class*='send']",
+                "[data-testid*='send']",
+                "[data-qa*='send']",
+                "button:has-text('Absenden')",
+            ]
+            
+            send_clicked = False
+            for selector in send_button_selectors:
+                try:
+                    logger.debug(f"Trying send button selector: {selector}")
+                    button = await self.page.wait_for_selector(selector, timeout=5000, state="visible")
+                    if button:
+                        await button.scroll_into_view_if_needed()
+                        await random_delay(0.5, 1.0)
+                        await button.click()
+                        logger.info(f"✅ Send button clicked with: {selector}")
+                        send_clicked = True
+                        break
+                except Exception as e:
+                    logger.debug(f"Send button selector failed: {selector} - {e}")
+                    continue
             
             if not send_clicked:
-                logger.error("Could not find send button")
+                # Try pressing Enter as fallback
+                logger.warning("Send button not found, trying Enter key...")
+                try:
+                    await self.page.keyboard.press("Enter")
+                    logger.info("✅ Pressed Enter as fallback")
+                    send_clicked = True
+                except:
+                    pass
+            
+            if not send_clicked:
+                logger.error("❌ Could not find send button")
                 await take_screenshot(self.page, prefix="send_button_error")
                 return False
             
             # Wait for success confirmation
-            logger.debug("Waiting for success confirmation...")
-            await self.page.wait_for_timeout(TIMEOUTS["success_confirmation"] * 1000)
+            logger.info("⏳ Waiting for confirmation...")
+            await random_delay(2, 3)
             
             # Check for success indicators
             try:
                 await wait_for_selector_with_fallbacks(
                     self.page,
                     SUCCESS_INDICATOR,
-                    timeout=3
+                    timeout=5
                 )
                 logger.info("✅ Message sent successfully")
                 return True
@@ -256,8 +393,10 @@ class KleinanzeigenBot:
                 return True
                 
         except Exception as e:
-            logger.error(f"Failed to send message: {e}")
+            logger.error(f"❌ Failed to send message: {e}")
             await take_screenshot(self.page, prefix="send_message_error")
+            import traceback
+            logger.debug(traceback.format_exc())
             return False
     
     async def navigate_to_conversation(self) -> bool:
@@ -272,37 +411,56 @@ class KleinanzeigenBot:
             return False
         
         try:
-            logger.info("Navigating to conversations...")
+            logger.info("📬 Navigating to conversations...")
             
             # Navigate to messages page
             await self.page.goto(
                 "https://www.kleinanzeigen.de/nachrichtenbox",
-                wait_until="domcontentloaded"
+                wait_until="networkidle",
+                timeout=30000
             )
-            await self.page.wait_for_timeout(TIMEOUTS["page_load"] * 1000)
+            await random_delay(2, 3)
             
-            # Find and click latest conversation
-            logger.debug("Looking for latest conversation...")
-            conversation_clicked = await safe_click(
-                self.page,
-                LATEST_CONVERSATION,
-                timeout=TIMEOUTS["selector_wait"],
-                description="latest conversation"
-            )
+            # Find and click latest conversation - try multiple selectors
+            logger.info("🔍 Looking for latest conversation...")
+            conversation_selectors = [
+                ".qa-chat-item:first-child",
+                "[class*='conversation']:first-child",
+                "[class*='chat-item']:first-child",
+                "a[href*='/nachrichten/']:first-child",
+                "[data-testid*='conversation']:first-child",
+                "li:first-child a[href*='nachricht']",
+            ]
+            
+            conversation_clicked = False
+            for selector in conversation_selectors:
+                try:
+                    logger.debug(f"Trying conversation selector: {selector}")
+                    element = await self.page.wait_for_selector(selector, timeout=5000, state="visible")
+                    if element:
+                        await element.scroll_into_view_if_needed()
+                        await random_delay(0.5, 1.0)
+                        await element.click()
+                        logger.info(f"✅ Conversation clicked with: {selector}")
+                        conversation_clicked = True
+                        break
+                except Exception as e:
+                    logger.debug(f"Conversation selector failed: {selector} - {e}")
+                    continue
             
             if not conversation_clicked:
-                logger.error("Could not find conversation")
+                logger.error("❌ Could not find conversation")
                 await take_screenshot(self.page, prefix="conversation_not_found")
                 return False
             
             # Wait for conversation page to load
-            await self.page.wait_for_timeout(TIMEOUTS["modal_appearance"] * 1000)
+            await random_delay(2, 3)
             
             logger.info("✅ Opened conversation")
             return True
             
         except Exception as e:
-            logger.error(f"Failed to navigate to conversation: {e}")
+            logger.error(f"❌ Failed to navigate to conversation: {e}")
             await take_screenshot(self.page, prefix="navigate_conversation_error")
             return False
     
@@ -330,110 +488,219 @@ class KleinanzeigenBot:
             return False
         
         try:
-            logger.info(f"Making offer: €{price}, delivery: {delivery}")
+            logger.info(f"💰 Making offer: €{price}, delivery: {delivery}")
             
-            # Find and click offer button
-            logger.debug("Looking for offer button...")
-            offer_clicked = await safe_click(
-                self.page,
-                OFFER_BUTTON,
-                timeout=TIMEOUTS["selector_wait"],
-                description="offer button"
-            )
+            # Find and click offer button - try multiple selectors
+            logger.info("🔍 Looking for offer button...")
+            offer_button_selectors = [
+                "button:has-text('Angebot machen')",
+                "button:has-text('Angebot unterbreiten')",
+                "button:has-text('Angebot')",
+                "a:has-text('Angebot machen')",
+                "[data-testid*='offer']",
+                "[data-qa*='offer']",
+                "button[class*='offer']",
+            ]
+            
+            offer_clicked = False
+            for selector in offer_button_selectors:
+                try:
+                    logger.debug(f"Trying offer button selector: {selector}")
+                    button = await self.page.wait_for_selector(selector, timeout=10000, state="visible")
+                    if button:
+                        await button.scroll_into_view_if_needed()
+                        await random_delay(0.5, 1.0)
+                        await button.click()
+                        logger.info(f"✅ Offer button clicked with: {selector}")
+                        offer_clicked = True
+                        break
+                except Exception as e:
+                    logger.debug(f"Offer button selector failed: {selector} - {e}")
+                    continue
             
             if not offer_clicked:
-                logger.error("Could not find offer button")
+                logger.error("❌ Could not find offer button")
                 await take_screenshot(self.page, prefix="offer_button_error")
                 return False
             
-            # Wait for offer form
-            logger.debug("Waiting for offer form...")
-            await self.page.wait_for_timeout(TIMEOUTS["modal_appearance"] * 1000)
+            # Wait for offer form to appear
+            logger.info("⏳ Waiting for offer form...")
+            await random_delay(2, 4)
             
-            # Fill price
-            logger.debug(f"Filling price: €{price}")
-            price_filled = await safe_fill(
-                self.page,
-                OFFER_PRICE_INPUT,
-                str(price),
-                timeout=TIMEOUTS["selector_wait"],
-                description="price input"
-            )
+            # Try to wait for modal container
+            try:
+                await self.page.wait_for_selector(
+                    ".modal, [class*='modal'], [class*='dialog'], [class*='form']",
+                    timeout=10000
+                )
+                logger.debug("Offer form/modal detected")
+            except:
+                logger.debug("No explicit modal detected, continuing...")
+            
+            # Fill price - try multiple selectors
+            logger.info(f"💰 Filling price: €{price}")
+            price_selectors = [
+                "input[name*='price']",
+                "input[placeholder*='EUR']",
+                "input[placeholder*='€']",
+                "input[type='number']",
+                "input[id*='price']",
+                "input[class*='price']",
+            ]
+            
+            price_filled = False
+            for selector in price_selectors:
+                try:
+                    logger.debug(f"Trying price selector: {selector}")
+                    input_field = await self.page.wait_for_selector(selector, timeout=5000, state="visible")
+                    if input_field:
+                        await input_field.scroll_into_view_if_needed()
+                        await random_delay(0.5, 1.0)
+                        await input_field.fill(str(price))
+                        logger.info(f"✅ Price filled with: {selector}")
+                        price_filled = True
+                        break
+                except Exception as e:
+                    logger.debug(f"Price selector failed: {selector} - {e}")
+                    continue
             
             if not price_filled:
-                logger.error("Could not find price input")
+                logger.error("❌ Could not find price input")
                 await take_screenshot(self.page, prefix="offer_price_error")
                 return False
+            
+            await random_delay(1, 2)
             
             # Select delivery method
             if delivery in DELIVERY_OPTIONS:
                 delivery_value = DELIVERY_OPTIONS[delivery]
-                logger.debug(f"Selecting delivery: {delivery_value}")
+                logger.info(f"🚚 Selecting delivery: {delivery_value}")
                 
-                # Try to select from dropdown
-                delivery_selected = await safe_select(
-                    self.page,
-                    OFFER_DELIVERY_SELECT,
-                    delivery_value,
-                    timeout=TIMEOUTS["selector_wait"],
-                    description="delivery select"
-                )
+                # Try dropdown select
+                delivery_selectors = [
+                    "select[name*='delivery']",
+                    "select[name*='shipping']",
+                    "select[id*='delivery']",
+                    "select",
+                ]
+                
+                delivery_selected = False
+                for selector in delivery_selectors:
+                    try:
+                        select_element = await self.page.wait_for_selector(selector, timeout=5000)
+                        if select_element:
+                            await select_element.select_option(value=delivery_value)
+                            logger.info(f"✅ Delivery selected via dropdown: {selector}")
+                            delivery_selected = True
+                            break
+                    except:
+                        continue
                 
                 if not delivery_selected:
-                    # Try clicking radio buttons or checkboxes
+                    # Try clicking radio buttons or text
                     logger.debug("Trying alternative delivery selection...")
                     try:
                         delivery_text = delivery_value.lower()
-                        await self.page.click(f"text=/{delivery_text}/i")
-                        logger.debug("Selected delivery via text click")
+                        await self.page.click(f"text=/{delivery_text}/i", timeout=5000)
+                        logger.info("✅ Delivery selected via text click")
                     except:
-                        logger.warning("Could not select delivery method")
+                        logger.warning("⚠️ Could not select delivery method")
+            
+            await random_delay(1, 2)
             
             # Fill shipping cost if applicable
             if shipping_cost and delivery in ["shipping", "both"]:
-                logger.debug(f"Filling shipping cost: €{shipping_cost}")
-                await safe_fill(
-                    self.page,
-                    OFFER_SHIPPING_INPUT,
-                    str(shipping_cost),
-                    timeout=TIMEOUTS["selector_wait"],
-                    description="shipping cost input"
-                )
+                logger.info(f"📦 Filling shipping cost: €{shipping_cost}")
+                shipping_selectors = [
+                    "input[name*='shipping']",
+                    "input[placeholder*='Versand']",
+                    "input[id*='shipping']",
+                ]
+                
+                for selector in shipping_selectors:
+                    try:
+                        shipping_input = await self.page.wait_for_selector(selector, timeout=3000)
+                        if shipping_input:
+                            await shipping_input.fill(str(shipping_cost))
+                            logger.info("✅ Shipping cost filled")
+                            break
+                    except:
+                        continue
             
             # Fill note if provided
             if note:
-                logger.debug("Filling offer note...")
-                await safe_fill(
-                    self.page,
-                    OFFER_NOTE_TEXTAREA,
-                    note,
-                    timeout=TIMEOUTS["selector_wait"],
-                    description="offer note"
-                )
+                logger.info("📝 Filling offer note...")
+                note_selectors = [
+                    "textarea[name*='note']",
+                    "textarea[placeholder*='Nachricht']",
+                    "textarea[id*='note']",
+                    "textarea",
+                ]
+                
+                for selector in note_selectors:
+                    try:
+                        note_textarea = await self.page.wait_for_selector(selector, timeout=3000)
+                        if note_textarea:
+                            await note_textarea.fill(note)
+                            logger.info("✅ Note filled")
+                            break
+                    except:
+                        continue
             
-            # Submit offer
-            logger.debug("Submitting offer...")
-            submit_clicked = await safe_click(
-                self.page,
-                OFFER_SUBMIT,
-                timeout=TIMEOUTS["selector_wait"],
-                description="offer submit button"
-            )
+            await random_delay(1, 2)
+            
+            # Submit offer - try multiple selectors
+            logger.info("🔍 Looking for submit button...")
+            submit_selectors = [
+                "button:has-text('Angebot senden')",
+                "button:has-text('Angebot unterbreiten')",
+                "button:has-text('Senden')",
+                "button[type='submit']",
+                "[data-testid*='submit']",
+                "button:has-text('Absenden')",
+            ]
+            
+            submit_clicked = False
+            for selector in submit_selectors:
+                try:
+                    logger.debug(f"Trying submit selector: {selector}")
+                    button = await self.page.wait_for_selector(selector, timeout=5000, state="visible")
+                    if button:
+                        await button.scroll_into_view_if_needed()
+                        await random_delay(0.5, 1.0)
+                        await button.click()
+                        logger.info(f"✅ Submit button clicked with: {selector}")
+                        submit_clicked = True
+                        break
+                except Exception as e:
+                    logger.debug(f"Submit selector failed: {selector} - {e}")
+                    continue
             
             if not submit_clicked:
-                logger.error("Could not find submit button")
+                # Try Enter key as fallback
+                logger.warning("Submit button not found, trying Enter key...")
+                try:
+                    await self.page.keyboard.press("Enter")
+                    logger.info("✅ Pressed Enter as fallback")
+                    submit_clicked = True
+                except:
+                    pass
+            
+            if not submit_clicked:
+                logger.error("❌ Could not find submit button")
                 await take_screenshot(self.page, prefix="offer_submit_error")
                 return False
             
             # Wait for success confirmation
-            await self.page.wait_for_timeout(TIMEOUTS["success_confirmation"] * 1000)
+            logger.info("⏳ Waiting for confirmation...")
+            await random_delay(3, 5)
             
             # Check for success
             try:
                 await wait_for_selector_with_fallbacks(
                     self.page,
                     SUCCESS_INDICATOR,
-                    timeout=3
+                    timeout=5
                 )
                 logger.info(f"✅ Offer sent: €{price}, {delivery}")
                 return True
@@ -442,8 +709,10 @@ class KleinanzeigenBot:
                 return True
                 
         except Exception as e:
-            logger.error(f"Failed to make offer: {e}")
+            logger.error(f"❌ Failed to make offer: {e}")
             await take_screenshot(self.page, prefix="make_offer_error")
+            import traceback
+            logger.debug(traceback.format_exc())
             return False
     
     async def execute_full_workflow(

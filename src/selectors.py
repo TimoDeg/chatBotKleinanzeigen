@@ -62,8 +62,15 @@ MESSAGE_MODAL: list = [
 
 MESSAGE_TEXTAREA: list = [
     "textarea[placeholder*='Nachricht']",
+    "textarea[placeholder*='Ihre Nachricht']",
+    "textarea[placeholder*='Nachricht an']",
     "textarea[name*='message']",
     "textarea[id*='message']",
+    "textarea[class*='message']",
+    "textarea[data-testid*='message']",
+    "textarea[data-qa*='message']",
+    "iframe >> textarea",
+    "div[contenteditable='true']",
     "textarea",
 ]
 
