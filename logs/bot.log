@@ -1,0 +1,115 @@
+2025-11-28T21:06:32 | INFO     | src.utils:setup_logging | Logging initialized
+2025-11-28T21:06:32 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:06:32 | INFO     | __main__:send_and_offer | Kleinanzeigen Message & Offer Bot
+2025-11-28T21:06:32 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:06:32 | INFO     | __main__:send_and_offer | URL: test
+2025-11-28T21:06:32 | INFO     | __main__:send_and_offer | Email: test
+2025-11-28T21:06:32 | INFO     | __main__:send_and_offer | Message: test...
+2025-11-28T21:06:32 | INFO     | __main__:send_and_offer | Offer: €10.0, Delivery: pickup
+2025-11-28T21:06:32 | INFO     | __main__:send_and_offer | Headless: True
+2025-11-28T21:06:32 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:06:32 | INFO     | src.bot:__init__ | Bot initialized (headless=True)
+2025-11-28T21:06:32 | INFO     | src.bot:setup_browser | Setting up browser...
+2025-11-28T21:06:35 | INFO     | src.bot:setup_browser | ✅ Browser setup complete
+2025-11-28T21:06:35 | INFO     | src.auth:login | Starting login process...
+2025-11-28T21:06:38 | INFO     | src.auth:accept_cookie_banner | Cookie banner accepted
+2025-11-28T21:06:41 | INFO     | src.utils:setup_logging | Logging initialized
+2025-11-28T21:06:41 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:06:41 | INFO     | __main__:send_and_offer | Kleinanzeigen Message & Offer Bot
+2025-11-28T21:06:41 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:06:41 | INFO     | __main__:send_and_offer | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-28T21:06:41 | INFO     | __main__:send_and_offer | Email: degtyarevsemen@gmail.com
+2025-11-28T21:06:41 | INFO     | __main__:send_and_offer | Message: Ist noch verfügbar?...
+2025-11-28T21:06:41 | INFO     | __main__:send_and_offer | Offer: €100.0, Delivery: pickup
+2025-11-28T21:06:41 | INFO     | __main__:send_and_offer | Headless: True
+2025-11-28T21:06:41 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:06:41 | INFO     | src.bot:__init__ | Bot initialized (headless=True)
+2025-11-28T21:06:41 | INFO     | src.bot:setup_browser | Setting up browser...
+2025-11-28T21:06:41 | INFO     | src.bot:setup_browser | ✅ Browser setup complete
+2025-11-28T21:06:41 | INFO     | src.auth:login | Starting login process...
+2025-11-28T21:06:44 | INFO     | src.auth:accept_cookie_banner | Cookie banner accepted
+2025-11-28T21:08:21 | ERROR    | src.bot:close | Error closing browser: Browser.close: Connection closed while reading from the driver
+2025-11-28T21:08:21 | WARNING  | __main__:send_and_offer | ⚠️ Interrupted by user
+2025-11-28T21:11:21 | INFO     | src.utils:setup_logging | Logging initialized
+2025-11-28T21:11:21 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:11:21 | INFO     | __main__:send_and_offer | Kleinanzeigen Message & Offer Bot
+2025-11-28T21:11:21 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:11:21 | INFO     | __main__:send_and_offer | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-28T21:11:21 | INFO     | __main__:send_and_offer | Email: degtyarevsemen@gmail.com
+2025-11-28T21:11:21 | INFO     | __main__:send_and_offer | Message: Ist noch verfügbar?...
+2025-11-28T21:11:21 | INFO     | __main__:send_and_offer | Offer: €100.0, Delivery: pickup
+2025-11-28T21:11:21 | INFO     | __main__:send_and_offer | Headless: True
+2025-11-28T21:11:21 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:11:21 | INFO     | src.bot:__init__ | Bot initialized (headless=True)
+2025-11-28T21:11:21 | INFO     | src.bot:setup_browser | Setting up browser...
+2025-11-28T21:11:21 | INFO     | src.bot:setup_browser | ✅ Browser setup complete
+2025-11-28T21:11:21 | DEBUG    | src.auth:load_cookies | No existing cookies file found
+2025-11-28T21:11:21 | INFO     | src.auth:login | Starting login process...
+2025-11-28T21:11:21 | DEBUG    | src.auth:login | Navigating to Kleinanzeigen...
+2025-11-28T21:11:24 | DEBUG    | src.auth:accept_cookie_banner | Checking for cookie banner...
+2025-11-28T21:11:24 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Alle akzeptieren')
+2025-11-28T21:11:24 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: button:has-text('Alle akzeptieren')
+2025-11-28T21:11:24 | DEBUG    | src.utils:safe_click | Clicked cookie banner
+2025-11-28T21:11:24 | INFO     | src.auth:accept_cookie_banner | Cookie banner accepted
+2025-11-28T21:11:34 | INFO     | src.auth:login | Looking for login link...
+2025-11-28T21:11:34 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: a:has-text('Anmelden')
+2025-11-28T21:11:39 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: a:has-text('Anmelden')
+2025-11-28T21:11:39 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: a[href*='login']
+2025-11-28T21:11:44 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: a[href*='login']
+2025-11-28T21:11:44 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: a[href*='einloggen']
+2025-11-28T21:11:44 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: a[href*='einloggen']
+2025-11-28T21:11:44 | DEBUG    | src.utils:safe_click | Clicked login link
+2025-11-28T21:11:44 | INFO     | src.auth:login | Filling email...
+2025-11-28T21:11:44 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[name='email']
+2025-11-28T21:11:55 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: input[name='email']
+2025-11-28T21:11:55 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[type='email']
+2025-11-28T21:11:55 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: input[type='email']
+2025-11-28T21:11:55 | DEBUG    | src.utils:safe_fill | Filled email field with: degtyarevsemen@gmail.com...
+2025-11-28T21:11:55 | INFO     | src.auth:login | Filling password...
+2025-11-28T21:11:55 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[name='password']
+2025-11-28T21:11:55 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: input[name='password']
+2025-11-28T21:11:55 | DEBUG    | src.utils:safe_fill | Filled password field with: SamD1990*...
+2025-11-28T21:11:55 | INFO     | src.auth:login | Submitting login form...
+2025-11-28T21:11:55 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[type='submit']
+2025-11-28T21:11:55 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: button[type='submit']
+2025-11-28T21:11:57 | DEBUG    | src.utils:safe_click | Clicked login submit button
+2025-11-28T21:11:57 | INFO     | src.auth:login | Waiting for login to complete...
+2025-11-28T21:12:12 | DEBUG    | src.auth:login | Network idle timeout, continuing...
+2025-11-28T21:12:18 | INFO     | src.auth:login | Current URL after login attempt: https://www.kleinanzeigen.de/s-suchen.html
+2025-11-28T21:12:18 | INFO     | src.auth:login | Checking for logged-in indicators...
+2025-11-28T21:12:33 | WARNING  | src.auth:login | Could not verify login with selectors, but URL changed - assuming success
+2025-11-28T21:12:34 | DEBUG    | src.utils:take_screenshot | Screenshot saved: ./screenshots/login_unverified_20251128_211233.png
+2025-11-28T21:12:34 | INFO     | src.auth:save_cookies | Cookies saved to ./cookies.json
+2025-11-28T21:12:34 | INFO     | src.bot:send_message | Sending message to listing: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-28T21:12:44 | DEBUG    | src.bot:send_message | Looking for message button...
+2025-11-28T21:12:44 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Nachricht schreiben')
+2025-11-28T21:12:55 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button:has-text('Nachricht schreiben')
+2025-11-28T21:12:55 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Nachricht senden')
+2025-11-28T21:12:55 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: button:has-text('Nachricht senden')
+2025-11-28T21:12:55 | DEBUG    | src.utils:safe_click | Clicked message button
+2025-11-28T21:12:55 | DEBUG    | src.bot:send_message | Waiting for message form...
+2025-11-28T21:13:00 | DEBUG    | src.bot:send_message | Filling message text...
+2025-11-28T21:13:00 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: textarea[placeholder*='Nachricht']
+2025-11-28T21:13:10 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: textarea[placeholder*='Nachricht']
+2025-11-28T21:13:10 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: textarea[name*='message']
+2025-11-28T21:13:20 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: textarea[name*='message']
+2025-11-28T21:13:20 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: textarea[id*='message']
+2025-11-28T21:13:30 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: textarea[id*='message']
+2025-11-28T21:13:30 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: textarea
+2025-11-28T21:13:40 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: textarea
+2025-11-28T21:13:40 | WARNING  | src.utils:wait_for_selector_with_fallbacks | None of the selectors matched: ["textarea[placeholder*='Nachricht']", "textarea[name*='message']", "textarea[id*='message']", 'textarea']
+2025-11-28T21:13:40 | ERROR    | src.utils:safe_fill | Could not find message textarea to fill
+2025-11-28T21:13:40 | ERROR    | src.bot:send_message | Could not find message textarea
+2025-11-28T21:13:40 | DEBUG    | src.utils:take_screenshot | Screenshot saved: ./screenshots/message_textarea_error_20251128_211340.png
+2025-11-28T21:13:40 | ERROR    | src.bot:execute_full_workflow | ❌ Message sending failed
+2025-11-28T21:13:40 | INFO     | src.bot:close | Browser closed
+2025-11-28T21:13:40 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:13:40 | INFO     | __main__:send_and_offer | Workflow Results:
+2025-11-28T21:13:40 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:13:40 | INFO     | __main__:send_and_offer | Browser Setup: ✅
+2025-11-28T21:13:40 | INFO     | __main__:send_and_offer | Authentication: ✅
+2025-11-28T21:13:40 | INFO     | __main__:send_and_offer | Message Sent: ❌
+2025-11-28T21:13:40 | INFO     | __main__:send_and_offer | Conversation Opened: ❌
+2025-11-28T21:13:40 | INFO     | __main__:send_and_offer | Offer Sent: ❌
+2025-11-28T21:13:40 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:13:40 | ERROR    | __main__:send_and_offer | ❌ Workflow failed with exit code: 2

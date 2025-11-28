@@ -60,12 +60,14 @@ venv.bak/
 *.sh
 run_*.sh
 
-# Logs
-*.log
-logs/
+# Logs (uncomment to ignore)
+# *.log
+# logs/
 
-# Screenshots and cookies
-screenshots/
+# Screenshots (uncomment to ignore)
+# screenshots/
+
+# Cookies (keep private)
 cookies.json
 
 # OS
