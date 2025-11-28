@@ -208,6 +208,10 @@ async def login(
             # Try to continue anyway - maybe we're already on a different page
             current_url = page.url
             logger.warning(f"Current URL: {current_url}")
+            # Check if login=success is in URL (successful login)
+            if "login=success" in current_url.lower():
+                logger.info("✅ Already logged in (login=success in URL)")
+                return True
             if "login" not in current_url.lower() and "einloggen" not in current_url.lower():
                 logger.warning("Not on login page, might already be logged in or redirected")
                 return True
@@ -377,7 +381,8 @@ async def login(
                 url_changed = True
                 break
             # Also check if we're redirected to home page or dashboard
-            if "kleinanzeigen.de" in current_url and "einloggen" not in current_url.lower() and "login" not in current_url.lower():
+            # login=success in URL is a success indicator, not a login page
+            if "kleinanzeigen.de" in current_url and "einloggen" not in current_url.lower() and ("login" not in current_url.lower() or "login=success" in current_url.lower()):
                 logger.info(f"✅ Redirected away from login page: {current_url}")
                 url_changed = True
                 break
@@ -415,6 +420,11 @@ async def login(
         current_url = page.url.lower()
         logger.info(f"Current URL after login attempt: {page.url}")
         
+        # Check if URL contains login=success - this is a clear success indicator
+        if "login=success" in current_url or "login=success" in page.url:
+            logger.info("✅ Login successful! URL contains 'login=success'")
+            return True
+        
         # Check if we're actually logged in, even if still on login page
         # Sometimes the URL doesn't change but login is successful
         logger.info("Checking if login was successful (even if URL didn't change)...")
@@ -444,7 +454,8 @@ async def login(
                 continue
         
         # If still on login page but no logged-in indicators found, check for errors
-        if "login" in current_url or "einloggen" in current_url:
+        # Exclude URLs with login=success (already handled above)
+        if ("login" in current_url or "einloggen" in current_url) and "login=success" not in current_url:
             if not login_successful:
                 logger.warning("Still on login page, checking if login actually failed...")
                 

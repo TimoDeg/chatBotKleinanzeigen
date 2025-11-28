@@ -49,8 +49,8 @@ RUN mkdir -p logs screenshots
 # Make CLI executable
 RUN chmod +x cli.py
 
-# Set entrypoint
-ENTRYPOINT ["python", "cli.py", "send-and-offer"]
+# Set entrypoint (Typer treats the single command as default)
+ENTRYPOINT ["python", "cli.py"]
 
 # Default command (can be overridden)
 CMD ["--help"]
