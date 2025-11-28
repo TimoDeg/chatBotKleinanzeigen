@@ -19,12 +19,17 @@ from src.config import LOGS_DIR, SCREENSHOTS_DIR, LOG_FILE, MAX_RETRIES, RETRY_B
 async def random_delay(min_seconds: float = 1.0, max_seconds: float = 3.0) -> None:
     """
     Random delay between actions to avoid bot detection.
+    Uses human-like timing patterns.
     
     Args:
         min_seconds: Minimum delay in seconds
         max_seconds: Maximum delay in seconds
     """
+    # Use slightly longer delays to appear more human
     delay = random.uniform(min_seconds, max_seconds)
+    # Add occasional longer pauses (human behavior)
+    if random.random() < 0.1:  # 10% chance
+        delay += random.uniform(2, 5)
     logger.debug(f"⏳ Random delay: {delay:.2f}s")
     await asyncio.sleep(delay)
 
@@ -306,7 +311,4 @@ def validate_url(url: str) -> bool:
     
     return any(domain in url for domain in valid_domains)
 
-
-# Import asyncio for retry function
-import asyncio
 

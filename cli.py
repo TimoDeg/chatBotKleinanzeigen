@@ -126,6 +126,9 @@ def send_and_offer(
         timeout=timeout,
     )
     
+    # Set debug mode
+    bot.debug_mode = debug
+    
     # Execute workflow
     try:
         result = asyncio.run(
@@ -138,6 +141,7 @@ def send_and_offer(
                 note=note,
                 force_fresh_login=no_cookies,
                 save_screenshot=screenshot,
+                debug_mode=debug,
             )
         )
         

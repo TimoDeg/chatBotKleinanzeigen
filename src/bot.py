@@ -11,7 +11,6 @@ from loguru import logger
 from src.config import (
     TIMEOUTS,
     DELIVERY_OPTIONS,
-    HEADLESS_MODE,
     BROWSER_ARGS,
     EXIT_SUCCESS,
     EXIT_LOGIN_FAILED,
@@ -45,6 +44,7 @@ from src.utils import (
     validate_url,
     random_delay,
 )
+from src.debug import debug_page_elements
 
 
 class KleinanzeigenBot:
@@ -56,7 +56,7 @@ class KleinanzeigenBot:
         self,
         email: str,
         password: str,
-        headless: bool = HEADLESS_MODE,
+        headless: bool = True,
         timeout: int = 30
     ):
         """
@@ -72,6 +72,7 @@ class KleinanzeigenBot:
         self.password = password
         self.headless = headless
         self.timeout = timeout
+        self.debug_mode = False  # Will be set from CLI
         
         self.playwright = None
         self.browser: Optional[Browser] = None
@@ -82,20 +83,28 @@ class KleinanzeigenBot:
     
     async def setup_browser(self) -> bool:
         """
-        Initialize browser and context with anti-detection settings.
+        Initialize browser and context with enhanced anti-detection settings.
         
         Returns:
             True if setup successful, False otherwise
         """
         try:
-            logger.info("Setting up browser...")
+            logger.info("Setting up browser with anti-detection...")
             self.playwright = await async_playwright().start()
             
-            # Enhanced anti-detection args
+            # Enhanced anti-detection args - make it look like a real browser
             anti_detection_args = BROWSER_ARGS + [
+                "--disable-blink-features=AutomationControlled",
+                "--disable-dev-shm-usage",
                 "--disable-extensions",
                 "--disable-plugins",
+                "--disable-setuid-sandbox",
+                "--no-sandbox",
                 "--start-maximized",
+                "--disable-infobars",
+                "--disable-notifications",
+                "--disable-popup-blocking",
+                "--lang=de-DE",
             ]
             
             self.browser = await self.playwright.chromium.launch(
@@ -103,30 +112,81 @@ class KleinanzeigenBot:
                 args=anti_detection_args,
             )
             
+            # Realistic browser context with German locale
             self.context = await self.browser.new_context(
                 viewport={"width": 1920, "height": 1080},
-                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                locale="de-DE",
+                timezone_id="Europe/Berlin",
+                permissions=["geolocation"],
+                geolocation={"latitude": 52.52, "longitude": 13.405},  # Berlin
                 extra_http_headers={
-                    "Accept-Language": "de-DE,de;q=0.9,en;q=0.8",
+                    "Accept-Language": "de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7",
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+                    "Accept-Encoding": "gzip, deflate, br",
+                    "DNT": "1",
+                    "Connection": "keep-alive",
+                    "Upgrade-Insecure-Requests": "1",
+                    "Sec-Fetch-Dest": "document",
+                    "Sec-Fetch-Mode": "navigate",
+                    "Sec-Fetch-Site": "none",
+                    "Sec-Fetch-User": "?1",
+                    "Cache-Control": "max-age=0",
                 },
             )
             
             self.page = await self.context.new_page()
             
-            # Stealth mode: Hide webdriver property
+            # Enhanced stealth mode: Hide all automation indicators
             await self.page.add_init_script("""
+                // Hide webdriver property
                 Object.defineProperty(navigator, 'webdriver', {
-                    get: () => false,
+                    get: () => undefined,
                 });
+                
+                // Add Chrome object
                 window.navigator.chrome = {
                     runtime: {},
+                    loadTimes: function() {},
+                    csi: function() {},
+                    app: {}
                 };
+                
+                // Mock plugins
                 Object.defineProperty(navigator, 'plugins', {
                     get: () => [1, 2, 3, 4, 5],
                 });
+                
+                // Mock languages
+                Object.defineProperty(navigator, 'languages', {
+                    get: () => ['de-DE', 'de', 'en-US', 'en'],
+                });
+                
+                // Override permissions
+                const originalQuery = window.navigator.permissions.query;
+                window.navigator.permissions.query = (parameters) => (
+                    parameters.name === 'notifications' ?
+                        Promise.resolve({ state: Notification.permission }) :
+                        originalQuery(parameters)
+                );
+                
+                // Mock platform
+                Object.defineProperty(navigator, 'platform', {
+                    get: () => 'MacIntel',
+                });
+                
+                // Mock hardwareConcurrency
+                Object.defineProperty(navigator, 'hardwareConcurrency', {
+                    get: () => 8,
+                });
+                
+                // Mock deviceMemory
+                Object.defineProperty(navigator, 'deviceMemory', {
+                    get: () => 8,
+                });
             """)
             
-            logger.info("✅ Browser setup complete")
+            logger.info("✅ Browser setup complete with anti-detection")
             return True
             
         except Exception as e:
@@ -210,32 +270,78 @@ class KleinanzeigenBot:
         try:
             logger.info(f"📝 Sending message to listing: {listing_url}")
             
-            # Navigate to listing
-            await self.page.goto(listing_url, wait_until="networkidle", timeout=30000)
+            # Navigate to listing - use domcontentloaded instead of networkidle (less strict)
+            logger.debug("Navigating to listing page...")
+            try:
+                await self.page.goto(listing_url, wait_until="domcontentloaded", timeout=30000)
+            except Exception as e:
+                logger.warning(f"Navigation timeout, but continuing: {e}")
+                # Page might still be usable
+            
+            await random_delay(3, 5)  # Wait longer for page to fully load
+            
+            # Wait for page to be interactive
+            try:
+                await self.page.wait_for_load_state("load", timeout=10000)
+            except:
+                logger.debug("Load state timeout, continuing...")
+            
+            # Debug mode: Analyze page after navigation
+            if hasattr(self, 'debug_mode') and self.debug_mode:
+                await debug_page_elements(self.page, "after_navigation")
+            
+            # Click message button - try multiple selectors with better waiting
+            logger.info("🔍 Looking for message button...")
+            
+            # First, wait a bit for page to fully render
             await random_delay(2, 3)
             
-            # Click message button - try multiple selectors
-            logger.info("🔍 Looking for message button...")
             message_button_selectors = [
                 "button:has-text('Nachricht schreiben')",
                 "a:has-text('Nachricht schreiben')",
                 "button:has-text('Nachricht senden')",
+                "a:has-text('Nachricht senden')",
+                "button:has-text('Kontakt')",
+                "a:has-text('Kontakt')",
                 "a[href*='nachricht']",
                 "button[class*='contact']",
                 "button[class*='message']",
+                "a[class*='contact']",
+                "a[class*='message']",
                 "[data-testid*='contact']",
                 "[data-qa*='contact']",
+                "[data-gaaction*='contact']",
+                "button[id*='contact']",
+                "a[id*='contact']",
             ]
             
             message_clicked = False
             for selector in message_button_selectors:
                 try:
                     logger.debug(f"Trying message button selector: {selector}")
-                    button = await self.page.wait_for_selector(selector, timeout=5000, state="visible")
+                    # Try with longer timeout and different states
+                    button = await self.page.wait_for_selector(
+                        selector, 
+                        timeout=8000, 
+                        state="visible"
+                    )
                     if button:
+                        # Check if button is actually visible and clickable
+                        is_visible = await button.is_visible()
+                        if not is_visible:
+                            logger.debug(f"Button found but not visible: {selector}")
+                            continue
+                        
                         await button.scroll_into_view_if_needed()
                         await random_delay(0.5, 1.0)
-                        await button.click()
+                        
+                        # Try clicking with different methods
+                        try:
+                            await button.click(timeout=5000)
+                        except:
+                            # Try JavaScript click as fallback
+                            await button.evaluate("el => el.click()")
+                        
                         logger.info(f"✅ Message button clicked with: {selector}")
                         message_clicked = True
                         break
@@ -243,24 +349,70 @@ class KleinanzeigenBot:
                     logger.debug(f"Selector failed: {selector} - {e}")
                     continue
             
+            # If still not found, try to find ANY button/link with "Nachricht" or "Kontakt" text
+            if not message_clicked:
+                logger.warning("Standard selectors failed, trying text-based search...")
+                try:
+                    # Find all buttons and links, check their text
+                    all_elements = await self.page.query_selector_all("button, a")
+                    for element in all_elements:
+                        try:
+                            text = await element.text_content()
+                            if text and ("nachricht" in text.lower() or "kontakt" in text.lower() or "schreiben" in text.lower()):
+                                is_visible = await element.is_visible()
+                                if is_visible:
+                                    await element.scroll_into_view_if_needed()
+                                    await random_delay(0.5, 1.0)
+                                    await element.click(timeout=5000)
+                                    logger.info(f"✅ Message button clicked via text search: {text[:50]}")
+                                    message_clicked = True
+                                    break
+                        except:
+                            continue
+                except Exception as e:
+                    logger.debug(f"Text-based search failed: {e}")
+            
             if not message_clicked:
                 logger.error("❌ Could not find message button")
+                # Debug: Find all buttons on page
+                await debug_page_elements(self.page, "message_button_not_found")
                 await take_screenshot(self.page, prefix="message_button_error")
                 return False
             
             # Wait for modal/form to appear with longer timeout
             logger.info("⏳ Waiting for message form to appear...")
-            await random_delay(2, 4)
+            await random_delay(3, 5)  # Longer wait for modal
             
-            # Try to wait for modal container first
-            try:
-                await self.page.wait_for_selector(
-                    ".modal, [class*='modal'], [class*='dialog'], [class*='form'], iframe",
-                    timeout=10000
-                )
-                logger.debug("Modal/dialog detected")
-            except:
-                logger.debug("No explicit modal detected, continuing...")
+            # Debug mode: Analyze page after button click
+            if self.debug_mode:
+                await debug_page_elements(self.page, "after_message_button_click")
+            
+            # Try multiple approaches to wait for modal
+            modal_found = False
+            modal_selectors = [
+                ".modal",
+                "[class*='modal']",
+                "[class*='dialog']",
+                "[class*='form']",
+                "iframe",
+                "[role='dialog']",
+                "[data-testid*='modal']",
+            ]
+            
+            for selector in modal_selectors:
+                try:
+                    await self.page.wait_for_selector(selector, timeout=5000, state="visible")
+                    logger.debug(f"Modal/dialog detected: {selector}")
+                    modal_found = True
+                    break
+                except:
+                    continue
+            
+            if not modal_found:
+                logger.warning("No explicit modal detected, but continuing anyway...")
+            
+            # Additional wait for dynamic content
+            await random_delay(2, 3)
             
             # Fill message textarea - try many different selectors
             logger.info("🔍 Looking for message textarea...")
@@ -280,54 +432,98 @@ class KleinanzeigenBot:
             ]
             
             message_filled = False
-            for selector in textarea_selectors:
-                try:
-                    logger.debug(f"Trying textarea selector: {selector}")
-                    if "iframe" in selector:
-                        # Handle iframe case
-                        try:
-                            iframe = await self.page.wait_for_selector("iframe", timeout=5000)
-                            if iframe:
-                                frame = await iframe.content_frame()
-                                if frame:
-                                    textarea = await frame.wait_for_selector("textarea", timeout=5000)
-                                    if textarea:
-                                        await textarea.fill(message)
-                                        logger.info(f"✅ Message filled in iframe textarea")
-                                        message_filled = True
-                                        break
-                        except:
-                            continue
-                    else:
+            
+            # First, try to find all iframes and check them
+            try:
+                iframes = await self.page.query_selector_all("iframe")
+                logger.debug(f"Found {len(iframes)} iframes on page")
+                for i, iframe in enumerate(iframes):
+                    try:
+                        frame = await iframe.content_frame()
+                        if frame:
+                            # Try to find textarea in this iframe
+                            textarea = await frame.wait_for_selector("textarea, div[contenteditable='true']", timeout=3000)
+                            if textarea:
+                                await textarea.scroll_into_view_if_needed()
+                                await random_delay(0.5, 1.0)
+                                # Check if contenteditable
+                                is_contenteditable = await textarea.evaluate("el => el.contentEditable === 'true'")
+                                if is_contenteditable:
+                                    await textarea.evaluate(f"el => el.innerText = '{message}'")
+                                    await textarea.type(message, delay=50)
+                                else:
+                                    await textarea.fill(message)
+                                logger.info(f"✅ Message filled in iframe #{i}")
+                                message_filled = True
+                                break
+                    except Exception as e:
+                        logger.debug(f"Iframe #{i} check failed: {e}")
+                        continue
+            except Exception as e:
+                logger.debug(f"Iframe search failed: {e}")
+            
+            # If not found in iframe, try direct selectors
+            if not message_filled:
+                for selector in textarea_selectors:
+                    try:
+                        logger.debug(f"Trying textarea selector: {selector}")
+                        if "iframe" in selector:
+                            continue  # Already checked iframes
+                        
                         textarea = await self.page.wait_for_selector(selector, timeout=5000, state="visible")
                         if textarea:
                             await textarea.scroll_into_view_if_needed()
                             await random_delay(0.5, 1.0)
                             # Check if it's contenteditable div
-                            if "contenteditable" in selector:
-                                await textarea.fill("")  # Clear first
+                            is_contenteditable = await textarea.evaluate("el => el.contentEditable === 'true'")
+                            if is_contenteditable or "contenteditable" in selector:
+                                await textarea.evaluate(f"el => el.innerText = ''")
                                 await textarea.type(message, delay=50)  # Type with delay
                             else:
                                 await textarea.fill(message)
                             logger.info(f"✅ Message filled with selector: {selector}")
                             message_filled = True
                             break
-                except Exception as e:
-                    logger.debug(f"Textarea selector failed: {selector} - {e}")
-                    continue
+                    except Exception as e:
+                        logger.debug(f"Textarea selector failed: {selector} - {e}")
+                        continue
             
             if not message_filled:
                 logger.error("❌ Could not find message textarea")
                 await take_screenshot(self.page, prefix="message_textarea_error")
-                # Try to get page HTML for debugging
+                
+                # Debug: Try to find ANY textarea or contenteditable on page
                 try:
-                    content = await self.page.content()
-                    logger.debug(f"Page content length: {len(content)}")
-                    if "textarea" in content.lower():
-                        logger.warning("Page contains 'textarea' but selector didn't match")
-                except:
-                    pass
-                return False
+                    all_textareas = await self.page.query_selector_all("textarea, div[contenteditable='true'], [contenteditable='true']")
+                    logger.warning(f"Found {len(all_textareas)} textarea/contenteditable elements on page")
+                    if len(all_textareas) > 0:
+                        # Try to use the first one
+                        logger.warning("Attempting to use first found textarea element...")
+                        first_textarea = all_textareas[0]
+                        await first_textarea.scroll_into_view_if_needed()
+                        await random_delay(0.5, 1.0)
+                        is_contenteditable = await first_textarea.evaluate("el => el.contentEditable === 'true'")
+                        if is_contenteditable:
+                            await first_textarea.evaluate(f"el => el.innerText = '{message}'")
+                        else:
+                            await first_textarea.fill(message)
+                        logger.info("✅ Message filled using first found textarea")
+                        message_filled = True
+                except Exception as e:
+                    logger.debug(f"Fallback textarea search failed: {e}")
+                
+                if not message_filled:
+                    # Debug: Find all textareas on page
+                    await debug_page_elements(self.page, "textarea_not_found")
+                    # Try to get page HTML for debugging
+                    try:
+                        content = await self.page.content()
+                        logger.debug(f"Page content length: {len(content)}")
+                        if "textarea" in content.lower() or "contenteditable" in content.lower():
+                            logger.warning("Page contains 'textarea' or 'contenteditable' but selector didn't match")
+                    except:
+                        pass
+                    return False
             
             await random_delay(1, 2)
             
@@ -724,7 +920,8 @@ class KleinanzeigenBot:
         shipping_cost: Optional[float] = None,
         note: Optional[str] = None,
         force_fresh_login: bool = False,
-        save_screenshot: bool = False
+        save_screenshot: bool = False,
+        debug_mode: bool = False
     ) -> Dict[str, any]:
         """
         Execute the complete workflow: login -> send message -> navigate -> make offer.

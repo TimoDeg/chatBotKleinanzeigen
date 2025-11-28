@@ -38,10 +38,21 @@ PASSWORD_FIELD: list = [
 ]
 
 LOGIN_SUBMIT: list = [
-    "button[type='submit']",
-    "button:has-text('Anmelden')",
+    "button#login-submit",  # Exact ID from website: <button id="login-submit">
+    "#login-submit",  # Shorthand
+    "button[id='login-submit']",  # Alternative syntax
+    "button.button[type='submit']",  # Class + type
+    "button[type='submit']:has(span:has-text('Einloggen'))",  # Text in span
+    "button:has-text('Einloggen')",  # Text-based fallback
+    "button[type='submit']",  # Generic submit button
+    "button:has-text('Anmelden')",  # Alternative text
     "button[class*='submit']",
+    "button[class*='login']",
+    "button[id*='submit']",
+    "button[id*='login']",
     "input[type='submit']",
+    "[data-testid*='login-submit']",
+    "[data-qa*='login-submit']",
 ]
 
 # Message sending selectors

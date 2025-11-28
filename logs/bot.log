@@ -113,3 +113,771 @@
 2025-11-28T21:13:40 | INFO     | __main__:send_and_offer | Offer Sent: ❌
 2025-11-28T21:13:40 | INFO     | __main__:send_and_offer | ============================================================
 2025-11-28T21:13:40 | ERROR    | __main__:send_and_offer | ❌ Workflow failed with exit code: 2
+2025-11-28T21:24:24 | INFO     | src.utils:setup_logging | Logging initialized
+2025-11-28T21:24:24 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:24:24 | INFO     | __main__:send_and_offer | Kleinanzeigen Message & Offer Bot
+2025-11-28T21:24:24 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:24:24 | INFO     | __main__:send_and_offer | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-28T21:24:24 | INFO     | __main__:send_and_offer | Email: degtyarevsemen@gmail.com
+2025-11-28T21:24:24 | INFO     | __main__:send_and_offer | Message: Ist noch verfügbar?...
+2025-11-28T21:24:24 | INFO     | __main__:send_and_offer | Offer: €100.0, Delivery: pickup
+2025-11-28T21:24:24 | INFO     | __main__:send_and_offer | Headless: True
+2025-11-28T21:24:24 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:24:24 | INFO     | src.bot:__init__ | Bot initialized (headless=True)
+2025-11-28T21:24:24 | INFO     | src.bot:setup_browser | Setting up browser...
+2025-11-28T21:24:25 | INFO     | src.bot:setup_browser | ✅ Browser setup complete
+2025-11-28T21:24:25 | INFO     | src.auth:load_cookies | Cookies loaded from ./cookies.json
+2025-11-28T21:24:31 | DEBUG    | src.bot:authenticate | Cookies invalid, performing fresh login...
+2025-11-28T21:24:31 | INFO     | src.auth:login | Starting login process...
+2025-11-28T21:24:31 | DEBUG    | src.auth:login | Navigating to Kleinanzeigen...
+2025-11-28T21:24:33 | DEBUG    | src.auth:accept_cookie_banner | Checking for cookie banner...
+2025-11-28T21:24:33 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Alle akzeptieren')
+2025-11-28T21:24:36 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button:has-text('Alle akzeptieren')
+2025-11-28T21:24:36 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Akzeptieren')
+2025-11-28T21:24:39 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button:has-text('Akzeptieren')
+2025-11-28T21:24:39 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[id*='accept']
+2025-11-28T21:24:42 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button[id*='accept']
+2025-11-28T21:24:42 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[class*='accept']
+2025-11-28T21:24:45 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button[class*='accept']
+2025-11-28T21:24:45 | WARNING  | src.utils:wait_for_selector_with_fallbacks | None of the selectors matched: ["button:has-text('Alle akzeptieren')", "button:has-text('Akzeptieren')", "button[id*='accept']", "button[class*='accept']"]
+2025-11-28T21:24:45 | ERROR    | src.utils:safe_click | Could not find cookie banner to click
+2025-11-28T21:24:54 | INFO     | src.auth:login | Looking for login link...
+2025-11-28T21:24:54 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: a:has-text('Anmelden')
+2025-11-28T21:24:59 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: a:has-text('Anmelden')
+2025-11-28T21:24:59 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: a[href*='login']
+2025-11-28T21:25:04 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: a[href*='login']
+2025-11-28T21:25:04 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: a[href*='einloggen']
+2025-11-28T21:25:04 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: a[href*='einloggen']
+2025-11-28T21:25:05 | DEBUG    | src.utils:safe_click | Clicked login link
+2025-11-28T21:25:05 | INFO     | src.auth:login | Filling email...
+2025-11-28T21:25:05 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[name='email']
+2025-11-28T21:25:15 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: input[name='email']
+2025-11-28T21:25:15 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[type='email']
+2025-11-28T21:25:15 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: input[type='email']
+2025-11-28T21:25:15 | DEBUG    | src.utils:safe_fill | Filled email field with: degtyarevsemen@gmail.com...
+2025-11-28T21:25:15 | INFO     | src.auth:login | Filling password...
+2025-11-28T21:25:15 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[name='password']
+2025-11-28T21:25:15 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: input[name='password']
+2025-11-28T21:25:15 | DEBUG    | src.utils:safe_fill | Filled password field with: SamD1990*...
+2025-11-28T21:25:15 | INFO     | src.auth:login | Submitting login form...
+2025-11-28T21:25:15 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[type='submit']
+2025-11-28T21:25:15 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: button[type='submit']
+2025-11-28T21:25:17 | DEBUG    | src.utils:safe_click | Clicked login submit button
+2025-11-28T21:25:17 | INFO     | src.auth:login | Waiting for login to complete...
+2025-11-28T21:25:32 | DEBUG    | src.auth:login | Network idle timeout, continuing...
+2025-11-28T21:25:38 | INFO     | src.auth:login | Current URL after login attempt: https://www.kleinanzeigen.de/s-suchen.html
+2025-11-28T21:25:38 | INFO     | src.auth:login | Checking for logged-in indicators...
+2025-11-28T21:25:53 | WARNING  | src.auth:login | Could not verify login with selectors, but URL changed - assuming success
+2025-11-28T21:25:54 | DEBUG    | src.utils:take_screenshot | Screenshot saved: ./screenshots/login_unverified_20251128_212553.png
+2025-11-28T21:25:54 | INFO     | src.auth:save_cookies | Cookies saved to ./cookies.json
+2025-11-28T21:25:54 | INFO     | src.bot:send_message | 📝 Sending message to listing: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-28T21:26:24 | ERROR    | src.bot:send_message | ❌ Failed to send message: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564", waiting until "networkidle"
+
+2025-11-28T21:26:25 | DEBUG    | src.utils:take_screenshot | Screenshot saved: ./screenshots/send_message_error_20251128_212624.png
+2025-11-28T21:26:25 | DEBUG    | src.bot:send_message | Traceback (most recent call last):
+  File "/Users/tima/Documents/ebayScraper/src/bot.py", line 214, in send_message
+    await self.page.goto(listing_url, wait_until="networkidle", timeout=30000)
+  File "/Users/tima/Documents/ebayScraper/venv/lib/python3.13/site-packages/playwright/async_api/_generated.py", line 8992, in goto
+    await self._impl_obj.goto(
+        url=url, timeout=timeout, waitUntil=wait_until, referer=referer
+    )
+  File "/Users/tima/Documents/ebayScraper/venv/lib/python3.13/site-packages/playwright/_impl/_page.py", line 555, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tima/Documents/ebayScraper/venv/lib/python3.13/site-packages/playwright/_impl/_frame.py", line 153, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "/Users/tima/Documents/ebayScraper/venv/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/tima/Documents/ebayScraper/venv/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 559, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564", waiting until "networkidle"
+
+
+2025-11-28T21:26:25 | ERROR    | src.bot:execute_full_workflow | ❌ Message sending failed
+2025-11-28T21:26:25 | INFO     | src.bot:close | Browser closed
+2025-11-28T21:26:25 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:26:25 | INFO     | __main__:send_and_offer | Workflow Results:
+2025-11-28T21:26:25 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:26:25 | INFO     | __main__:send_and_offer | Browser Setup: ✅
+2025-11-28T21:26:25 | INFO     | __main__:send_and_offer | Authentication: ✅
+2025-11-28T21:26:25 | INFO     | __main__:send_and_offer | Message Sent: ❌
+2025-11-28T21:26:25 | INFO     | __main__:send_and_offer | Conversation Opened: ❌
+2025-11-28T21:26:25 | INFO     | __main__:send_and_offer | Offer Sent: ❌
+2025-11-28T21:26:25 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:26:25 | ERROR    | __main__:send_and_offer | ❌ Workflow failed with exit code: 2
+2025-11-28T21:30:26 | INFO     | src.utils:setup_logging | Logging initialized
+2025-11-28T21:30:26 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:30:26 | INFO     | __main__:send_and_offer | Kleinanzeigen Message & Offer Bot
+2025-11-28T21:30:26 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:30:26 | INFO     | __main__:send_and_offer | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-28T21:30:26 | INFO     | __main__:send_and_offer | Email: degtyarevsemen@gmail.com
+2025-11-28T21:30:26 | INFO     | __main__:send_and_offer | Message: Test...
+2025-11-28T21:30:26 | INFO     | __main__:send_and_offer | Offer: €100.0, Delivery: pickup
+2025-11-28T21:30:26 | INFO     | __main__:send_and_offer | Headless: False
+2025-11-28T21:30:26 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:30:26 | INFO     | src.bot:__init__ | Bot initialized (headless=False)
+2025-11-28T21:30:26 | INFO     | src.bot:setup_browser | Setting up browser...
+2025-11-28T21:30:31 | INFO     | src.bot:setup_browser | ✅ Browser setup complete
+2025-11-28T21:30:31 | INFO     | src.auth:load_cookies | Cookies loaded from ./cookies.json
+2025-11-28T21:30:37 | DEBUG    | src.bot:authenticate | Cookies invalid, performing fresh login...
+2025-11-28T21:30:37 | INFO     | src.auth:login | Starting login process...
+2025-11-28T21:30:37 | DEBUG    | src.auth:login | Navigating to Kleinanzeigen...
+2025-11-28T21:30:40 | DEBUG    | src.auth:accept_cookie_banner | Checking for cookie banner...
+2025-11-28T21:30:40 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Alle akzeptieren')
+2025-11-28T21:30:43 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button:has-text('Alle akzeptieren')
+2025-11-28T21:30:43 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Akzeptieren')
+2025-11-28T21:30:46 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button:has-text('Akzeptieren')
+2025-11-28T21:30:46 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[id*='accept']
+2025-11-28T21:30:49 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button[id*='accept']
+2025-11-28T21:30:49 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[class*='accept']
+2025-11-28T21:30:52 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button[class*='accept']
+2025-11-28T21:30:52 | WARNING  | src.utils:wait_for_selector_with_fallbacks | None of the selectors matched: ["button:has-text('Alle akzeptieren')", "button:has-text('Akzeptieren')", "button[id*='accept']", "button[class*='accept']"]
+2025-11-28T21:30:52 | ERROR    | src.utils:safe_click | Could not find cookie banner to click
+2025-11-28T21:31:01 | INFO     | src.auth:login | Looking for login link...
+2025-11-28T21:31:01 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: a:has-text('Anmelden')
+2025-11-28T21:31:06 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: a:has-text('Anmelden')
+2025-11-28T21:31:06 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: a[href*='login']
+2025-11-28T21:31:11 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: a[href*='login']
+2025-11-28T21:31:11 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: a[href*='einloggen']
+2025-11-28T21:31:11 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: a[href*='einloggen']
+2025-11-28T21:31:12 | DEBUG    | src.utils:safe_click | Clicked login link
+2025-11-28T21:31:12 | INFO     | src.auth:login | Filling email...
+2025-11-28T21:31:12 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[name='email']
+2025-11-28T21:31:22 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: input[name='email']
+2025-11-28T21:31:22 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[type='email']
+2025-11-28T21:31:22 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: input[type='email']
+2025-11-28T21:31:22 | DEBUG    | src.utils:safe_fill | Filled email field with: degtyarevsemen@gmail.com...
+2025-11-28T21:31:22 | INFO     | src.auth:login | Filling password...
+2025-11-28T21:31:22 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[name='password']
+2025-11-28T21:31:22 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: input[name='password']
+2025-11-28T21:31:22 | DEBUG    | src.utils:safe_fill | Filled password field with: SamD1990*...
+2025-11-28T21:31:22 | INFO     | src.auth:login | Submitting login form...
+2025-11-28T21:31:22 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[type='submit']
+2025-11-28T21:31:22 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: button[type='submit']
+2025-11-28T21:31:24 | DEBUG    | src.utils:safe_click | Clicked login submit button
+2025-11-28T21:31:24 | INFO     | src.auth:login | Waiting for login to complete...
+2025-11-28T21:31:39 | DEBUG    | src.auth:login | Network idle timeout, continuing...
+2025-11-28T21:31:45 | INFO     | src.auth:login | Current URL after login attempt: https://www.kleinanzeigen.de/s-suchen.html
+2025-11-28T21:31:45 | INFO     | src.auth:login | Checking for logged-in indicators...
+2025-11-28T21:32:00 | WARNING  | src.auth:login | Could not verify login with selectors, but URL changed - assuming success
+2025-11-28T21:32:02 | DEBUG    | src.utils:take_screenshot | Screenshot saved: ./screenshots/login_unverified_20251128_213200.png
+2025-11-28T21:32:02 | INFO     | src.auth:save_cookies | Cookies saved to ./cookies.json
+2025-11-28T21:32:02 | INFO     | src.bot:send_message | 📝 Sending message to listing: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-28T21:32:02 | DEBUG    | src.bot:send_message | Navigating to listing page...
+2025-11-28T21:32:03 | DEBUG    | src.utils:random_delay | ⏳ Random delay: 4.10s
+2025-11-28T21:32:12 | INFO     | src.debug:debug_page_elements | 🔍 DEBUG: Analyzing page elements - after_navigation
+2025-11-28T21:32:12 | INFO     | src.debug:debug_page_elements | ============================================================
+2025-11-28T21:32:12 | INFO     | src.debug:debug_page_elements | 📌 Searching for 'Nachricht'/'Kontakt' buttons...
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements | Found 6 relevant buttons:
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements | 
+  Button #1:
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Text: Nachrichten
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Tag: A
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     ID: site-subnav-msgbox
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Class: mainnav-sub-link
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Visible: False
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Suggested selectors:
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - #site-subnav-msgbox
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .mainnav-sub-link
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - a[href='/m-nachrichten.html']
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - a:has-text('Nachrichten')
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements | 
+  Button #2:
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Text: Nachricht senden
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Tag: BUTTON
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     ID: viewad-contact-button-login
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Class: viewad-contact-button-login button-iconized taller
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Visible: True
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Suggested selectors:
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - #viewad-contact-button-login
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .viewad-contact-button-login
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .button-iconized
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .taller
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - button:has-text('Nachricht senden')
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements | 
+  Button #3:
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Text: Nachricht schreiben
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Tag: A
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     ID: 
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Class: inline-flex items-center justify-center gap-xsmall text-bodyRegularStrong box-border rounded-full cursor-pointer whitespace-nowrap no-underline hover:no-underline focus:outline-none focus-visible:outline-2 focus-visible:ring-2 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-accent focus-visible:ring-surface border-2 border-solid border-utility text-interactive h-[44px] min-h-[44px] min-w-[44px] w-fit bg-transparent hover:border-secondary hover:bg-secondaryContainer hover:text-onSecondaryContainer active:border-secondary active:bg-secondaryContainer active:text-onSecondaryContainer px-medium w-full
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Visible: True
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Suggested selectors:
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .inline-flex
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .items-center
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .justify-center
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .gap-xsmall
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .text-bodyRegularStrong
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements | 
+  Button #4:
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Text: Zu meinen Nachrichten
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Tag: A
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     ID: 
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Class: 
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Visible: False
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Suggested selectors:
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - a[href='/m-nachrichten.html']
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - a:has-text('Zu meinen Nachrichten')
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements | 
+  Button #5:
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Text: Nachricht senden
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Tag: BUTTON
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     ID: 
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Class: button viewad-contact-submit taller
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Visible: False
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Suggested selectors:
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .button
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .viewad-contact-submit
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .taller
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - button:has-text('Nachricht senden')
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements | 
+  Button #6:
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Text: Nachricht schreiben
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Tag: A
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     ID: 
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Class: inline-flex items-center justify-center gap-xsmall text-bodyRegularStrong box-border rounded-full cursor-pointer whitespace-nowrap no-underline hover:no-underline focus:outline-none focus-visible:outline-2 focus-visible:ring-2 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-accent focus-visible:ring-surface border-2 border-solid border-utility text-interactive h-[44px] min-h-[44px] min-w-[44px] w-fit bg-transparent hover:border-secondary hover:bg-secondaryContainer hover:text-onSecondaryContainer active:border-secondary active:bg-secondaryContainer active:text-onSecondaryContainer px-medium w-full
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Visible: True
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Suggested selectors:
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .inline-flex
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .items-center
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .justify-center
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .gap-xsmall
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - .text-bodyRegularStrong
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements | 
+------------------------------------------------------------
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements | 📌 Searching for textareas and contenteditable elements...
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements | Found 1 textarea/contenteditable elements:
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements | 
+  Element #1:
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Type: textarea
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Placeholder: Schreibe eine freundliche Nachricht an Timofey Degtyarev und bekomme mehr Aufmerksamkeit!
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Name: message
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     ID: viewad-contact-message
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Class: viewad-contact-message
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Visible: False
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |     Suggested selectors:
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - textarea#viewad-contact-message
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - textarea[name='message']
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - textarea[placeholder='Schreibe eine freundliche Nachricht an Timofey Degtyarev und bekomme mehr Aufmerksamkeit!']
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - textarea.viewad-contact-message
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements |       - textarea
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements | 
+------------------------------------------------------------
+2025-11-28T21:32:13 | INFO     | src.debug:debug_page_elements | 📌 Searching for iframes...
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements | Found 30 iframes:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #0:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://d90f8cc1428a0485a0b3bbae157bc6e6.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #0']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #1:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: 
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #1']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #2:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: 
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #2']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #3:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://syndicatedsearch.goog/afs/ads/i/iframe.html
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #3']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #4:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://syndicatedsearch.goog/afs/ads?sjk=nU4Ph406Saq2cWyTojgGBg%3D%3D&adsafe=high&adtest=off&psid=4750250199&channel=desktop_b_vip_161%2Bdesktop_1_a%2Bdesktop_2_c%2Bdesktop_3_unrecognized%2Bclvc_vip_%2Bdesktop_b_adblock-off%2Bdesktop_10_a%2Bdesktop_8_a%2Bdesktop_4_b&iab_gdprApplies=true&client=ebay-kleinanzeigen-de-vip&q=baba%20ddr5%20ram%20PC-Zubeh%C3%B6r%20Software&r=m&iab_tcString=CQbmPwAQbmPwAE1ACADECCFgAP_gAELAAAYgLepR9C7dbWFF8bZ3aPtkOYwX19BjIsQhBgSBAyAFyBOQ4JQA02E6NASAJiACEAAAoxTBAAFEHABEAQCAAAAEAADsIAwEgAAIIABEgBEQQAJYAAgKCIggEAAIgAIEEgAAmBiAKdLmWUjAgIACCgCQACABAICAAAMABAAIAAIAAAAAwgAAgAJgoAIAAAEAARAIAAAAAAAAAAAAIAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgXnACATIAvMA4KACATIAvMJADgACBMcCZQLygXoC3oaADAAEFvREAGAAILeioAMAAQW9GQAYAAgt6PABAJkAXmOgBwABAmOBMoF5QL0Bb0hABgACC3pMAEAmQBeZKAHAAECY4EygXlAvQFvSoAIBMgC8ykAOAAIExwJlAvKBegLeloAMAAQW9.f_wAAAAAA60A&sct=ID%3D009103afe91ddaf9%3AT%3D1764360717%3ART%3D1764360717%3AS%3DALNI_Ma4ubFZN20gtPrtaSQiaZtwNwmyhg&sc_status=6&hl=de&pla_carousel=false&ivt=1&gl=de&type=0&oe=UTF-8&ie=UTF-8&fexp=21404%2C17301437%2C17301438%2C17301442%2C17301548%2C17301266%2C72717107%2C73110182%2C17301559&format=n1%7Cn1%7Cn1%7Cn1%7Cn4&ad=n8&nocache=8041764361923505&num=0&output=uds_ads_only&v=3&bsl=8&pac=0&u_his=5&u_tz=60&dt=1764361923513&u_w=1920&u_h=1080&biw=1920&bih=1080&psw=1920&psh=3786&frm=0&uio=-wi642-wi968-wi968-wi968-wi968&cont=vip-belly%7Cvip-middle%7Cvip-similar-ads-43%7Cvip-similar-ads-47%7Cvip-bottom&drt=0&jsid=csa&nfp=1&jsv=830884147&rurl=https%3A%2F%2Fwww.kleinanzeigen.de%2Fs-anzeige%2Fbaba-ddr5-ram%2F3259103117-225-4564
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #4']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #5:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: 
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #5']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #6:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://syndicatedsearch.goog/afs/ads/i/iframe.html
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #6']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #7:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://syndicatedsearch.goog/afs/ads/i/iframe.html
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #7']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #8:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://syndicatedsearch.goog/afs/ads/i/iframe.html
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #8']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #9:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://syndicatedsearch.goog/afs/ads/i/iframe.html
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #9']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #10:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://d90f8cc1428a0485a0b3bbae157bc6e6.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #10']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #11:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: 
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #11']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #12:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: 
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #12']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #13:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: 
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #13']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #14:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://gum.criteo.com/syncframe?topUrl=www.kleinanzeigen.de&origin=onetag&gdpr=1&gdpr_consent=CQbmPwAQbmPwAE1ACADECCFgAP_gAELAAAYgLepR9C7dbWFF8bZ3aPtkOYwX19BjIsQhBgSBAyAFyBOQ4JQA02E6NASAJiACEAAAoxTBAAFEHABEAQCAAAAEAADsIAwEgAAIIABEgBEQQAJYAAgKCIggEAAIgAIEEgAAmBiAKdLmWUjAgIACCgCQACABAICAAAMABAAIAAIAAAAAwgAAgAJgoAIAAAEAARAIAAAAAAAAAAAAIAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgXnACATIAvMA4KACATIAvMJADgACBMcCZQLygXoC3oaADAAEFvREAGAAILeioAMAAQW9GQAYAAgt6PABAJkAXmOgBwABAmOBMoF5QL0Bb0hABgACC3pMAEAmQBeZKAHAAECY4EygXlAvQFvSoAIBMgC8ykAOAAIExwJlAvKBegLeloAMAAQW9.f_wAAAAAA60A#{%22bundle%22:{%22identifierExtractor%22:{%22origin%22:3},%22value%22:%22kVsFQl96N0htTlVSRDVGRGI3aFhQQ05iSGRYdWlXc1plY2ZYbk1QRGkzRFoxRFlJMGJoQ0h5WXdsc01OcnFtVG9SNnVQVTJqJTJCUkROMkxtUlZia05pRXZBYzhUJTJGWFFvJTJCUEVWaUN3em9QUkRFWVNlJTJCQmpGMkNxMUdyRUFrSzZwNk9OZzAxOHdzdmlDR1NlUSUyRmtybWUzeGliRkx6bHBLcyUyRnRCR1kyWThWdWc4JTJGaFdGOCUzRA%22},%22cw%22:true,%22optout%22:{%22identifierExtractor%22:{%22origin%22:0},%22value%22:null},%22origin%22:%22onetag%22,%22tld%22:%22kleinanzeigen.de%22,%22topUrl%22:%22www.kleinanzeigen.de%22,%22version%22:%225_42_0%22,%22ifa%22:{%22identifierExtractor%22:{%22origin%22:0},%22value%22:null},%22lsw%22:true,%22pm%22:0,%22requestId%22:%22ba8b5dce-ce30-4505-ac41-2078659fffd2%22}
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #14']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #15:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: about:blank
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #15']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #16:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: about:blank
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #16']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #17:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: 
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #17']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #18:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: 
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #18']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #19:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: 
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #19']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #20:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://gum.criteo.com/syncframe?origin=publishertag&topUrl=www.kleinanzeigen.de&gdpr=1&gdpr_consent=CQbmPwAQbmPwAE1ACADECCFgAP_gAELAAAYgLepR9C7dbWFF8bZ3aPtkOYwX19BjIsQhBgSBAyAFyBOQ4JQA02E6NASAJiACEAAAoxTBAAFEHABEAQCAAAAEAADsIAwEgAAIIABEgBEQQAJYAAgKCIggEAAIgAIEEgAAmBiAKdLmWUjAgIACCgCQACABAICAAAMABAAIAAIAAAAAwgAAgAJgoAIAAAEAARAIAAAAAAAAAAAAIAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgXnACATIAvMA4KACATIAvMJADgACBMcCZQLygXoC3oaADAAEFvREAGAAILeioAMAAQW9GQAYAAgt6PABAJkAXmOgBwABAmOBMoF5QL0Bb0hABgACC3pMAEAmQBeZKAHAAECY4EygXlAvQFvSoAIBMgC8ykAOAAIExwJlAvKBegLeloAMAAQW9.f_wAAAAAA60A#{"bundle":{"value":"aYRUeF9VQWliaXV0dDE1bUN1elkwVllIVjdyWkRzN0s5OEYwc2dYTmIxUU95TWh3WFF0VWtacVNPQTV4Qjk5Rnl2OSUyQkR5c29sMzBMWSUyRlhCbHRiaTVsVVlGZ3Q4QlNxWmUlMkJLSlRDSVpjc3FNazhLTEN0VGZwRXNTbzE3N2p1U3pVb0M2VXRrNThyb0ZaZ2o3OTdqeWxPQWd1VmpDSWFUdG83eiUyRnhwJTJGSjk0MlNhZWNRJTNE","origin":3},"optout":{"value":false,"origin":0},"tld":"kleinanzeigen.de","topUrl":"www.kleinanzeigen.de","version":164,"origin":"publishertag","requestId":"0.08808451021551189"}
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #20']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #21:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: 
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #21']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #22:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://eus.rubiconproject.com/usync.html?gdpr=1&gdpr_consent=CQbmPwAQbmPwAE1ACADECCFgAP_gAELAAAYgLepR9C7dbWFF8bZ3aPtkOYwX19BjIsQhBgSBAyAFyBOQ4JQA02E6NASAJiACEAAAoxTBAAFEHABEAQCAAAAEAADsIAwEgAAIIABEgBEQQAJYAAgKCIggEAAIgAIEEgAAmBiAKdLmWUjAgIACCgCQACABAICAAAMABAAIAAIAAAAAwgAAgAJgoAIAAAEAARAIAAAAAAAAAAAAIAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgXnACATIAvMA4KACATIAvMJADgACBMcCZQLygXoC3oaADAAEFvREAGAAILeioAMAAQW9GQAYAAgt6PABAJkAXmOgBwABAmOBMoF5QL0Bb0hABgACC3pMAEAmQBeZKAHAAECY4EygXlAvQFvSoAIBMgC8ykAOAAIExwJlAvKBegLeloAMAAQW9.f_wAAAAAA60A
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #22']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #23:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://cdn.connectad.io/connectmyusers.php?gdpr=1&gdpr_consent=CQbmPwAQbmPwAE1ACADECCFgAP_gAELAAAYgLepR9C7dbWFF8bZ3aPtkOYwX19BjIsQhBgSBAyAFyBOQ4JQA02E6NASAJiACEAAAoxTBAAFEHABEAQCAAAAEAADsIAwEgAAIIABEgBEQQAJYAAgKCIggEAAIgAIEEgAAmBiAKdLmWUjAgIACCgCQACABAICAAAMABAAIAAIAAAAAwgAAgAJgoAIAAAEAARAIAAAAAAAAAAAAIAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgXnACATIAvMA4KACATIAvMJADgACBMcCZQLygXoC3oaADAAEFvREAGAAILeioAMAAQW9GQAYAAgt6PABAJkAXmOgBwABAmOBMoF5QL0Bb0hABgACC3pMAEAmQBeZKAHAAECY4EygXlAvQFvSoAIBMgC8ykAOAAIExwJlAvKBegLeloAMAAQW9.f_wAAAAAA60A&
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #23']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #24:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://eb2.3lift.com/sync?gdpr=true&cmp_cs=CQbmPwAQbmPwAE1ACADECCFgAP_gAELAAAYgLepR9C7dbWFF8bZ3aPtkOYwX19BjIsQhBgSBAyAFyBOQ4JQA02E6NASAJiACEAAAoxTBAAFEHABEAQCAAAAEAADsIAwEgAAIIABEgBEQQAJYAAgKCIggEAAIgAIEEgAAmBiAKdLmWUjAgIACCgCQACABAICAAAMABAAIAAIAAAAAwgAAgAJgoAIAAAEAARAIAAAAAAAAAAAAIAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgXnACATIAvMA4KACATIAvMJADgACBMcCZQLygXoC3oaADAAEFvREAGAAILeioAMAAQW9GQAYAAgt6PABAJkAXmOgBwABAmOBMoF5QL0Bb0hABgACC3pMAEAmQBeZKAHAAECY4EygXlAvQFvSoAIBMgC8ykAOAAIExwJlAvKBegLeloAMAAQW9.f_wAAAAAA60A&
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #24']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #25:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://js-sec.indexww.com/um/ixmatch.html
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #25']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #26:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://acdn.adnxs.com/dmp/async_usersync.html
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #26']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #27:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://ad.yieldlab.net/d/6846326/766/2x2?ts=1764361924063&type=h&gdpr=1&gdpr_consent=CQbmPwAQbmPwAE1ACADECCFgAP_gAELAAAYgLepR9C7dbWFF8bZ3aPtkOYwX19BjIsQhBgSBAyAFyBOQ4JQA02E6NASAJiACEAAAoxTBAAFEHABEAQCAAAAEAADsIAwEgAAIIABEgBEQQAJYAAgKCIggEAAIgAIEEgAAmBiAKdLmWUjAgIACCgCQACABAICAAAMABAAIAAIAAAAAwgAAgAJgoAIAAAEAARAIAAAAAAAAAAAAIAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgXnACATIAvMA4KACATIAvMJADgACBMcCZQLygXoC3oaADAAEFvREAGAAILeioAMAAQW9GQAYAAgt6PABAJkAXmOgBwABAmOBMoF5QL0Bb0hABgACC3pMAEAmQBeZKAHAAECY4EygXlAvQFvSoAIBMgC8ykAOAAIExwJlAvKBegLeloAMAAQW9.f_wAAAAAA60A
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #27']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #28:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://ads.pubmatic.com/AdServer/js/user_sync.html?kdntuid=1&p=67858&gdpr=1&gdpr_consent=CQbmPwAQbmPwAE1ACADECCFgAP_gAELAAAYgLepR9C7dbWFF8bZ3aPtkOYwX19BjIsQhBgSBAyAFyBOQ4JQA02E6NASAJiACEAAAoxTBAAFEHABEAQCAAAAEAADsIAwEgAAIIABEgBEQQAJYAAgKCIggEAAIgAIEEgAAmBiAKdLmWUjAgIACCgCQACABAICAAAMABAAIAAIAAAAAwgAAgAJgoAIAAAEAARAIAAAAAAAAAAAAIAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgXnACATIAvMA4KACATIAvMJADgACBMcCZQLygXoC3oaADAAEFvREAGAAILeioAMAAQW9GQAYAAgt6PABAJkAXmOgBwABAmOBMoF5QL0Bb0hABgACC3pMAEAmQBeZKAHAAECY4EygXlAvQFvSoAIBMgC8ykAOAAIExwJlAvKBegLeloAMAAQW9.f_wAAAAAA60A
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #28']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |   Iframe #29:
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Src: https://js.adscale.de/pbsync.html?gdpr=1&gdpr_consent=CQbmPwAQbmPwAE1ACADECCFgAP_gAELAAAYgLepR9C7dbWFF8bZ3aPtkOYwX19BjIsQhBgSBAyAFyBOQ4JQA02E6NASAJiACEAAAoxTBAAFEHABEAQCAAAAEAADsIAwEgAAIIABEgBEQQAJYAAgKCIggEAAIgAIEEgAAmBiAKdLmWUjAgIACCgCQACABAICAAAMABAAIAAIAAAAAwgAAgAJgoAIAAAEAARAIAAAAAAAAAAAAIAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgXnACATIAvMA4KACATIAvMJADgACBMcCZQLygXoC3oaADAAEFvREAGAAILeioAMAAQW9GQAYAAgt6PABAJkAXmOgBwABAmOBMoF5QL0Bb0hABgACC3pMAEAmQBeZKAHAAECY4EygXlAvQFvSoAIBMgC8ykAOAAIExwJlAvKBegLeloAMAAQW9.f_wAAAAAA60A
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #29']
+2025-11-28T21:32:14 | INFO     | src.debug:debug_page_elements | ============================================================
+2025-11-28T21:32:14 | INFO     | src.bot:send_message | 🔍 Looking for message button...
+2025-11-28T21:32:14 | DEBUG    | src.utils:random_delay | ⏳ Random delay: 2.98s
+2025-11-28T21:32:17 | DEBUG    | src.bot:send_message | Trying message button selector: button:has-text('Nachricht schreiben')
+2025-11-28T21:32:25 | DEBUG    | src.bot:send_message | Selector failed: button:has-text('Nachricht schreiben') - Page.wait_for_selector: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("button:has-text('Nachricht schreiben')") to be visible
+    - waiting for" https://www.kleinanzeigen.de/m-einloggen.html?targetUrl=%2Fs-anzeige%2Fbaba-ddr5-ram%2F3259103117-225-4564" navigation to finish...
+    - navigated to "https://www.kleinanzeigen.de/m-einloggen.html?targetUrl=%2Fs-anzeige%2Fbaba-ddr5-ram%2F3259103117-225-4564"
+
+2025-11-28T21:32:25 | DEBUG    | src.bot:send_message | Trying message button selector: a:has-text('Nachricht schreiben')
+2025-11-28T21:32:33 | DEBUG    | src.bot:send_message | Selector failed: a:has-text('Nachricht schreiben') - Page.wait_for_selector: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("a:has-text('Nachricht schreiben')") to be visible
+
+2025-11-28T21:32:33 | DEBUG    | src.bot:send_message | Trying message button selector: button:has-text('Nachricht senden')
+2025-11-28T21:32:41 | DEBUG    | src.bot:send_message | Selector failed: button:has-text('Nachricht senden') - Page.wait_for_selector: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("button:has-text('Nachricht senden')") to be visible
+
+2025-11-28T21:32:41 | DEBUG    | src.bot:send_message | Trying message button selector: a:has-text('Nachricht senden')
+2025-11-28T21:32:49 | DEBUG    | src.bot:send_message | Selector failed: a:has-text('Nachricht senden') - Page.wait_for_selector: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("a:has-text('Nachricht senden')") to be visible
+
+2025-11-28T21:32:49 | DEBUG    | src.bot:send_message | Trying message button selector: button:has-text('Kontakt')
+2025-11-28T21:32:57 | DEBUG    | src.bot:send_message | Selector failed: button:has-text('Kontakt') - Page.wait_for_selector: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("button:has-text('Kontakt')") to be visible
+
+2025-11-28T21:32:57 | DEBUG    | src.bot:send_message | Trying message button selector: a:has-text('Kontakt')
+2025-11-28T21:33:05 | DEBUG    | src.bot:send_message | Selector failed: a:has-text('Kontakt') - Page.wait_for_selector: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("a:has-text('Kontakt')") to be visible
+
+2025-11-28T21:33:05 | DEBUG    | src.bot:send_message | Trying message button selector: a[href*='nachricht']
+2025-11-28T21:33:13 | DEBUG    | src.bot:send_message | Selector failed: a[href*='nachricht'] - Page.wait_for_selector: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("a[href*='nachricht']") to be visible
+    21 × locator resolved to hidden <a id="site-subnav-msgbox" class="mainnav-sub-link" href="/m-nachrichten.html">↵                            Nachrichten↵        …</a>
+
+2025-11-28T21:33:13 | DEBUG    | src.bot:send_message | Trying message button selector: button[class*='contact']
+2025-11-28T21:33:21 | DEBUG    | src.bot:send_message | Selector failed: button[class*='contact'] - Page.wait_for_selector: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("button[class*='contact']") to be visible
+
+2025-11-28T21:33:21 | DEBUG    | src.bot:send_message | Trying message button selector: button[class*='message']
+2025-11-28T21:33:29 | DEBUG    | src.bot:send_message | Selector failed: button[class*='message'] - Page.wait_for_selector: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("button[class*='message']") to be visible
+
+2025-11-28T21:33:29 | DEBUG    | src.bot:send_message | Trying message button selector: a[class*='contact']
+2025-11-28T21:33:37 | DEBUG    | src.bot:send_message | Selector failed: a[class*='contact'] - Page.wait_for_selector: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("a[class*='contact']") to be visible
+
+2025-11-28T21:33:37 | DEBUG    | src.bot:send_message | Trying message button selector: a[class*='message']
+2025-11-28T21:33:45 | DEBUG    | src.bot:send_message | Selector failed: a[class*='message'] - Page.wait_for_selector: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("a[class*='message']") to be visible
+
+2025-11-28T21:33:45 | DEBUG    | src.bot:send_message | Trying message button selector: [data-testid*='contact']
+2025-11-28T21:33:53 | DEBUG    | src.bot:send_message | Selector failed: [data-testid*='contact'] - Page.wait_for_selector: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("[data-testid*='contact']") to be visible
+
+2025-11-28T21:33:53 | DEBUG    | src.bot:send_message | Trying message button selector: [data-qa*='contact']
+2025-11-28T21:34:01 | DEBUG    | src.bot:send_message | Selector failed: [data-qa*='contact'] - Page.wait_for_selector: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("[data-qa*='contact']") to be visible
+
+2025-11-28T21:34:01 | DEBUG    | src.bot:send_message | Trying message button selector: [data-gaaction*='contact']
+2025-11-28T21:34:09 | DEBUG    | src.bot:send_message | Selector failed: [data-gaaction*='contact'] - Page.wait_for_selector: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("[data-gaaction*='contact']") to be visible
+
+2025-11-28T21:34:09 | DEBUG    | src.bot:send_message | Trying message button selector: button[id*='contact']
+2025-11-28T21:34:17 | DEBUG    | src.bot:send_message | Selector failed: button[id*='contact'] - Page.wait_for_selector: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("button[id*='contact']") to be visible
+
+2025-11-28T21:34:17 | DEBUG    | src.bot:send_message | Trying message button selector: a[id*='contact']
+2025-11-28T21:34:25 | DEBUG    | src.bot:send_message | Selector failed: a[id*='contact'] - Page.wait_for_selector: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("a[id*='contact']") to be visible
+
+2025-11-28T21:34:25 | WARNING  | src.bot:send_message | Standard selectors failed, trying text-based search...
+2025-11-28T21:34:26 | ERROR    | src.bot:send_message | ❌ Could not find message button
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements | 🔍 DEBUG: Analyzing page elements - message_button_not_found
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements | ============================================================
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements | 📌 Searching for 'Nachricht'/'Kontakt' buttons...
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements | Found 1 relevant buttons:
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements | 
+  Button #1:
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Text: Nachrichten
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Tag: A
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     ID: site-subnav-msgbox
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Class: mainnav-sub-link
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Visible: False
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Suggested selectors:
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |       - #site-subnav-msgbox
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |       - .mainnav-sub-link
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |       - a[href='/m-nachrichten.html']
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |       - a:has-text('Nachrichten')
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements | 
+------------------------------------------------------------
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements | 📌 Searching for textareas and contenteditable elements...
+2025-11-28T21:34:26 | WARNING  | src.debug:debug_page_elements | ❌ No textareas or contenteditable elements found!
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements | 
+------------------------------------------------------------
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements | 📌 Searching for iframes...
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements | Found 7 iframes:
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |   Iframe #0:
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Src: 
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #0']
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |   Iframe #1:
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Src: 
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #1']
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |   Iframe #2:
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Src: about:blank
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #2']
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |   Iframe #3:
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Src: about:blank
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #3']
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |   Iframe #4:
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Src: about:blank
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #4']
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |   Iframe #5:
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Src: 
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #5']
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |   Iframe #6:
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Src: https://dfme.kleinanzeigen.de/E9EkGpDZrd3nt0wP?7918e5735a2ea081=QAsQHu-N7JtbeXD8Y78bGy8Xg63qlHldg9g3I-8ZWzTwyvrkIus-PXmHKMxHtGR8f-OdKrIUHVv1dmr3c2_am84H6CQVmmvLc_2csSkZwdgLXciR6UIEElNHEXGk7VjpSTXKfr6c0DtZ0vTrKC5KKFlg3vQ&hp=.co-operativebank.co.uk/CBIBSWeb/login.do.co-operativebank.co.uk/CBIBSWeb/start.do.de/portal/portal/x.entropay.com/basemenu/prot/x.facebook.comx.nationet.com/x.netbank.commbank.com.au/netbank/bankmainx.npbs.co.uk/netmastergoldbanking/x.nwolb.xlogin.aspx?refereridentx.rbsdigital.xAccountSummaryx.smile.co.uk/SmileWeb/login.do.smile.co.uk/SmileWeb/start.do.yandex.rux/CapitalOne_Consumer/x/easypay.by/x/sbank.ru/x53.com/servlet/efsonlinex://online.wellsfargo.com/x://secure.assist.ru/assistid/protected/main.doxabbeynational.co.uk/EBAN_ENS/BtoChannelDriverxalliance-leicesterxaltergold.com/login.phpxamericanexpress.com/myca/intl/acctsumm/emea/accountSummaryxbancaintesa.it/xbankcardservices.co.ukxbankofamerica.com/xbanquepopulaire.fr/xbnpparibas.net/xcahoot.comxcapitaloneonline.co.uk/CapitalOne_Consumer/Transactionsxcbonline.co.uk/ralu/reglm-web/setupSecurityQuestionPagexcibc.comxPreSignOnxcibc.comxSignOnxcitibank.ru/xclient.uralsibbank.ruxco-operativebank.co.uk/CBIBSWeb/loginSpixcommerceonlinebanking.comxcoventrybuildingsociety.co.ukxdeutsche-bank.dexdiscovercard.com/cardmembersvcs/strongauth/app/sa_mainxebanking.bawag.comxebc_ebc1961xegg.com/customer/movemoneyxegg.com/customer/yourmoneyxfacebook.com/xhalifax-online.co.ukxMyAccountsxhalifax-online.co.uk/x/Mhalifax-online.co.uk/personalxhsbc.co.uk/1/2/personal/internet-banking/xhsbc.comxhttps://banking.postbank.de/app/finanzstatus.init.do;jsessionidxib.fineco.it/FinecoWeb/BonificiServletxib.fineco.it/FinecoWeb/jsp/Main/HBFineco.jspxib.fineco.it/FinecoWeb/jsp/Main/Principale.jspxibank.alfabank.ruxin-biz.it/xipko.plxlibertyreserve.com/x/historylibertyreserve.com/x/loginwww.libertyreserve.com/x/Core.jswww.libertyreserve.com/x/transfer.libertyreserve.com/x/commonscript.jslloydstsb.co.uk/personal/a/account_overview/xmbna.co.ukxmenyala.ruxmoney.yandex.ruxmoneybookers.com/app/login.plxmoneymail.ruxmy.ebay.co.uk/ws/eBayISAPI.dll?MyEbayxmy.ebay.com/ws/eBayISAPI.dll?MyEbayxmy.ebay.fr/ws/eBayISAPI.dll?MyEbayxmybusinessbank.co.ukxnationet.com/AppServices/SignOn/SignOnProcess/RcaSignOnxnpbs.co.ukxnwolb.com/AccountSummaryxnwolb.com/Statementsxnwolb.com/TransfersLandingPagexoltx.fidelity.com/x/x/ofsummary/summaryxonline.lloydstsb.co.ukxonlinebanking.mandtbank.com/summary/AccountSummaryxpassport.yandex.ruxpaypal.com/x/cgi-bin/webscr?cmd=_accountxpaypal.com/x/cgi-bin/webscr?cmd=_login-done&login_access=xpaypal.com/us/cgi-bin/webscr?cmd=_login-done&login_access=xposte.it/xpsk.co.at/xsecure.lloydstsb.co.uk/personal/a/account_overviewxsmile.co.uk/SmileWeb/passcodexusaa.com/xusbank.com/internetBanking/RequestRouter?requestCmdId=Gxwachovia.comxybonline.co.uk/ralu/reglm-web/setupSecurityQuestionPagex.amazon.fr/xhistory/orders/view.htmlx.banquepopulaire.frxShowPortal.dox.bnpparibasfortis.bexHome_Logon.aspx.cdiscount.com/Account/Home.aspxx.cmb.frxaccueil.jspx.credit-agricole.frxentreeBam?sessionSAGx.labanquepostale.fr/xreleveCPP-releve_ccp.eax.secure.bnpparibas.net/NSFR?Actionx.secure.lcl.frxAccueilxcredem.it/OneToOne/ebank/functionsxmijn.ing.nl/xonline.ybs.co.ukxwww.discover.com/xorder.cdiscount.comxCustomer.aspxxsealinfo.verisign.com/splash?form_filexvos-comptes.credit-du-nord.fr/CDC_TableauDeBord_0.asp?xvoscomptesenligne.labanquepostale.frxwww.x.caisse-epargne.fr/Portail.aspxxwww.exabanque.netxonglet.phpxdeutsche-bank.de/xnorisbank.de/xpostbank.de/xtargobank.de/x.x.de/portal/x.bankofamerica.com/x/commonscript.js.bmo.com/OLB?id=x.bmo.com/RMC?id=x.chase.com/x.aspxx.chase.com/js/Reporting.jsx.koodomobile.com/account/selfserve/x/xaccountId=x.payment.ru/x.scotiabank.com/portal/index.jsp?xbancopopular.es/empresasxcreval.it/login2007/loginSiciliano.aspxfirst-direct.com/xipko.plxmybusinessbank.co.ukxsanpaoloimi.com/xulsterbankanytimebanking.x/login.aspxx
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Has content: True
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements |     Textareas inside: ['textarea in iframe #6']
+2025-11-28T21:34:26 | INFO     | src.debug:debug_page_elements | ============================================================
+2025-11-28T21:34:27 | DEBUG    | src.utils:take_screenshot | Screenshot saved: ./screenshots/message_button_error_20251128_213426.png
+2025-11-28T21:34:27 | ERROR    | src.bot:execute_full_workflow | ❌ Message sending failed
+2025-11-28T21:34:27 | INFO     | src.bot:close | Browser closed
+2025-11-28T21:34:27 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:34:27 | INFO     | __main__:send_and_offer | Workflow Results:
+2025-11-28T21:34:27 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:34:27 | INFO     | __main__:send_and_offer | Browser Setup: ✅
+2025-11-28T21:34:27 | INFO     | __main__:send_and_offer | Authentication: ✅
+2025-11-28T21:34:27 | INFO     | __main__:send_and_offer | Message Sent: ❌
+2025-11-28T21:34:27 | INFO     | __main__:send_and_offer | Conversation Opened: ❌
+2025-11-28T21:34:27 | INFO     | __main__:send_and_offer | Offer Sent: ❌
+2025-11-28T21:34:27 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:34:27 | ERROR    | __main__:send_and_offer | ❌ Workflow failed with exit code: 2
+2025-11-28T21:35:41 | INFO     | src.utils:setup_logging | Logging initialized
+2025-11-28T21:35:41 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:35:41 | INFO     | __main__:send_and_offer | Kleinanzeigen Message & Offer Bot
+2025-11-28T21:35:41 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:35:41 | INFO     | __main__:send_and_offer | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-28T21:35:41 | INFO     | __main__:send_and_offer | Email: degtyarevsemen@gmail.com
+2025-11-28T21:35:41 | INFO     | __main__:send_and_offer | Message: Test...
+2025-11-28T21:35:41 | INFO     | __main__:send_and_offer | Offer: €100.0, Delivery: pickup
+2025-11-28T21:35:41 | INFO     | __main__:send_and_offer | Headless: False
+2025-11-28T21:35:41 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:35:41 | INFO     | src.bot:__init__ | Bot initialized (headless=False)
+2025-11-28T21:35:41 | INFO     | src.bot:setup_browser | Setting up browser...
+2025-11-28T21:35:43 | INFO     | src.bot:setup_browser | ✅ Browser setup complete
+2025-11-28T21:35:43 | INFO     | src.auth:load_cookies | Cookies loaded from ./cookies.json
+2025-11-28T21:35:49 | DEBUG    | src.bot:authenticate | Cookies invalid, performing fresh login...
+2025-11-28T21:35:49 | INFO     | src.auth:login | Starting login process...
+2025-11-28T21:35:49 | DEBUG    | src.auth:login | Navigating to Kleinanzeigen...
+2025-11-28T21:35:52 | DEBUG    | src.auth:accept_cookie_banner | Checking for cookie banner...
+2025-11-28T21:35:52 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Alle akzeptieren')
+2025-11-28T21:35:55 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button:has-text('Alle akzeptieren')
+2025-11-28T21:35:55 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Akzeptieren')
+2025-11-28T21:35:58 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button:has-text('Akzeptieren')
+2025-11-28T21:35:58 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[id*='accept']
+2025-11-28T21:36:01 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button[id*='accept']
+2025-11-28T21:36:01 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[class*='accept']
+2025-11-28T21:36:04 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button[class*='accept']
+2025-11-28T21:36:04 | WARNING  | src.utils:wait_for_selector_with_fallbacks | None of the selectors matched: ["button:has-text('Alle akzeptieren')", "button:has-text('Akzeptieren')", "button[id*='accept']", "button[class*='accept']"]
+2025-11-28T21:36:04 | ERROR    | src.utils:safe_click | Could not find cookie banner to click
+2025-11-28T21:36:13 | INFO     | src.auth:login | Looking for login link...
+2025-11-28T21:36:13 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: a:has-text('Anmelden')
+2025-11-28T21:36:18 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: a:has-text('Anmelden')
+2025-11-28T21:36:18 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: a[href*='login']
+2025-11-28T21:36:23 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: a[href*='login']
+2025-11-28T21:36:23 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: a[href*='einloggen']
+2025-11-28T21:36:23 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: a[href*='einloggen']
+2025-11-28T21:36:24 | DEBUG    | src.utils:safe_click | Clicked login link
+2025-11-28T21:36:24 | INFO     | src.auth:login | Filling email...
+2025-11-28T21:36:24 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[name='email']
+2025-11-28T21:36:34 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: input[name='email']
+2025-11-28T21:36:34 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[type='email']
+2025-11-28T21:36:34 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: input[type='email']
+2025-11-28T21:36:34 | DEBUG    | src.utils:safe_fill | Filled email field with: degtyarevsemen@gmail.com...
+2025-11-28T21:36:34 | INFO     | src.auth:login | Filling password...
+2025-11-28T21:36:34 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[name='password']
+2025-11-28T21:36:34 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: input[name='password']
+2025-11-28T21:36:34 | DEBUG    | src.utils:safe_fill | Filled password field with: SamD1990*...
+2025-11-28T21:36:34 | INFO     | src.auth:login | Submitting login form...
+2025-11-28T21:36:34 | DEBUG    | src.auth:login | Trying submit selector: button[type='submit']
+2025-11-28T21:36:34 | DEBUG    | src.auth:login | Submit button found - visible: True, enabled: True
+2025-11-28T21:36:34 | DEBUG    | src.utils:random_delay | ⏳ Random delay: 0.87s
+2025-11-28T21:36:37 | INFO     | src.auth:login | ✅ Submit button clicked with: button[type='submit']
+2025-11-28T21:36:37 | INFO     | src.auth:login | Waiting for login to complete...
+2025-11-28T21:36:42 | ERROR    | src.auth:login | Login failed with error: Page.wait_for_timeout: Target page, context or browser has been closed
+2025-11-28T21:36:42 | ERROR    | src.utils:take_screenshot | Failed to take screenshot: Page.screenshot: Target page, context or browser has been closed
+2025-11-28T21:36:42 | ERROR    | src.bot:authenticate | ❌ Authentication failed
+2025-11-28T21:36:42 | ERROR    | src.bot:execute_full_workflow | ❌ Authentication failed
+2025-11-28T21:36:42 | INFO     | src.bot:close | Browser closed
+2025-11-28T21:36:42 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:36:42 | INFO     | __main__:send_and_offer | Workflow Results:
+2025-11-28T21:36:42 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:36:42 | INFO     | __main__:send_and_offer | Browser Setup: ✅
+2025-11-28T21:36:42 | INFO     | __main__:send_and_offer | Authentication: ❌
+2025-11-28T21:36:42 | INFO     | __main__:send_and_offer | Message Sent: ❌
+2025-11-28T21:36:42 | INFO     | __main__:send_and_offer | Conversation Opened: ❌
+2025-11-28T21:36:42 | INFO     | __main__:send_and_offer | Offer Sent: ❌
+2025-11-28T21:36:42 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:36:42 | ERROR    | __main__:send_and_offer | ❌ Workflow failed with exit code: 1
+2025-11-28T21:40:03 | INFO     | src.utils:setup_logging | Logging initialized
+2025-11-28T21:40:03 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:40:03 | INFO     | __main__:send_and_offer | Kleinanzeigen Message & Offer Bot
+2025-11-28T21:40:03 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:40:03 | INFO     | __main__:send_and_offer | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-28T21:40:03 | INFO     | __main__:send_and_offer | Email: degtyarevsemen@gmail.com
+2025-11-28T21:40:03 | INFO     | __main__:send_and_offer | Message: Ist noch verfügbar?...
+2025-11-28T21:40:03 | INFO     | __main__:send_and_offer | Offer: €100.0, Delivery: pickup
+2025-11-28T21:40:03 | INFO     | __main__:send_and_offer | Headless: False
+2025-11-28T21:40:03 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:40:03 | INFO     | src.bot:__init__ | Bot initialized (headless=False)
+2025-11-28T21:40:03 | INFO     | src.bot:setup_browser | Setting up browser...
+2025-11-28T21:40:06 | INFO     | src.bot:setup_browser | ✅ Browser setup complete
+2025-11-28T21:40:06 | INFO     | src.auth:load_cookies | Cookies loaded from ./cookies.json
+2025-11-28T21:40:12 | DEBUG    | src.bot:authenticate | Cookies invalid, performing fresh login...
+2025-11-28T21:40:12 | INFO     | src.auth:login | Starting login process...
+2025-11-28T21:40:12 | INFO     | src.auth:login | Navigating directly to login page: https://www.kleinanzeigen.de/m-einloggen.html
+2025-11-28T21:40:15 | DEBUG    | src.auth:accept_cookie_banner | Checking for cookie banner...
+2025-11-28T21:40:15 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Alle akzeptieren')
+2025-11-28T21:40:18 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button:has-text('Alle akzeptieren')
+2025-11-28T21:40:18 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Akzeptieren')
+2025-11-28T21:40:21 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button:has-text('Akzeptieren')
+2025-11-28T21:40:21 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[id*='accept']
+2025-11-28T21:40:24 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button[id*='accept']
+2025-11-28T21:40:24 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[class*='accept']
+2025-11-28T21:40:27 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button[class*='accept']
+2025-11-28T21:40:27 | WARNING  | src.utils:wait_for_selector_with_fallbacks | None of the selectors matched: ["button:has-text('Alle akzeptieren')", "button:has-text('Akzeptieren')", "button[id*='accept']", "button[class*='accept']"]
+2025-11-28T21:40:27 | ERROR    | src.utils:safe_click | Could not find cookie banner to click
+2025-11-28T21:40:36 | INFO     | src.auth:login | On login page, ready to fill credentials...
+2025-11-28T21:40:36 | INFO     | src.auth:login | Filling email...
+2025-11-28T21:40:36 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[name='email']
+2025-11-28T21:40:46 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: input[name='email']
+2025-11-28T21:40:46 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[type='email']
+2025-11-28T21:40:46 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: input[type='email']
+2025-11-28T21:40:46 | DEBUG    | src.utils:safe_fill | Filled email field with: degtyarevsemen@gmail.com...
+2025-11-28T21:40:46 | INFO     | src.auth:login | Filling password...
+2025-11-28T21:40:46 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[name='password']
+2025-11-28T21:40:46 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: input[name='password']
+2025-11-28T21:40:46 | DEBUG    | src.utils:safe_fill | Filled password field with: SamD1990*...
+2025-11-28T21:40:46 | INFO     | src.auth:login | Submitting login form...
+2025-11-28T21:40:46 | DEBUG    | src.auth:login | Trying submit selector: button#login-submit
+2025-11-28T21:40:46 | DEBUG    | src.auth:login | Submit button found - visible: True, enabled: True
+2025-11-28T21:40:46 | DEBUG    | src.utils:random_delay | ⏳ Random delay: 0.95s
+2025-11-28T21:40:47 | INFO     | src.auth:login | ✅ Submit button clicked with: button#login-submit
+2025-11-28T21:40:47 | INFO     | src.auth:login | Waiting for login to complete...
+2025-11-28T21:41:03 | INFO     | src.auth:login | Current URL after login attempt: https://www.kleinanzeigen.de/m-einloggen.html
+2025-11-28T21:41:03 | WARNING  | src.auth:login | Still on login page, checking if login actually failed...
+2025-11-28T21:41:03 | WARNING  | src.auth:login | No error found, but still on login page
+2025-11-28T21:41:04 | DEBUG    | src.utils:take_screenshot | Screenshot saved: ./screenshots/login_still_on_page_20251128_214103.png
+2025-11-28T21:41:04 | ERROR    | src.bot:authenticate | ❌ Authentication failed
+2025-11-28T21:41:04 | ERROR    | src.bot:execute_full_workflow | ❌ Authentication failed
+2025-11-28T21:41:04 | INFO     | src.bot:close | Browser closed
+2025-11-28T21:41:04 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:41:04 | INFO     | __main__:send_and_offer | Workflow Results:
+2025-11-28T21:41:04 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:41:04 | INFO     | __main__:send_and_offer | Browser Setup: ✅
+2025-11-28T21:41:04 | INFO     | __main__:send_and_offer | Authentication: ❌
+2025-11-28T21:41:04 | INFO     | __main__:send_and_offer | Message Sent: ❌
+2025-11-28T21:41:04 | INFO     | __main__:send_and_offer | Conversation Opened: ❌
+2025-11-28T21:41:04 | INFO     | __main__:send_and_offer | Offer Sent: ❌
+2025-11-28T21:41:04 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:41:04 | ERROR    | __main__:send_and_offer | ❌ Workflow failed with exit code: 1
+2025-11-28T21:55:18 | INFO     | src.utils:setup_logging | Logging initialized
+2025-11-28T21:55:18 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:55:18 | INFO     | __main__:send_and_offer | Kleinanzeigen Message & Offer Bot
+2025-11-28T21:55:18 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:55:18 | INFO     | __main__:send_and_offer | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-28T21:55:18 | INFO     | __main__:send_and_offer | Email: degtyarevsemen@gmail.com
+2025-11-28T21:55:18 | INFO     | __main__:send_and_offer | Message: Ist noch verfügbar?...
+2025-11-28T21:55:18 | INFO     | __main__:send_and_offer | Offer: €100.0, Delivery: pickup
+2025-11-28T21:55:18 | INFO     | __main__:send_and_offer | Headless: False
+2025-11-28T21:55:18 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:55:18 | INFO     | src.bot:__init__ | Bot initialized (headless=False)
+2025-11-28T21:55:18 | INFO     | src.bot:setup_browser | Setting up browser with anti-detection...
+2025-11-28T21:55:21 | INFO     | src.bot:setup_browser | ✅ Browser setup complete with anti-detection
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: FPLC
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: _lr_geo_location
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: zsc
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: tfpsi
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: _hjSession_3779685
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: MR
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: MR
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: MR
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: admtr
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: test
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: lidc
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: TPC
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: done_redirects271
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: rc
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1690576109
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1337645486
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1089243121
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1856549281
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1170752139
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1388357392
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ignore_69937_1475507400
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: pubsyncexp
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: done_redirects200
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: done_redirects280414
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: _sv3_7
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: __kuid
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: MR
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: bm_mi
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ak_bmsc
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ak_bmsc
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: _uetsid
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: _clsk
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: bm_sz
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: __cf_bm
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: bm_sv
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: tis_lhY
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: bm_sv
+2025-11-28T21:55:21 | DEBUG    | src.auth:load_cookies | Extended expiration for cookie: ac_r
+2025-11-28T21:55:21 | INFO     | src.auth:load_cookies | ✅ Cookies loaded from ./cookies.json (333 valid cookies)
+2025-11-28T21:55:28 | DEBUG    | src.bot:authenticate | Cookies invalid, performing fresh login...
+2025-11-28T21:55:28 | INFO     | src.auth:login | Starting login process...
+2025-11-28T21:55:28 | INFO     | src.auth:login | Navigating directly to login page: https://www.kleinanzeigen.de/m-einloggen.html
+2025-11-28T21:55:31 | DEBUG    | src.auth:accept_cookie_banner | Checking for cookie banner...
+2025-11-28T21:55:31 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Alle akzeptieren')
+2025-11-28T21:55:34 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button:has-text('Alle akzeptieren')
+2025-11-28T21:55:34 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button:has-text('Akzeptieren')
+2025-11-28T21:55:37 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button:has-text('Akzeptieren')
+2025-11-28T21:55:37 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[id*='accept']
+2025-11-28T21:55:40 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button[id*='accept']
+2025-11-28T21:55:40 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: button[class*='accept']
+2025-11-28T21:55:43 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: button[class*='accept']
+2025-11-28T21:55:43 | WARNING  | src.utils:wait_for_selector_with_fallbacks | None of the selectors matched: ["button:has-text('Alle akzeptieren')", "button:has-text('Akzeptieren')", "button[id*='accept']", "button[class*='accept']"]
+2025-11-28T21:55:43 | ERROR    | src.utils:safe_click | Could not find cookie banner to click
+2025-11-28T21:55:52 | INFO     | src.auth:login | On login page, ready to fill credentials...
+2025-11-28T21:55:52 | INFO     | src.auth:login | Filling email...
+2025-11-28T21:55:52 | DEBUG    | src.utils:random_delay | ⏳ Random delay: 4.10s
+2025-11-28T21:55:56 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[name='email']
+2025-11-28T21:56:06 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Selector not found: input[name='email']
+2025-11-28T21:56:06 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[type='email']
+2025-11-28T21:56:06 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: input[type='email']
+2025-11-28T21:56:06 | DEBUG    | src.utils:safe_fill | Filled email field with: degtyarevsemen@gmail.com...
+2025-11-28T21:56:06 | INFO     | src.auth:login | Filling password...
+2025-11-28T21:56:06 | DEBUG    | src.utils:random_delay | ⏳ Random delay: 1.56s
+2025-11-28T21:56:08 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Trying selector: input[name='password']
+2025-11-28T21:56:08 | DEBUG    | src.utils:wait_for_selector_with_fallbacks | Found element with selector: input[name='password']
+2025-11-28T21:56:08 | DEBUG    | src.utils:safe_fill | Filled password field with: SamD1990*...
+2025-11-28T21:56:08 | INFO     | src.auth:login | Submitting login form...
+2025-11-28T21:56:08 | DEBUG    | src.auth:login | Trying submit selector: button#login-submit
+2025-11-28T21:56:08 | DEBUG    | src.auth:login | Submit button found - visible: True, enabled: True
+2025-11-28T21:56:08 | DEBUG    | src.utils:random_delay | ⏳ Random delay: 6.96s
+2025-11-28T21:56:16 | INFO     | src.auth:login | ✅ Submit button clicked with: button#login-submit
+2025-11-28T21:56:16 | INFO     | src.auth:login | Waiting for login to complete...
+2025-11-28T21:56:18 | DEBUG    | src.auth:login | Initial URL: https://www.kleinanzeigen.de/m-einloggen.html
+2025-11-28T21:56:28 | WARNING  | src.auth:login | URL did not change after login attempt
+2025-11-28T21:56:37 | INFO     | src.auth:login | Current URL after login attempt: https://www.kleinanzeigen.de/m-einloggen.html
+2025-11-28T21:56:37 | WARNING  | src.auth:login | Still on login page, checking if login actually failed...
+2025-11-28T21:56:55 | WARNING  | src.auth:login | ⚠️ No error found, but still on login page - might be CAPTCHA or slow redirect
+2025-11-28T21:56:55 | DEBUG    | src.utils:take_screenshot | Screenshot saved: ./screenshots/login_still_on_page_20251128_215655.png
+2025-11-28T21:56:55 | ERROR    | src.bot:authenticate | ❌ Authentication failed
+2025-11-28T21:56:55 | ERROR    | src.bot:execute_full_workflow | ❌ Authentication failed
+2025-11-28T21:56:55 | INFO     | src.bot:close | Browser closed
+2025-11-28T21:56:55 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:56:55 | INFO     | __main__:send_and_offer | Workflow Results:
+2025-11-28T21:56:55 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:56:55 | INFO     | __main__:send_and_offer | Browser Setup: ✅
+2025-11-28T21:56:55 | INFO     | __main__:send_and_offer | Authentication: ❌
+2025-11-28T21:56:55 | INFO     | __main__:send_and_offer | Message Sent: ❌
+2025-11-28T21:56:55 | INFO     | __main__:send_and_offer | Conversation Opened: ❌
+2025-11-28T21:56:55 | INFO     | __main__:send_and_offer | Offer Sent: ❌
+2025-11-28T21:56:55 | INFO     | __main__:send_and_offer | ============================================================
+2025-11-28T21:56:55 | ERROR    | __main__:send_and_offer | ❌ Workflow failed with exit code: 1

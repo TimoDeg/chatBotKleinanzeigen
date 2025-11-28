@@ -4,8 +4,8 @@ Authentication and session management with cookie persistence.
 
 import json
 import os
+import time
 from typing import Optional
-from pathlib import Path
 
 from playwright.async_api import Browser, Page, BrowserContext
 from loguru import logger
@@ -18,12 +18,13 @@ from src.selectors import (
     PASSWORD_FIELD,
     LOGIN_SUBMIT,
 )
-from src.utils import safe_click, safe_fill, take_screenshot
+from src.utils import safe_click, safe_fill, take_screenshot, random_delay
 
 
 async def save_cookies(context: BrowserContext) -> bool:
     """
     Save browser cookies to JSON file for persistent sessions.
+    Extends cookie expiration to 30 days to keep sessions alive longer.
     
     Args:
         context: Playwright browser context
@@ -34,13 +35,33 @@ async def save_cookies(context: BrowserContext) -> bool:
     try:
         cookies = await context.cookies()
         
+        if not cookies:
+            logger.warning("No cookies to save")
+            return False
+        
+        # Extend cookie expiration (30 days from now)
+        extended_cookies = []
+        current_time = time.time()
+        expiration_extension = 30 * 24 * 60 * 60  # 30 days in seconds
+        
+        for cookie in cookies:
+            # Extend expiration if it exists
+            if 'expires' in cookie and cookie['expires'] > 0:
+                # Extend to 30 days from now
+                cookie['expires'] = int(current_time) + expiration_extension
+            elif 'expires' not in cookie:
+                # Add expiration if missing (session cookie -> persistent)
+                cookie['expires'] = int(current_time) + expiration_extension
+            
+            extended_cookies.append(cookie)
+        
         # Create directory if it doesn't exist
         os.makedirs(os.path.dirname(COOKIES_PATH) or ".", exist_ok=True)
         
         with open(COOKIES_PATH, "w", encoding="utf-8") as f:
-            json.dump(cookies, f, indent=2)
+            json.dump(extended_cookies, f, indent=2)
         
-        logger.info(f"Cookies saved to {COOKIES_PATH}")
+        logger.info(f"✅ Cookies saved to {COOKIES_PATH} (extended expiration to 30 days)")
         return True
     except Exception as e:
         logger.error(f"Failed to save cookies: {e}")
@@ -50,6 +71,7 @@ async def save_cookies(context: BrowserContext) -> bool:
 async def load_cookies(context: BrowserContext) -> bool:
     """
     Load cookies from JSON file if it exists.
+    Validates cookies and extends expiration if needed.
     
     Args:
         context: Playwright browser context
@@ -65,8 +87,36 @@ async def load_cookies(context: BrowserContext) -> bool:
         with open(COOKIES_PATH, "r", encoding="utf-8") as f:
             cookies = json.load(f)
         
-        await context.add_cookies(cookies)
-        logger.info(f"Cookies loaded from {COOKIES_PATH}")
+        if not cookies:
+            logger.debug("Cookie file is empty")
+            return False
+        
+        # Filter out expired cookies and extend valid ones
+        current_time = time.time()
+        expiration_extension = 30 * 24 * 60 * 60  # 30 days
+        
+        valid_cookies = []
+        for cookie in cookies:
+            # Check if cookie is expired
+            if 'expires' in cookie:
+                if cookie['expires'] <= current_time:
+                    continue  # Skip expired cookies
+                # Extend expiration if it's expiring soon (within 7 days)
+                elif cookie['expires'] < current_time + (7 * 24 * 60 * 60):
+                    cookie['expires'] = int(current_time) + expiration_extension
+                    logger.debug(f"Extended expiration for cookie: {cookie.get('name', 'unknown')}")
+            else:
+                # Session cookie - add expiration
+                cookie['expires'] = int(current_time) + expiration_extension
+            
+            valid_cookies.append(cookie)
+        
+        if not valid_cookies:
+            logger.debug("All cookies are expired")
+            return False
+        
+        await context.add_cookies(valid_cookies)
+        logger.info(f"✅ Cookies loaded from {COOKIES_PATH} ({len(valid_cookies)} valid cookies)")
         return True
     except Exception as e:
         logger.warning(f"Failed to load cookies: {e}")
@@ -123,9 +173,9 @@ async def login(
     try:
         logger.info("Starting login process...")
         
-        # Navigate to Kleinanzeigen
-        logger.debug("Navigating to Kleinanzeigen...")
-        await page.goto("https://www.kleinanzeigen.de", wait_until="domcontentloaded")
+        # Navigate directly to login page (as specified by user)
+        logger.info("Navigating directly to login page: https://www.kleinanzeigen.de/m-einloggen.html")
+        await page.goto("https://www.kleinanzeigen.de/m-einloggen.html", wait_until="domcontentloaded")
         await page.wait_for_timeout(2000)  # Wait for page to settle
         
         # Accept cookie banner
@@ -151,35 +201,12 @@ async def login(
             except:
                 pass
         
-        # Try to find and click login link, but don't wait too long
-        logger.info("Looking for login link...")
-        login_clicked = False
+        # We're already on the login page (navigated directly), no need to click login link
+        logger.info("On login page, ready to fill credentials...")
         
-        # Try clicking login link with shorter timeout
-        try:
-            login_clicked = await safe_click(
-                page,
-                LOGIN_LINK,
-                timeout=5,  # Short timeout
-                description="login link"
-            )
-        except Exception as e:
-            logger.debug(f"Login link click failed: {e}")
-        
-        # If login link not found, navigate directly to login page
-        if not login_clicked:
-            logger.info("Login link not found, navigating directly to login page...")
-            try:
-                await page.goto("https://www.kleinanzeigen.de/m-einloggen.html", wait_until="domcontentloaded", timeout=15000)
-                await page.wait_for_timeout(3000)
-                logger.info("Navigated to login page")
-            except Exception as e:
-                logger.error(f"Failed to navigate to login page: {e}")
-                await take_screenshot(page, prefix="login_navigation_error")
-                return False
-        
-        # Fill email - try multiple approaches
+        # Fill email - try multiple approaches with human-like typing
         logger.info("Filling email...")
+        await random_delay(1, 2)  # Wait before typing
         email_filled = await safe_fill(
             page,
             EMAIL_FIELD,
@@ -211,8 +238,9 @@ async def login(
                 return True
             return False
         
-        # Fill password - try multiple approaches
+        # Fill password - try multiple approaches with human-like typing
         logger.info("Filling password...")
+        await random_delay(1, 2)  # Wait before typing (human pause)
         password_filled = await safe_fill(
             page,
             PASSWORD_FIELD,
@@ -238,56 +266,152 @@ async def login(
             await take_screenshot(page, prefix="login_password_error")
             return False
         
-        # Submit login form - try multiple approaches
+        # Submit login form - try multiple approaches with better error handling
         logger.info("Submitting login form...")
-        submit_clicked = await safe_click(
-            page,
-            LOGIN_SUBMIT,
-            timeout=10,
-            description="login submit button"
-        )
         
-        if not submit_clicked:
-            # Try alternative: press Enter on password field or find any submit button
-            logger.warning("Standard submit button not found, trying alternatives...")
+        # First, try standard selectors
+        submit_clicked = False
+        for selector in LOGIN_SUBMIT:
             try:
-                # Try pressing Enter on password field
+                logger.debug(f"Trying submit selector: {selector}")
+                submit_button = await page.wait_for_selector(selector, timeout=5000, state="visible")
+                if submit_button:
+                    is_visible = await submit_button.is_visible()
+                    is_enabled = await submit_button.is_enabled()
+                    logger.debug(f"Submit button found - visible: {is_visible}, enabled: {is_enabled}")
+                    
+                    if is_visible and is_enabled:
+                        await submit_button.scroll_into_view_if_needed()
+                        await random_delay(1.5, 3.0)  # Longer delay before click (human behavior)
+                        
+                        # Try multiple click methods
+                        try:
+                            # First try: Normal click
+                            await submit_button.click(timeout=5000, force=False)
+                            logger.info(f"✅ Submit button clicked with: {selector}")
+                            submit_clicked = True
+                            break
+                        except Exception as e:
+                            logger.debug(f"Normal click failed: {e}, trying JavaScript click...")
+                            try:
+                                # Second try: JavaScript click (more reliable)
+                                await submit_button.evaluate("el => { el.focus(); el.click(); }")
+                                logger.info(f"✅ Submit button clicked via JavaScript: {selector}")
+                                submit_clicked = True
+                                break
+                            except Exception as e2:
+                                logger.debug(f"JavaScript click also failed: {e2}, trying force click...")
+                                try:
+                                    # Third try: Force click
+                                    await submit_button.click(timeout=5000, force=True)
+                                    logger.info(f"✅ Submit button clicked with force: {selector}")
+                                    submit_clicked = True
+                                    break
+                                except Exception as e3:
+                                    logger.debug(f"Force click also failed: {e3}")
+                                    continue
+            except Exception as e:
+                logger.debug(f"Submit selector failed: {selector} - {e}")
+                continue
+        
+        # If standard selectors failed, try alternatives
+        if not submit_clicked:
+            logger.warning("Standard submit button not found, trying alternatives...")
+            
+            # Try 1: Press Enter on password field
+            try:
                 password_input = await page.wait_for_selector("input[type='password']", timeout=3000)
                 if password_input:
+                    logger.info("Pressing Enter on password field...")
                     await password_input.press("Enter")
-                    logger.info("Pressed Enter on password field")
+                    logger.info("✅ Pressed Enter on password field")
                     submit_clicked = True
-            except:
-                # Try finding any button with "Anmelden" text
+            except Exception as e:
+                logger.debug(f"Enter on password field failed: {e}")
+            
+            # Try 2: Find any button with "Anmelden" text
+            if not submit_clicked:
                 try:
-                    submit_button = await page.wait_for_selector("button:has-text('Anmelden'), input[value*='Anmelden']", timeout=3000)
+                    submit_button = await page.wait_for_selector(
+                        "button:has-text('Anmelden'), input[value*='Anmelden'], button[type='submit']",
+                        timeout=3000
+                    )
                     if submit_button:
-                        await submit_button.click()
-                        logger.info("Clicked alternative submit button")
+                        await submit_button.scroll_into_view_if_needed()
+                        await page.wait_for_timeout(500)
+                        await submit_button.click(timeout=5000)
+                        logger.info("✅ Clicked alternative submit button")
                         submit_clicked = True
-                except:
-                    pass
+                except Exception as e:
+                    logger.debug(f"Alternative submit button failed: {e}")
+            
+            # Try 3: JavaScript click on any submit button
+            if not submit_clicked:
+                try:
+                    all_submit_buttons = await page.query_selector_all("button[type='submit'], input[type='submit']")
+                    for btn in all_submit_buttons:
+                        try:
+                            is_visible = await btn.is_visible()
+                            if is_visible:
+                                await btn.evaluate("el => el.click()")
+                                logger.info("✅ Clicked submit button via JavaScript")
+                                submit_clicked = True
+                                break
+                        except:
+                            continue
+                except Exception as e:
+                    logger.debug(f"JavaScript submit search failed: {e}")
         
+        # Last resort: Press Enter key
         if not submit_clicked:
-            logger.error("Failed to find submit button")
-            await take_screenshot(page, prefix="login_submit_error")
-            # Try pressing Enter anyway
+            logger.warning("All submit methods failed, trying Enter key as last resort...")
             try:
                 await page.keyboard.press("Enter")
-                logger.info("Pressed Enter as last resort")
+                logger.info("✅ Pressed Enter as last resort")
+                submit_clicked = True
                 await page.wait_for_timeout(2000)
-            except:
-                pass
+            except Exception as e:
+                logger.debug(f"Enter key failed: {e}")
+        
+        if not submit_clicked:
+            logger.error("❌ Failed to submit login form")
+            await take_screenshot(page, prefix="login_submit_error")
+            return False
         
         # Wait for redirect or login completion
         logger.info("Waiting for login to complete...")
-        await page.wait_for_timeout(5000)
+        await page.wait_for_timeout(2000)  # Initial wait
         
-        # Wait for navigation or page change
+        # Wait for navigation or page change - check more frequently and longer
+        initial_url = page.url
+        logger.debug(f"Initial URL: {initial_url}")
+        
+        url_changed = False
+        for i in range(20):  # Check 20 times over 10 seconds
+            await page.wait_for_timeout(500)
+            current_url = page.url
+            if current_url != initial_url:
+                logger.info(f"✅ URL changed: {initial_url} → {current_url}")
+                url_changed = True
+                break
+            # Also check if we're redirected to home page or dashboard
+            if "kleinanzeigen.de" in current_url and "einloggen" not in current_url.lower() and "login" not in current_url.lower():
+                logger.info(f"✅ Redirected away from login page: {current_url}")
+                url_changed = True
+                break
+        
+        # Wait a bit more for page to settle after redirect
+        if url_changed:
+            await page.wait_for_timeout(3000)
+        else:
+            logger.warning("URL did not change after login attempt")
+            await page.wait_for_timeout(2000)
+        
+        # Try to wait for load state, but don't fail if it times out
         try:
-            await page.wait_for_load_state("networkidle", timeout=10000)
+            await page.wait_for_load_state("domcontentloaded", timeout=5000)
         except:
-            logger.debug("Network idle timeout, continuing...")
+            logger.debug("Load state timeout, continuing...")
         
         # Check for CAPTCHA
         captcha_indicators = [
@@ -309,27 +433,71 @@ async def login(
         current_url = page.url.lower()
         logger.info(f"Current URL after login attempt: {page.url}")
         
-        # If we're still on login page, login likely failed
-        if "login" in current_url or "einloggen" in current_url:
-            logger.warning("Still on login page, checking if login actually failed...")
-            # Check if there's an error message
+        # Check if we're actually logged in, even if still on login page
+        # Sometimes the URL doesn't change but login is successful
+        logger.info("Checking if login was successful (even if URL didn't change)...")
+        
+        # Check for logged-in indicators on the page
+        logged_in_indicators = [
+            "a[href*='/nachrichtenbox']",
+            "a[href*='/meine-anzeigen']",
+            "[class*='user-menu']",
+            "a:has-text('Meine Anzeigen')",
+            "a:has-text('Nachrichten')",
+            "[data-testid*='user-menu']",
+            "[data-qa*='user-menu']",
+        ]
+        
+        login_successful = False
+        for indicator in logged_in_indicators:
             try:
-                error_element = await page.wait_for_selector(
-                    "[class*='error'], [class*='alert'], text=/fehler|ungültig|falsch/i",
-                    timeout=3000
-                )
-                if error_element:
-                    error_text = await error_element.text_content()
-                    logger.error(f"Login error detected: {error_text}")
-                    await take_screenshot(page, prefix="login_error_detected")
-                    return False
+                element = await page.wait_for_selector(indicator, timeout=3000)
+                if element:
+                    is_visible = await element.is_visible()
+                    if is_visible:
+                        logger.info(f"✅ Login successful! Found logged-in indicator: {indicator}")
+                        login_successful = True
+                        break
             except:
-                pass
-            
-            # If no error, might be a different login page layout
-            logger.warning("No error found, but still on login page")
-            await take_screenshot(page, prefix="login_still_on_page")
-            return False
+                continue
+        
+        # If still on login page but no logged-in indicators found, check for errors
+        if "login" in current_url or "einloggen" in current_url:
+            if not login_successful:
+                logger.warning("Still on login page, checking if login actually failed...")
+                
+                # Check for error messages
+                error_found = False
+                error_selectors = [
+                    "[class*='error']",
+                    "[class*='alert']",
+                    "[class*='warning']",
+                    "[id*='error']",
+                    "text=/fehler/i",
+                    "text=/ungültig/i",
+                    "text=/falsch/i",
+                ]
+                
+                for selector in error_selectors:
+                    try:
+                        error_element = await page.wait_for_selector(selector, timeout=2000)
+                        if error_element:
+                            error_text = await error_element.text_content()
+                            if error_text and len(error_text.strip()) > 0 and "fehler" in error_text.lower():
+                                logger.error(f"❌ Login error detected: {error_text[:100]}")
+                                await take_screenshot(page, prefix="login_error_detected")
+                                error_found = True
+                                break
+                    except:
+                        continue
+                
+                if error_found:
+                    return False
+                
+                # If no error and no login indicators, might be CAPTCHA or slow redirect
+                logger.warning("⚠️ No error found, but still on login page - might be CAPTCHA or slow redirect")
+                await take_screenshot(page, prefix="login_still_on_page")
+                return False
         
         # Check for logged-in indicators
         logger.info("Checking for logged-in indicators...")
