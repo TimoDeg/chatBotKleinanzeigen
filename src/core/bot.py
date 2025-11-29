@@ -164,7 +164,7 @@ class KleinanzeigenBot:
                 return result
             result["steps_completed"].append("auth")
             
-            # Step 3: Send message (with modal + offer)
+            # Step 3: Send message + make offer (combined)
             msg_result = await self.message_manager.send_message(
                 listing_url=listing_url,
                 message=message,
@@ -174,23 +174,15 @@ class KleinanzeigenBot:
                 shipping_cost=shipping_cost,
                 fast_mode=True,
             )
-            if not msg_result["success"]:
-                result["errors"].append("Message failed")
+            if not msg_result.get("message_sent"):
+                result["errors"].append("Message sending failed")
                 return result
-            result["steps_completed"].append("message")
-            
-            # Step 4: Navigate to conversation
-            conv_url = msg_result.get("conversation_url")
-            if not await self.nav_manager.navigate_to_conversation(conv_url):
-                result["errors"].append("Navigation failed")
+            result["steps_completed"].append("message_sent")
+
+            if not msg_result.get("offer_made"):
+                result["errors"].append("Offer making failed")
                 return result
-            result["steps_completed"].append("navigation")
-            
-            # Step 5: Make offer
-            if not await self.offer_manager.make_offer(price, delivery, shipping_cost, note):
-                result["errors"].append("Offer failed")
-                return result
-            result["steps_completed"].append("offer")
+            result["steps_completed"].append("offer_made")
             
             # Success
             result["success"] = True

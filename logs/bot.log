@@ -1,0 +1,238 @@
+2025-11-29 06:33:11 | INFO     | 🚀 Kleinanzeigen Bot v2.0
+2025-11-29 06:33:11 | INFO     | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:33:11 | INFO     | Offer: €100.0 (pickup)
+2025-11-29 06:33:11 | INFO     | Headless: False
+2025-11-29 06:33:11 | INFO     | ⚠️  Force login enabled
+2025-11-29 06:33:11 | INFO     | 🔧 Setting up browser with anti-detection...
+2025-11-29 06:33:14 | INFO     | ✅ Browser setup successful (Viewport: 1411x929)
+2025-11-29 06:33:14 | INFO     | ✅ Cookies loaded: 323 valid cookies
+2025-11-29 06:33:14 | INFO     | 🔐 Performing login...
+2025-11-29 06:33:14 | INFO     | 🔐 Logging in...
+2025-11-29 06:33:15 | DEBUG    | ⏳ 3.62s (navigating)
+2025-11-29 06:33:18 | DEBUG    | Cookies loaded - skipping cookie banner
+2025-11-29 06:33:28 | DEBUG    | Found: EMAIL_FIELD [2/6]
+2025-11-29 06:33:34 | DEBUG    | Found: PASSWORD_FIELD [1/6]
+2025-11-29 06:33:38 | DEBUG    | Found: LOGIN_SUBMIT [1/10]
+2025-11-29 06:33:47 | INFO     | ✅ Login successful
+2025-11-29 06:33:47 | INFO     | 💬 Sending message to: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:33:47 | INFO     | Navigating to listing...
+2025-11-29 06:33:47 | DEBUG    | ⚡ 0.75s
+2025-11-29 06:33:48 | DEBUG    | ⚡ 0.57s
+2025-11-29 06:33:49 | INFO     | Searching for 'Nachricht schreiben' button...
+2025-11-29 06:33:49 | INFO     | ✅ Found 'Nachricht schreiben' via role locator
+2025-11-29 06:33:49 | INFO     | ✅ Button found, clicking...
+2025-11-29 06:33:50 | INFO     | Waiting for message page to load...
+2025-11-29 06:33:50 | DEBUG    | ⚡ 0.62s
+2025-11-29 06:33:51 | INFO     | Filling message...
+2025-11-29 06:34:21 | DEBUG    | Human type failed, using fallback: ElementHandle.click: Timeout 30000ms exceeded.
+Call log:
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <textarea rows="4" data-empty="true" id="message-textarea-input" aria-describedby="message-textarea-input-help-text" class="peer size-full rounded-medium border border-solid text-bodyRegular text-onSurface m-none box-border resize-y  px-medium outline-none min-h-[98px] focus:outline-none focus:ring-0 bg-surface scroll-pt-[1.3125rem] pt-[1.3125rem] border-utility hover:border-onSurface focus:border-onSurface focus:outline focus:outline-2 focus:outline-offset-[-1px] focus:outline-onSurface"></textarea> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  2 × retrying click action
+      - waiting 100ms
+      - waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  13 × retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <textarea rows="4" data-empty="true" id="message-textarea-input" aria-describedby="message-textarea-input-help-text" class="peer size-full rounded-medium border border-solid text-bodyRegular text-onSurface m-none box-border resize-y  px-medium outline-none min-h-[98px] focus:outline-none focus:ring-0 bg-surface scroll-pt-[1.3125rem] pt-[1.3125rem] border-utility hover:border-onSurface focus:border-onSurface focus:outline focus:outline-2 focus:outline-offset-[-1px] focus:outline-onSurface"></textarea> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  - retrying click action
+    - waiting 500ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  - retrying click action
+    - waiting 500ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <textarea rows="4" data-empty="true" id="message-textarea-input" aria-describedby="message-textarea-input-help-text" class="peer size-full rounded-medium border border-solid text-bodyRegular text-onSurface m-none box-border resize-y  px-medium outline-none min-h-[98px] focus:outline-none focus:ring-0 bg-surface scroll-pt-[1.3125rem] pt-[1.3125rem] border-utility hover:border-onSurface focus:border-onSurface focus:outline focus:outline-2 focus:outline-offset-[-1px] focus:outline-onSurface"></textarea> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  - retrying click action
+    - waiting 500ms
+
+2025-11-29 06:34:22 | INFO     | ✅ Message filled
+2025-11-29 06:34:22 | INFO     | Searching for 'Senden' button...
+2025-11-29 06:34:22 | INFO     | ✅ Found 'Senden' via role locator
+2025-11-29 06:34:22 | INFO     | ✅ Clicking 'Senden' to send message...
+2025-11-29 06:34:22 | DEBUG    | ⚡ 0.60s
+2025-11-29 06:34:33 | INFO     | ✅ Message sent successfully
+2025-11-29 06:34:33 | INFO     | Waiting for page to update...
+2025-11-29 06:34:33 | DEBUG    | ⚡ 0.76s
+2025-11-29 06:34:34 | INFO     | Searching for 'Angebot machen' button...
+2025-11-29 06:35:29 | WARNING  | Not found: OFFER_BUTTON (tried 10 selectors)
+2025-11-29 06:35:29 | WARNING  | ⚠️  'Angebot machen' button not found, skipping offer
+2025-11-29 06:35:29 | DEBUG    | Browser closed
+2025-11-29 06:35:29 | ERROR    | ❌ Workflow failed: Offer making failed
+2025-11-29 06:42:59 | INFO     | 🚀 Kleinanzeigen Bot v2.0
+2025-11-29 06:42:59 | INFO     | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:42:59 | INFO     | Offer: €100.0 (shipping)
+2025-11-29 06:42:59 | INFO     | Headless: False
+2025-11-29 06:42:59 | INFO     | ⚠️  Force login enabled
+2025-11-29 06:42:59 | INFO     | 🔧 Setting up browser with anti-detection...
+2025-11-29 06:43:02 | INFO     | ✅ Browser setup successful (Viewport: 1372x890)
+2025-11-29 06:43:02 | INFO     | ✅ Cookies loaded: 323 valid cookies
+2025-11-29 06:43:02 | INFO     | 🔐 Performing login...
+2025-11-29 06:43:02 | INFO     | 🔐 Logging in...
+2025-11-29 06:43:02 | DEBUG    | ⏳ 2.06s (navigating)
+2025-11-29 06:43:04 | DEBUG    | Cookies loaded - skipping cookie banner
+2025-11-29 06:43:15 | DEBUG    | Found: EMAIL_FIELD [2/6]
+2025-11-29 06:43:21 | DEBUG    | Found: PASSWORD_FIELD [1/6]
+2025-11-29 06:43:24 | DEBUG    | Found: LOGIN_SUBMIT [1/10]
+2025-11-29 06:43:33 | INFO     | ✅ Login successful
+2025-11-29 06:43:33 | INFO     | 💬 Sending message with offer to: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:43:33 | INFO     | Navigating to listing...
+2025-11-29 06:43:34 | INFO     | Searching for 'Nachricht schreiben' button...
+2025-11-29 06:43:35 | INFO     | ✅ Found button via role locator
+2025-11-29 06:43:35 | INFO     | ✅ Clicking 'Nachricht schreiben'...
+2025-11-29 06:43:35 | DEBUG    | ⚡ 0.71s
+2025-11-29 06:43:36 | INFO     | Waiting for modal to open...
+2025-11-29 06:43:40 | WARNING  | ⚠️  Modal not detected by role=dialog, continuing...
+2025-11-29 06:43:40 | DEBUG    | ⚡ 0.70s
+2025-11-29 06:43:41 | INFO     | Filling 'Nachricht*' field...
+2025-11-29 06:43:41 | INFO     | ✅ Found textarea by ID
+2025-11-29 06:43:43 | DEBUG    | ⚡ 0.80s
+2025-11-29 06:43:44 | INFO     | ✅ Nachricht filled
+2025-11-29 06:43:44 | INFO     | Filling 'Profilname*' field...
+2025-11-29 06:43:46 | DEBUG    | Profilname field not found or already filled
+2025-11-29 06:43:46 | INFO     | Enabling 'Preisangebot mit Käuferschutz'...
+2025-11-29 06:43:48 | DEBUG    | Käuferschutz toggle not found or already enabled
+2025-11-29 06:43:48 | INFO     | Filling 'Betrag' field...
+2025-11-29 06:43:53 | ERROR    | ❌ Betrag input not found
+2025-11-29 06:43:54 | DEBUG    | Screenshot saved: screenshots/error_betrag_input_20251129_064353.png
+2025-11-29 06:43:54 | DEBUG    | Browser closed
+2025-11-29 06:43:54 | ERROR    | ❌ Workflow failed: Message sending failed
+2025-11-29 06:46:38 | INFO     | 🚀 Kleinanzeigen Bot v2.0
+2025-11-29 06:46:38 | INFO     | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:46:38 | INFO     | Offer: €100.0 (shipping)
+2025-11-29 06:46:38 | INFO     | Headless: False
+2025-11-29 06:46:38 | INFO     | ⚠️  Force login enabled
+2025-11-29 06:46:38 | INFO     | 🔧 Setting up browser with anti-detection...
+2025-11-29 06:46:41 | INFO     | ✅ Browser setup successful (Viewport: 1578x980)
+2025-11-29 06:46:42 | INFO     | ✅ Cookies loaded: 323 valid cookies
+2025-11-29 06:46:42 | INFO     | 🔐 Performing login...
+2025-11-29 06:46:42 | INFO     | 🔐 Logging in...
+2025-11-29 06:46:42 | DEBUG    | ⏳ 2.24s (navigating)
+2025-11-29 06:46:45 | DEBUG    | Cookies loaded - skipping cookie banner
+2025-11-29 06:46:55 | DEBUG    | Found: EMAIL_FIELD [2/6]
+2025-11-29 06:47:03 | DEBUG    | Found: PASSWORD_FIELD [1/6]
+2025-11-29 06:47:07 | DEBUG    | Found: LOGIN_SUBMIT [1/10]
+2025-11-29 06:47:15 | INFO     | ✅ Login successful
+2025-11-29 06:47:15 | INFO     | 💬 Sending message with offer to: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:47:15 | INFO     | Navigating to listing...
+2025-11-29 06:47:16 | DEBUG    | ⚡ 0.60s
+2025-11-29 06:47:17 | INFO     | Searching for 'Nachricht schreiben' button...
+2025-11-29 06:47:17 | INFO     | ✅ Found button via role locator
+2025-11-29 06:47:17 | INFO     | ✅ Clicking 'Nachricht schreiben'...
+2025-11-29 06:47:19 | INFO     | Waiting for modal to open...
+2025-11-29 06:47:23 | WARNING  | ⚠️  Modal not detected by role=dialog, continuing...
+2025-11-29 06:47:23 | INFO     | Filling 'Nachricht*' field...
+2025-11-29 06:47:23 | INFO     | ✅ Found textarea by ID
+2025-11-29 06:47:24 | DEBUG    | ⚡ 0.76s
+2025-11-29 06:47:24 | DEBUG    | ⚡ 0.69s
+2025-11-29 06:47:25 | INFO     | ✅ Nachricht filled
+2025-11-29 06:47:25 | INFO     | Filling 'Profilname*' field...
+2025-11-29 06:47:27 | DEBUG    | Profilname field not found or already filled
+2025-11-29 06:47:27 | INFO     | Enabling 'Preisangebot mit Käuferschutz'...
+2025-11-29 06:47:28 | INFO     | ✅ Käuferschutz toggle enabled
+2025-11-29 06:47:28 | INFO     | Filling 'Betrag' field...
+2025-11-29 06:47:28 | INFO     | ✅ Betrag: 100,00 €
+2025-11-29 06:47:29 | INFO     | Selecting 'Versandmethode*' (DHL)...
+2025-11-29 06:47:59 | INFO     | ✅ Versandmethode: First option selected
+2025-11-29 06:47:59 | INFO     | Searching for 'Senden' button in modal...
+2025-11-29 06:48:00 | INFO     | ✅ Found 'Senden' button via role locator
+2025-11-29 06:48:00 | INFO     | ✅ Clicking 'Senden' button...
+2025-11-29 06:48:00 | DEBUG    | ⚡ 0.74s
+2025-11-29 06:48:03 | INFO     | ✅✅✅ Message with offer sent successfully! ✅✅✅
+2025-11-29 06:48:03 | INFO     | ✅ Cookies saved: 389 cookies
+2025-11-29 06:48:03 | INFO     | ✅✅✅ Workflow completed successfully ✅✅✅
+2025-11-29 06:48:04 | DEBUG    | Browser closed
+2025-11-29 06:48:04 | INFO     | ✅✅✅ Workflow completed successfully ✅✅✅
+2025-11-29 06:50:43 | INFO     | 🚀 Kleinanzeigen Bot v2.0
+2025-11-29 06:50:43 | INFO     | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:50:43 | INFO     | Offer: €100.0 (shipping)
+2025-11-29 06:50:43 | INFO     | Headless: False
+2025-11-29 06:50:43 | INFO     | ⚠️  Force login enabled
+2025-11-29 06:50:43 | INFO     | 🔧 Setting up browser with anti-detection...
+2025-11-29 06:50:45 | INFO     | ✅ Browser setup successful (Viewport: 1467x813)
+2025-11-29 06:50:46 | INFO     | ✅ Cookies loaded: 383 valid cookies
+2025-11-29 06:50:46 | INFO     | 🔐 Performing login...
+2025-11-29 06:50:46 | INFO     | 🔐 Logging in...
+2025-11-29 06:50:48 | DEBUG    | Cookies loaded - skipping cookie banner
+2025-11-29 06:50:58 | DEBUG    | Found: EMAIL_FIELD [2/6]
+2025-11-29 06:51:03 | DEBUG    | Found: PASSWORD_FIELD [1/6]
+2025-11-29 06:51:09 | DEBUG    | Found: LOGIN_SUBMIT [1/10]
+2025-11-29 06:51:17 | INFO     | ✅ Login successful
+2025-11-29 06:51:17 | INFO     | 💬 Sending message with offer to: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:51:17 | INFO     | Navigating to listing...
+2025-11-29 06:51:18 | DEBUG    | ⚡ 0.73s
+2025-11-29 06:51:19 | DEBUG    | ⚡ 0.80s
+2025-11-29 06:51:19 | INFO     | Searching for 'Nachricht schreiben' button...
+2025-11-29 06:51:19 | INFO     | ✅ Found button via role locator
+2025-11-29 06:51:19 | INFO     | ✅ Clicking 'Nachricht schreiben'...
+2025-11-29 06:51:21 | INFO     | Waiting for modal to open...
+2025-11-29 06:51:25 | WARNING  | ⚠️  Modal not detected by role=dialog, continuing...
+2025-11-29 06:51:26 | INFO     | Filling 'Nachricht*' field...
+2025-11-29 06:51:26 | INFO     | ✅ Found textarea by ID
+2025-11-29 06:51:26 | DEBUG    | ⚡ 0.75s
+2025-11-29 06:51:27 | INFO     | ✅ Nachricht filled
+2025-11-29 06:51:27 | INFO     | Filling 'Profilname*' field...
+2025-11-29 06:51:29 | DEBUG    | Profilname field not found or already filled
+2025-11-29 06:51:29 | INFO     | Enabling 'Preisangebot mit Käuferschutz'...
+2025-11-29 06:51:29 | INFO     | ✅ Käuferschutz toggle enabled
+2025-11-29 06:51:30 | INFO     | Filling 'Betrag' field...
+2025-11-29 06:51:30 | DEBUG    | ⚡ 0.61s
+2025-11-29 06:51:31 | INFO     | ✅ Betrag: 100,00 €
+2025-11-29 06:51:31 | DEBUG    | ⚡ 0.74s
+2025-11-29 06:51:31 | INFO     | Selecting 'Versandmethode*' (first option)...
+2025-11-29 06:51:31 | INFO     | ✅ Versandmethode: first real option selected (index 2)
+2025-11-29 06:51:32 | INFO     | Searching for final 'Senden' button in modal...
+2025-11-29 06:51:32 | INFO     | ✅ Found 'Senden' button via ID+data-testid
+2025-11-29 06:51:32 | INFO     | ✅ Clicking final 'Senden' button to submit offer...
+2025-11-29 06:51:32 | DEBUG    | ⚡ 0.69s
+2025-11-29 06:51:35 | INFO     | ✅ Message + offer successfully submitted via modal
+2025-11-29 06:51:35 | INFO     | ✅✅✅ Full modal workflow completed ✅✅✅
+2025-11-29 06:51:35 | INFO     | ✅ Cookies saved: 400 cookies
+2025-11-29 06:51:35 | INFO     | ✅✅✅ Workflow completed successfully ✅✅✅
+2025-11-29 06:51:35 | DEBUG    | Browser closed
+2025-11-29 06:51:35 | INFO     | ✅✅✅ Workflow completed successfully ✅✅✅

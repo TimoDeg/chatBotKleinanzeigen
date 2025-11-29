@@ -216,6 +216,11 @@ ALL_SELECTORS: Dict[str, List[str]] = {
         "li:first-child a[href*='nachricht']",
     ],
     "OFFER_BUTTON": [
+        # Text-based (Playwright :text-is)
+        "button:text-is('Angebot machen')",
+        "button:text-is('Angebot unterbreiten')",
+        "button:text('Angebot')",
+        # Legacy selectors / fallbacks
         "button:has-text('Angebot machen')",
         "button:has-text('Angebot unterbreiten')",
         "button:has-text('Angebot')",

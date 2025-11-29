@@ -39,182 +39,293 @@ class MessageManager:
         fast_mode: bool = True,
     ) -> Dict:
         """
-        Send message with offer via modal dialog.
+        Send message with offer via modal.
+
+        Complete workflow:
+        1. Click "Nachricht schreiben" button
+        2. Modal opens "Verkäufer kontaktieren"
+        3. Fill all modal fields (Nachricht, Profilname, Betrag, Versandmethode)
+        4. Click "Senden" in modal
         """
-        result: Dict[str, Optional[str]] = {"success": False, "message_sent": False}
-        
+        result: Dict[str, object] = {
+            "success": False,
+            "message_sent": False,
+            "offer_made": False,
+        }
+
         try:
-            logger.info(f"💬 Sending message to: {listing_url}")
-            
-            # Navigate
-            logger.info("Navigating...")
+            logger.info(f"💬 Sending message with offer to: {listing_url}")
+
+            # ============================================================
+            # STEP 1: Navigate to listing
+            # ============================================================
+            logger.info("Navigating to listing...")
             await self.page.goto(listing_url, wait_until="domcontentloaded")
             await self.human.delay("navigating", fast_mode=fast_mode)
-            
-            # Scroll
+
             await self.page.evaluate("window.scrollBy(0, 300)")
             await self.human.delay("default", fast_mode=fast_mode)
-            
-            # 1st try: direct role-based locator (fast & robust)
-            logger.info("Searching for message button (primary locator)...")
+
+            # ============================================================
+            # STEP 2: Click "Nachricht schreiben" button
+            # ============================================================
+            logger.info("Searching for 'Nachricht schreiben' button...")
             msg_btn = None
+
             try:
+                # Try role-based locator
                 locator = self.page.get_by_role("button", name="Nachricht schreiben")
-                # wait_for ensures it is attached & visible
                 await locator.first.wait_for(timeout=5000)
                 msg_btn = locator.first
-                logger.info("✅ Found message button via role locator")
+                logger.info("✅ Found button via role locator")
             except Exception:
-                logger.debug("Primary role locator failed, falling back to selector list...")
-                # 2nd try: use selector manager with tuned timeout
-                logger.info("Searching for message button (fallback selectors)...")
+                # Fallback to selectors
                 msg_btn = await self.selectors.find(
                     self.page,
                     "MESSAGE_BUTTON",
                     timeout=5000,
                 )
-            
+
             if not msg_btn:
-                logger.error("❌ Message button not found")
+                logger.error("❌ 'Nachricht schreiben' button not found")
                 await take_screenshot(self.page, "error_message_button")
                 return result
-            
-            logger.info("✅ Button found, clicking...")
+
+            logger.info("✅ Clicking 'Nachricht schreiben'...")
             await msg_btn.scroll_into_view_if_needed()
             await self.human.delay("default", fast_mode=fast_mode)
             await msg_btn.click()
-            
-            # Wait for modal
-            logger.info("Waiting for modal...")
-            await self.human.delay("navigating", fast_mode=fast_mode)
-            
-            modal = await self.selectors.find(
-                self.page,
-                "MODAL_CONTAINER",
-                timeout=5000,
-            )
-            
-            if modal:
-                logger.info("✅ Modal detected")
-            else:
-                logger.warning("⚠️  Modal not detected, continuing...")
-            
-            # Fill message textarea IN MODAL
-            logger.info("Filling message...")
-            textarea = await self.selectors.find(
-                self.page,
-                "MODAL_MESSAGE_TEXTAREA",
-                timeout=5000,
-            )
-            
-            if not textarea:
-                logger.error("❌ Textarea not found in modal")
-                await take_screenshot(self.page, "error_modal_textarea")
-                return result
-            
-            # Use JS focus instead of click to avoid backdrop intercepting pointer events
-            await textarea.evaluate("el => el.focus()")
-            await self.human.delay("default", fast_mode=fast_mode)
-            await self.human.human_type(textarea, message)
-            await self.human.delay("default", fast_mode=fast_mode)
-            logger.info("✅ Message filled")
-            
-            # Fill profile name
+
+            # Wait for modal to appear
+            logger.info("Waiting for modal to open...")
+            await self.page.wait_for_timeout(1500)
+
+            # ============================================================
+            # STEP 3: Wait for modal to be fully loaded
+            # ============================================================
             try:
-                profile_input = await self.selectors.find(
-                    self.page,
-                    "MODAL_PROFILE_NAME_INPUT",
+                await self.page.wait_for_selector(
+                    "div[role='dialog']",
+                    state="visible",
+                    timeout=3000,
+                )
+                logger.info("✅ Modal opened")
+            except Exception:
+                logger.warning("⚠️  Modal not detected by role=dialog, continuing...")
+
+            await self.human.delay("default", fast_mode=fast_mode)
+
+            # ============================================================
+            # STEP 4: Fill "Nachricht*" textarea in modal
+            # ============================================================
+            logger.info("Filling 'Nachricht*' field...")
+
+            textarea = None
+            try:
+                textarea = await self.page.wait_for_selector(
+                    "textarea#message-textarea-input",
+                    state="visible",
+                    timeout=3000,
+                )
+                logger.info("✅ Found textarea by ID")
+            except Exception:
+                try:
+                    textarea = await self.page.wait_for_selector(
+                        "div[role='dialog'] textarea",
+                        state="visible",
+                        timeout=3000,
+                    )
+                    logger.info("✅ Found textarea in dialog")
+                except Exception:
+                    logger.error("❌ Nachricht textarea not found")
+                    await take_screenshot(self.page, "error_modal_textarea")
+                    return result
+
+            # Fill message
+            try:
+                await textarea.click(force=True)
+                await self.human.delay("default", fast_mode=fast_mode)
+                await textarea.fill(message)
+            except Exception:
+                # Fallback: JavaScript fill
+                logger.debug("Click failed, using JS fill...")
+                await textarea.evaluate(
+                    "el => { el.value = arguments[0]; el.dispatchEvent(new Event('input', { bubbles: true })); }",
+                    message,
+                )
+
+            await self.human.delay("default", fast_mode=fast_mode)
+            logger.info("✅ Nachricht filled")
+
+            # ============================================================
+            # STEP 5: Fill "Profilname*" input
+            # ============================================================
+            logger.info("Filling 'Profilname*' field...")
+            try:
+                profile_input = await self.page.wait_for_selector(
+                    "input[placeholder*='Profilname'], input[id*='profile'], div[role='dialog'] input[type='text']",
+                    state="visible",
                     timeout=2000,
                 )
                 if profile_input:
+                    await profile_input.click(force=True)
                     await profile_input.fill(profile_name)
-                    logger.info(f"✅ Profile name: {profile_name}")
+                    logger.info(f"✅ Profilname: {profile_name}")
             except Exception:
-                logger.debug("Profile name field not required")
-            
-            # Fill offer amount
-            logger.info("Filling offer amount...")
-            amount_input = await self.selectors.find(
-                self.page,
-                "MODAL_OFFER_AMOUNT_INPUT",
-                timeout=5000,
-            )
-            
-            if not amount_input:
-                logger.error("❌ Amount input not found")
-                await take_screenshot(self.page, "error_modal_amount")
-                return result
-            
-            await amount_input.click()
+                logger.debug("Profilname field not found or already filled")
+
+            await self.human.delay("default", fast_mode=fast_mode)
+
+            # ============================================================
+            # STEP 6: Enable "Preisangebot mit Käuferschutz" toggle
+            # ============================================================
+            if enable_buyer_protection:
+                logger.info("Enabling 'Preisangebot mit Käuferschutz'...")
+                try:
+                    # Specific toggle button from HTML: role="switch", name="MessageOfferCombined__toggle"
+                    toggle = await self.page.wait_for_selector(
+                        "button[name='MessageOfferCombined__toggle'], [role='switch'][name='MessageOfferCombined__toggle']",
+                        state="visible",
+                        timeout=3000,
+                    )
+                    if toggle:
+                        aria_checked = await toggle.get_attribute("aria-checked")
+                        is_checked = aria_checked == "true"
+                        if not is_checked:
+                            await toggle.click(force=True)
+                            logger.info("✅ Käuferschutz toggle enabled")
+                        else:
+                            logger.info("✅ Käuferschutz already enabled")
+                except Exception:
+                    logger.debug("Käuferschutz toggle not found or already enabled")
+
+            await self.human.delay("default", fast_mode=fast_mode)
+
+            # ============================================================
+            # STEP 7: Fill "Betrag" (price) input
+            # ============================================================
+            logger.info("Filling 'Betrag' field...")
+
+            amount_input = None
+            try:
+                amount_input = await self.page.wait_for_selector(
+                    "input[placeholder*='Betrag'], input[id*='price'], input[id*='amount'], div[role='dialog'] input[type='number']",
+                    state="visible",
+                    timeout=3000,
+                )
+            except Exception:
+                try:
+                    amount_input = await self.page.wait_for_selector(
+                        "div[role='dialog'] input[type='number']",
+                        state="visible",
+                        timeout=2000,
+                    )
+                except Exception:
+                    logger.error("❌ Betrag input not found")
+                    await take_screenshot(self.page, "error_betrag_input")
+                    return result
+
+            await amount_input.click(force=True)
             await amount_input.fill("")
             await self.human.delay("default", fast_mode=fast_mode)
-            
-            # German format: 100,00
+
             amount_str = f"{offer_price:.2f}".replace(".", ",")
             await amount_input.fill(amount_str)
-            logger.info(f"✅ Amount: {amount_str} €")
-            
-            # Select shipping if needed
-            if delivery in ["shipping", "both"] and shipping_cost:
+            logger.info(f"✅ Betrag: {amount_str} €")
+
+            await self.human.delay("default", fast_mode=fast_mode)
+
+            # ============================================================
+            # STEP 8: Select "Versandmethode*" (first real option)
+            # ============================================================
+            if delivery in ["shipping", "both"]:
+                logger.info("Selecting 'Versandmethode*' (first option)...")
                 try:
-                    shipping_select = await self.selectors.find(
-                        self.page,
-                        "MODAL_SHIPPING_SELECT",
+                    # Your HTML: <select id="shipping-select"> with several options
+                    shipping_select = await self.page.wait_for_selector(
+                        "select#shipping-select, div[role='dialog'] select#shipping-select, div[role='dialog'] select",
+                        state="visible",
                         timeout=3000,
                     )
                     if shipping_select:
-                        await shipping_select.select_option(index=1)
-                        logger.info("✅ Shipping selected")
+                        # Prefer first non-placeholder option by index
+                        # Index 0: "Bitte auswählen" (disabled)
+                        # Index 1: empty filler, Index 2+: real options
+                        try:
+                            await shipping_select.select_option(index=2)
+                            logger.info("✅ Versandmethode: first real option selected (index 2)")
+                        except Exception:
+                            # Fallback: any value except -1 / empty
+                            options = await shipping_select.evaluate(
+                                """(el) => Array.from(el.options)
+                                .map(o => ({ value: o.value, disabled: o.disabled }))"""
+                            )
+                            valid_values = [
+                                o["value"]
+                                for o in options
+                                if o["value"] not in ("", "-1") and not o["disabled"]
+                            ]
+                            if valid_values:
+                                await shipping_select.select_option(valid_values[0])
+                                logger.info(f"✅ Versandmethode selected value='{valid_values[0]}'")
+                            else:
+                                logger.warning("⚠️  No valid shipping options found")
                 except Exception:
-                    logger.warning("⚠️  Shipping selection failed")
-            
-            # Toggle buyer protection
-            if enable_buyer_protection:
-                try:
-                    toggle = await self.selectors.find(
-                        self.page,
-                        "MODAL_BUYER_PROTECTION_TOGGLE",
-                        timeout=2000,
-                    )
-                    if toggle:
-                        is_checked = await toggle.is_checked()
-                        if not is_checked:
-                            await toggle.click()
-                            logger.info("✅ Käuferschutz enabled")
-                except Exception:
-                    logger.debug("Buyer protection not found")
-            
-            # Wait before submit
+                    logger.warning("⚠️  Versandmethode dropdown not found")
+
             await self.human.delay("thinking", fast_mode=fast_mode)
-            
-            # Click send in modal
-            logger.info("Clicking send button...")
-            send_btn = await self.selectors.find(
-                self.page,
-                "MODAL_SEND_BUTTON",
-                timeout=5000,
-            )
-            
-            if not send_btn:
-                logger.error("❌ Send button not found")
-                await take_screenshot(self.page, "error_modal_send_button")
-                return result
-            
+
+            # ============================================================
+            # STEP 9: Click "Senden" button in modal
+            # ============================================================
+            logger.info("Searching for final 'Senden' button in modal...")
+            send_btn = None
+            try:
+                # Most specific: your button with id + data-testid
+                send_btn = await self.page.wait_for_selector(
+                    "button#message-submit-button[data-testid='message-submit-button']",
+                    state="visible",
+                    timeout=3000,
+                )
+                logger.info("✅ Found 'Senden' button via ID+data-testid")
+            except Exception:
+                try:
+                    locator = self.page.get_by_role("button", name="Senden")
+                    await locator.first.wait_for(state="visible", timeout=3000)
+                    send_btn = locator.first
+                    logger.info("✅ Found 'Senden' button via role locator")
+                except Exception:
+                    try:
+                        send_btn = await self.page.wait_for_selector(
+                            "div[role='dialog'] button:has-text('Senden')",
+                            state="visible",
+                            timeout=3000,
+                        )
+                        logger.info("✅ Found 'Senden' button in dialog via text")
+                    except Exception:
+                        logger.error("❌ 'Senden' button not found in modal")
+                        await take_screenshot(self.page, "error_send_button_modal")
+                        return result
+
+            logger.info("✅ Clicking final 'Senden' button to submit offer...")
             await send_btn.scroll_into_view_if_needed()
             await self.human.delay("default", fast_mode=fast_mode)
-            await send_btn.click()
-            
+            await send_btn.click(force=True)
+
+            # Wait for submission / modal close
             await self.page.wait_for_timeout(2000)
-            
-            logger.info("✅ Message with offer sent!")
+
+            logger.info("✅ Message + offer successfully submitted via modal")
+            logger.info("✅✅✅ Full modal workflow completed ✅✅✅")
             result["success"] = True
             result["message_sent"] = True
-            
+            result["offer_made"] = True
+
             return result
-        
+
         except Exception as e:
-            logger.error(f"❌ Exception: {e}")
-            await take_screenshot(self.page, "error_send_exception")
+            logger.error(f"❌ Exception in send_message: {e}")
+            await take_screenshot(self.page, "error_send_message_exception")
             import traceback
             logger.debug(traceback.format_exc())
             return result
