@@ -47,9 +47,12 @@ class MessageManager:
             await self.human.delay("navigating")
             
             # 2. Scroll down to trigger lazy-loading (IMPORTANT!)
-            logger.info("Scrolling to load dynamic content...")
+            logger.info("Scrolling to trigger lazy-loaded content...")
             await self.page.evaluate("window.scrollBy(0, 300)")
             await self.human.delay("default")
+            
+            # Additional wait for dynamic content
+            await self.page.wait_for_timeout(2000)
             
             # 3. Find message button
             logger.info("Searching for message button...")
@@ -80,67 +83,73 @@ class MessageManager:
                     for link in all_links:
                         try:
                             text = await link.inner_text()
-                            href = await link.get_attribute("href")
-                            id_attr = await link.get_attribute("id")
-                            class_attr = await link.get_attribute("class")
+                            href = await link.get_attribute("href") or ""
+                            id_attr = await link.get_attribute("id") or ""
+                            class_attr = await link.get_attribute("class") or ""
+                            tag_name = await link.evaluate("el => el.tagName")
                             
                             if text:
                                 text_lower = text.lower()
                                 if "nachricht" in text_lower or "kontakt" in text_lower or "contact" in text_lower:
                                     nachricht_elements.append({
+                                        "tag": tag_name,
                                         "text": text.strip()[:50],
-                                        "href": href,
+                                        "href": href[:50],
                                         "id": id_attr,
-                                        "class": class_attr
+                                        "class": class_attr[:50]
                                     })
                             
                             # Also check IDs and classes
-                            if id_attr and ("contact" in id_attr.lower() or "nachricht" in id_attr.lower()):
+                            if id_attr and ("contact" in id_attr.lower() or "nachricht" in id_attr.lower() or "message" in id_attr.lower()):
                                 contact_elements.append({
+                                    "tag": tag_name,
                                     "type": "id",
                                     "value": id_attr,
                                     "text": text.strip()[:50] if text else None,
-                                    "href": href,
-                                    "class": class_attr
+                                    "href": href[:50],
+                                    "class": class_attr[:50]
                                 })
                             
-                            if class_attr and ("contact" in class_attr.lower() or "nachricht" in class_attr.lower()):
+                            if class_attr and ("contact" in class_attr.lower() or "nachricht" in class_attr.lower() or "message" in class_attr.lower()):
                                 contact_elements.append({
+                                    "tag": tag_name,
                                     "type": "class",
-                                    "value": class_attr,
+                                    "value": class_attr[:50],
                                     "text": text.strip()[:50] if text else None,
-                                    "href": href,
+                                    "href": href[:50],
                                     "id": id_attr
                                 })
                         except:
                             continue
                     
                     if nachricht_elements:
-                        logger.warning(f"Found {len(nachricht_elements)} elements with 'nachricht'/'kontakt' in text:")
-                        for elem in nachricht_elements[:10]:
-                            logger.warning(f"  - text='{elem['text']}' id='{elem['id']}' class='{elem['class']}' href='{elem['href']}'")
+                        logger.warning(f"Found {len(nachricht_elements)} candidate elements with 'nachricht'/'kontakt' in text:")
+                        for i, elem in enumerate(nachricht_elements[:10]):
+                            logger.warning(f"  [{i}] <{elem['tag']}> text='{elem['text']}' id='{elem['id']}' class='{elem['class']}' href='{elem['href']}'")
                     
                     if contact_elements:
-                        logger.warning(f"Found {len(contact_elements)} elements with 'contact'/'nachricht' in id/class:")
-                        for elem in contact_elements[:10]:
-                            logger.warning(f"  - {elem['type']}='{elem['value']}' text='{elem['text']}' id='{elem.get('id')}' class='{elem.get('class')}'")
+                        logger.warning(f"Found {len(contact_elements)} candidate elements with 'contact'/'nachricht' in id/class:")
+                        for i, elem in enumerate(contact_elements[:10]):
+                            logger.warning(f"  [{i}] <{elem['tag']}> {elem['type']}='{elem['value']}' text='{elem['text']}' id='{elem.get('id')}' class='{elem.get('class')}' href='{elem.get('href', '')}'")
                     
                     if not nachricht_elements and not contact_elements:
-                        logger.error("❌ No elements with 'nachricht', 'kontakt', or 'contact' found on page!")
-                        logger.warning("🔍 Listing first 20 buttons/links for manual inspection:")
-                        for i, link in enumerate(all_links[:20]):
+                        logger.error("❌ NO elements with 'nachricht' or 'kontakt' found!")
+                        logger.error("This listing might not allow messages (e.g., expired listing)")
+                        logger.warning("🔍 Listing first 30 buttons/links for manual inspection:")
+                        for i, link in enumerate(all_links[:30]):
                             try:
                                 text = await link.inner_text()
-                                href = await link.get_attribute("href")
-                                id_attr = await link.get_attribute("id")
-                                class_attr = await link.get_attribute("class")
-                                logger.warning(f"  [{i}] text='{text[:30] if text else 'N/A'}' id='{id_attr}' class='{class_attr}' href='{href}'")
+                                href = await link.get_attribute("href") or ""
+                                id_attr = await link.get_attribute("id") or ""
+                                class_attr = await link.get_attribute("class") or ""
+                                tag_name = await link.evaluate("el => el.tagName")
+                                logger.warning(f"  [{i}] <{tag_name}> text='{text[:40] if text else 'N/A'}' id='{id_attr}' class='{class_attr}' href='{href[:50]}'")
                             except:
                                 continue
                     
-                    # Keep browser open for 10 seconds for manual inspection
-                    logger.warning("⏸️  Keeping browser open for 10 seconds for manual inspection...")
-                    await self.page.wait_for_timeout(10000)
+                    # Keep browser open for 15 seconds for manual inspection
+                    logger.warning("⏸️  Keeping browser open for 15 seconds for manual inspection...")
+                    await self.page.wait_for_timeout(15000)
                     
                 except Exception as debug_error:
                     logger.error(f"Debug analysis failed: {debug_error}")

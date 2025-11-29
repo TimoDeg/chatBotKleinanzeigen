@@ -80,88 +80,121 @@ ALL_SELECTORS: Dict[str, List[str]] = {
         "[data-qa*='login-submit']",
     ],
     "MESSAGE_BUTTON": [
-        # Primary selectors (most reliable)
+        # 2024/2025 Primary selectors - ID based (most reliable)
         "a#viewad-contact",
         "a[id*='viewad-contact']",
+        "button#viewad-contact",
+        "button[id*='viewad-contact']",
+        # Href-based
         "a[href='#contact']",
-        "button#viewad-contact-button",
-        # Text-based selectors (Playwright :text-is and :text)
+        "a[href*='#contact']",
+        # Text-based (Playwright :text-is is exact match, very reliable)
         "a:text-is('Nachricht schreiben')",
         "button:text-is('Nachricht schreiben')",
+        "a:text-is('Nachricht')",
+        "button:text-is('Nachricht')",
+        "a:text-is('Kontakt aufnehmen')",
+        # Text-based (:text allows partial match)
         "a:text('Nachricht')",
         "button:text('Nachricht')",
-        # Class-based selectors
+        "a:text('Kontakt')",
+        "button:text('Kontakt')",
+        # Class-based
         "a.viewad-contact",
+        "button.viewad-contact",
         "a[class*='contact']",
         "button[class*='contact']",
         "a[class*='message']",
         "button[class*='message']",
-        # Data attributes
+        # Data attributes (modern websites use these)
         "a[data-testid*='contact']",
         "button[data-testid*='contact']",
         "a[data-qa*='contact']",
         "button[data-qa*='contact']",
-        # Legacy fallbacks
-        "a:has-text('Nachricht schreiben')",
+        "[data-gaaction*='contact']",
+        # Legacy fallbacks (less reliable, but keep as last resort)
         "button:has-text('Nachricht schreiben')",
+        "a:has-text('Nachricht schreiben')",
+        "button:has-text('Nachricht senden')",
         "a:has-text('Nachricht senden')",
-        "a:has-text('Kontakt')",
         "button:has-text('Kontakt')",
-        "a[href*='nachricht']",
+        "a:has-text('Kontakt')",
+        # Ultra-broad fallbacks (only if nothing else works)
         "button[id*='contact']",
         "a[id*='contact']",
+        "a[href*='nachricht']",
     ],
     "MESSAGE_TEXTAREA": [
-        # ID-based (most specific)
+        # ID-based (most specific and reliable)
         "textarea#message-text",
+        "textarea#message",
+        "textarea[id='message-text']",
+        "textarea[id='message']",
         "textarea[id*='message']",
         "textarea[id*='text']",
+        "textarea[id*='msg']",
         # Name attribute
         "textarea[name='message']",
+        "textarea[name='text']",
         "textarea[name*='message']",
         "textarea[name*='text']",
+        "textarea[name*='msg']",
         # Class-based
         "textarea.message-text",
         "textarea[class*='message']",
         "textarea[class*='contact']",
-        # Placeholder-based
+        "textarea[class*='textarea']",
+        # Placeholder-based (very common)
         "textarea[placeholder*='Nachricht']",
         "textarea[placeholder*='Deine Nachricht']",
-        "textarea[placeholder*='Ihre Nachricht']",
-        "textarea[placeholder*='Nachricht an']",
         "textarea[placeholder*='Text']",
         "textarea[placeholder*='Schreib']",
-        # Generic (catch-all)
+        "textarea[placeholder*='Ihre Nachricht']",
+        "textarea[placeholder*='message']",
+        # Data attributes
+        "textarea[data-testid*='message']",
+        "textarea[data-qa*='message']",
+        # Generic catch-all (finds ANY textarea on page)
         "textarea",
-        # Contenteditable fallback
+        # Contenteditable fallback (some modern sites use this instead of textarea)
         "div[contenteditable='true'][role='textbox']",
+        "div[contenteditable='true']",
         "[contenteditable='true']",
-        # Iframe fallback
+        # iFrame fallback (if textarea is inside iframe)
         "iframe >> textarea",
     ],
     "MESSAGE_SEND": [
-        # Text-based (most reliable)
+        # Text-based (most reliable for buttons with text)
         "button:text-is('Senden')",
         "button:text-is('Nachricht senden')",
         "button:text-is('Absenden')",
+        "button:text-is('Abschicken')",
+        # Partial text match
         "button:text('Senden')",
         "button:text('Absenden')",
+        "button:text('Abschicken')",
         # ID/Name-based
         "button#message-send",
+        "button#send",
         "button[id*='send']",
+        "button[id*='submit']",
         "button[name*='send']",
+        "button[name*='submit']",
         # Class-based
         "button[class*='send']",
         "button[class*='submit']",
-        # Form submit buttons
+        "button[class*='message-send']",
+        # Type-based (form submit buttons)
         "button[type='submit']",
         "input[type='submit']",
+        # Data attributes
+        "button[data-testid*='send']",
+        "button[data-testid*='submit']",
+        "button[data-qa*='send']",
         # Legacy fallbacks
         "button:has-text('Senden')",
         "button:has-text('Absenden')",
         "button:has-text('Nachricht senden')",
-        "[data-testid*='send']",
-        "[data-qa*='send']",
     ],
     "CONVERSATIONS_PAGE": [
         "a[href*='/nachrichtenbox']",

@@ -23,18 +23,21 @@ class KleinanzeigenBot:
     Main bot orchestrator with human-like behavior and anti-detection.
     """
     
-    def __init__(self, email: str, password: str):
+    def __init__(self, email: str, password: str, headless: Optional[bool] = None):
         """
         Initialize KleinanzeigenBot.
         
         Args:
             email: User email
             password: User password
+            headless: Override headless setting (None = use settings default)
         """
         self.email = email
         self.password = password
         
-        self.browser_manager = BrowserManager(headless=settings.headless)
+        # Use provided headless or fall back to settings
+        headless_mode = headless if headless is not None else settings.headless
+        self.browser_manager = BrowserManager(headless=headless_mode)
         self.session_manager = SessionManager(settings.cookies_path)
         self.human = HumanBehavior()
         
@@ -105,7 +108,8 @@ class KleinanzeigenBot:
         price: float,
         delivery: str,
         shipping_cost: Optional[float] = None,
-        note: Optional[str] = None
+        note: Optional[str] = None,
+        force_fresh_login: bool = False
     ) -> Dict:
         """
         Execute full workflow: message → navigate → offer.
@@ -135,7 +139,7 @@ class KleinanzeigenBot:
             result["steps_completed"].append("setup")
             
             # Step 2: Authenticate
-            if not await self.authenticate():
+            if not await self.authenticate(force_fresh=force_fresh_login):
                 result["errors"].append("Authentication failed")
                 return result
             result["steps_completed"].append("auth")

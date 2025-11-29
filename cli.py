@@ -43,6 +43,16 @@ def run(
         "-n",
         help="Additional offer note (optional)",
     ),
+    no_headless: bool = typer.Option(
+        False,
+        "--no-headless",
+        help="Run browser in visible mode (default: auto-detect)",
+    ),
+    force_login: bool = typer.Option(
+        False,
+        "--force-login",
+        help="Force fresh login even if cookies exist",
+    ),
 ):
     """Execute bot workflow."""
     setup_logger()
@@ -50,10 +60,11 @@ def run(
     logger.info("🚀 Kleinanzeigen Bot v2.0")
     logger.info(f"URL: {url}")
     logger.info(f"Offer: €{price} ({delivery})")
+    logger.info(f"Headless: {not no_headless}")
     
-    bot = KleinanzeigenBot(email, password)
+    bot = KleinanzeigenBot(email, password, headless=not no_headless)
     result = asyncio.run(
-        bot.execute_workflow(url, message, price, delivery, shipping_cost, note)
+        bot.execute_workflow(url, message, price, delivery, shipping_cost, note, force_fresh_login=force_login)
     )
     
     if result["success"]:
