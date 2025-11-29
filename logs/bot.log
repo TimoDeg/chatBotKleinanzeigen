@@ -497,3 +497,58 @@ Call log:
 
 2025-11-28T22:53:45 | INFO     | __main__:send_and_offer | ============================================================
 2025-11-28T22:53:45 | ERROR    | __main__:send_and_offer | ❌ Workflow failed with exit code: 5
+2025-11-29 01:37:29 | INFO     | 🚀 Kleinanzeigen Bot v2.0
+2025-11-29 01:37:29 | INFO     | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 01:37:29 | INFO     | Offer: €100.0 (pickup)
+2025-11-29 01:37:29 | INFO     | 🔧 Setting up browser with anti-detection...
+2025-11-29 01:37:32 | INFO     | ✅ Browser setup successful (Viewport: 1344x898)
+2025-11-29 01:37:32 | INFO     | ✅ Cookies loaded: 323 valid cookies
+2025-11-29 01:37:34 | INFO     | 🔐 Logging in...
+2025-11-29 01:37:39 | DEBUG    | ⏳ Delay: 3.18s (navigating)
+2025-11-29 01:38:01 | WARNING  | Not found: COOKIE_BANNER (tried 6 selectors)
+2025-11-29 01:38:11 | DEBUG    | Found: EMAIL_FIELD [2/6]
+2025-11-29 01:38:14 | DEBUG    | ⏳ Delay: 7.38s (thinking)
+2025-11-29 01:38:22 | DEBUG    | Found: PASSWORD_FIELD [1/6]
+2025-11-29 01:38:23 | DEBUG    | ⏳ Delay: 4.77s (thinking)
+2025-11-29 01:38:28 | DEBUG    | Found: LOGIN_SUBMIT [1/10]
+2025-11-29 01:38:36 | INFO     | ✅ Login successful
+2025-11-29 01:38:36 | INFO     | 💬 Sending message to: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 01:38:37 | DEBUG    | ⏳ Delay: 3.37s (navigating)
+2025-11-29 01:38:40 | DEBUG    | Found: MESSAGE_BUTTON [1/16]
+2025-11-29 01:38:43 | DEBUG    | ⏳ Delay: 8.67s (navigating)
+2025-11-29 01:38:52 | DEBUG    | Found: MESSAGE_TEXTAREA [1/11]
+2025-11-29 01:39:10 | ERROR    | Error closing browser: Browser.close: Connection closed while reading from the driver
+2025-11-29 01:39:17 | INFO     | 🚀 Kleinanzeigen Bot v2.0
+2025-11-29 01:39:17 | INFO     | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 01:39:17 | INFO     | Offer: €100.0 (pickup)
+2025-11-29 01:39:17 | INFO     | 🔄 Rotating VPN IP...
+2025-11-29 01:39:17 | WARNING  | ⚠️  Mullvad CLI not found. VPN rotation skipped.
+2025-11-29 01:39:17 | INFO     | 🔧 Setting up browser with anti-detection...
+2025-11-29 01:39:19 | INFO     | ✅ Browser setup successful (Viewport: 1554x974)
+2025-11-29 01:39:19 | INFO     | ✅ Cookies loaded: 323 valid cookies
+2025-11-29 01:39:21 | INFO     | 🔐 Logging in...
+2025-11-29 01:39:36 | DEBUG    | ⏳ Delay: 3.69s (navigating)
+2025-11-29 01:39:58 | WARNING  | Not found: COOKIE_BANNER (tried 6 selectors)
+2025-11-29 01:40:08 | DEBUG    | Found: EMAIL_FIELD [2/6]
+2025-11-29 01:40:15 | DEBUG    | ⏳ Delay: 6.77s (thinking)
+2025-11-29 01:40:22 | DEBUG    | Found: PASSWORD_FIELD [1/6]
+2025-11-29 01:40:23 | DEBUG    | ⏳ Delay: 5.76s (thinking)
+2025-11-29 01:40:29 | DEBUG    | Found: LOGIN_SUBMIT [1/10]
+2025-11-29 01:40:42 | INFO     | ✅ Login successful
+2025-11-29 01:40:42 | INFO     | 💬 Sending message to: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 01:40:42 | DEBUG    | ⏳ Delay: 3.81s (navigating)
+2025-11-29 01:40:47 | DEBUG    | Found: MESSAGE_BUTTON [1/16]
+2025-11-29 01:40:50 | DEBUG    | ⏳ Delay: 2.03s (navigating)
+2025-11-29 01:40:52 | DEBUG    | Found: MESSAGE_TEXTAREA [1/11]
+2025-11-29 01:40:56 | DEBUG    | ⏳ Delay: 7.57s (thinking)
+2025-11-29 01:41:03 | DEBUG    | Found: MESSAGE_SEND [1/7]
+2025-11-29 01:41:06 | INFO     | ✅ Message sent
+2025-11-29 01:41:06 | INFO     | 📬 Navigating to conversation: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 01:41:07 | DEBUG    | ⏳ Delay: 3.17s (navigating)
+2025-11-29 01:41:10 | INFO     | 💰 Making offer: €100.0, pickup
+2025-11-29 01:41:10 | DEBUG    | ⏳ Delay: 3.19s (thinking)
+2025-11-29 01:42:58 | WARNING  | Not found: OFFER_BUTTON (tried 7 selectors)
+2025-11-29 01:42:58 | ERROR    | ❌ Offer button not found
+2025-11-29 01:42:59 | DEBUG    | Screenshot saved: screenshots/error_offer_button_20251129_014258.png
+2025-11-29 01:42:59 | DEBUG    | Browser closed
+2025-11-29 01:42:59 | ERROR    | ❌ Workflow failed: Offer failed

@@ -1,0 +1,185 @@
+"""
+Configuration constants: exit codes, delivery options, and selectors.
+"""
+
+from typing import Dict, List
+
+# Exit codes
+EXIT_CODES: Dict[str, int] = {
+    "SUCCESS": 0,
+    "LOGIN_FAILED": 1,
+    "MESSAGE_FAILED": 2,
+    "CONVERSATION_NOT_FOUND": 3,
+    "OFFER_FAILED": 4,
+    "BROWSER_FAILED": 5,
+    "CAPTCHA_DETECTED": 10,
+}
+
+# Delivery method options mapping
+DELIVERY_OPTIONS: Dict[str, str] = {
+    "pickup": "Abholung",
+    "shipping": "Versand",
+    "both": "Beides",
+}
+
+# User-Agent pool for rotation
+USER_AGENTS: List[str] = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15",
+]
+
+# All selectors as a centralized dictionary
+ALL_SELECTORS: Dict[str, List[str]] = {
+    "COOKIE_BANNER": [
+        "button:has-text('Alle akzeptieren')",
+        "button:has-text('Akzeptieren')",
+        "button[id*='accept']",
+        "button[class*='accept']",
+        "[data-testid*='cookie-banner-accept']",
+        "[data-qa*='cookie-banner-accept']",
+    ],
+    "LOGIN_LINK": [
+        "a:has-text('Anmelden')",
+        "a[href*='login']",
+        "a[href*='einloggen']",
+        "button:has-text('Anmelden')",
+        "[data-testid*='login-link']",
+        "[data-qa*='login-link']",
+        "button[data-testid*='login-button']",
+        "a[class*='login']",
+    ],
+    "EMAIL_FIELD": [
+        "input[name='email']",
+        "input[type='email']",
+        "input[id*='email']",
+        "input[placeholder*='E-Mail']",
+        "[data-testid*='email-field']",
+        "[data-qa*='email-field']",
+    ],
+    "PASSWORD_FIELD": [
+        "input[name='password']",
+        "input[type='password']",
+        "input[id*='password']",
+        "input[placeholder*='Passwort']",
+        "[data-testid*='password-field']",
+        "[data-qa*='password-field']",
+    ],
+    "LOGIN_SUBMIT": [
+        "button#login-submit",
+        "#login-submit",
+        "button[id='login-submit']",
+        "button.button[type='submit']",
+        "button[type='submit']:has(span:has-text('Einloggen'))",
+        "button:has-text('Einloggen')",
+        "button[type='submit']",
+        "button:has-text('Anmelden')",
+        "[data-testid*='login-submit']",
+        "[data-qa*='login-submit']",
+    ],
+    "MESSAGE_BUTTON": [
+        "button:has-text('Nachricht schreiben')",
+        "a:has-text('Nachricht schreiben')",
+        "button:has-text('Nachricht senden')",
+        "a:has-text('Nachricht senden')",
+        "button:has-text('Kontakt')",
+        "a:has-text('Kontakt')",
+        "a[href*='nachricht']",
+        "button[class*='contact']",
+        "button[class*='message']",
+        "a[class*='contact']",
+        "a[class*='message']",
+        "[data-testid*='contact']",
+        "[data-qa*='contact']",
+        "[data-gaaction*='contact']",
+        "button[id*='contact']",
+        "a[id*='contact']",
+    ],
+    "MESSAGE_TEXTAREA": [
+        "textarea[placeholder*='Nachricht']",
+        "textarea[placeholder*='Ihre Nachricht']",
+        "textarea[placeholder*='Nachricht an']",
+        "textarea[name*='message']",
+        "textarea[id*='message']",
+        "textarea[class*='message']",
+        "textarea[data-testid*='message']",
+        "textarea[data-qa*='message']",
+        "iframe >> textarea",
+        "div[contenteditable='true']",
+        "textarea",
+    ],
+    "MESSAGE_SEND": [
+        "button:has-text('Nachricht senden')",
+        "button:has-text('Senden')",
+        "button[type='submit']",
+        "button[class*='send']",
+        "[data-testid*='send']",
+        "[data-qa*='send']",
+        "button:has-text('Absenden')",
+    ],
+    "CONVERSATIONS_PAGE": [
+        "a[href*='/nachrichtenbox']",
+        "a:has-text('Nachrichten')",
+        "a[href*='messages']",
+        "[data-testid*='messages-link']",
+    ],
+    "LATEST_CONVERSATION": [
+        "[data-testid='conversation-item']:first-child",
+        "[class*='conversation']:first-child",
+        "[class*='chat-item']:first-child",
+        "a[href*='/nachrichten/']:first-child",
+        "[data-qa*='conversation']:first-child",
+        "li:first-child a[href*='nachricht']",
+    ],
+    "OFFER_BUTTON": [
+        "button:has-text('Angebot machen')",
+        "button:has-text('Angebot unterbreiten')",
+        "button:has-text('Angebot')",
+        "a:has-text('Angebot machen')",
+        "[data-testid*='offer']",
+        "[data-qa*='offer']",
+        "button[class*='offer']",
+    ],
+    "OFFER_PRICE_INPUT": [
+        "input[name*='price']",
+        "input[placeholder*='EUR']",
+        "input[placeholder*='€']",
+        "input[type='number']",
+        "input[id*='price']",
+        "input[class*='price']",
+    ],
+    "OFFER_DELIVERY_SELECT": [
+        "select[name*='delivery']",
+        "select[name*='shipping']",
+        "select[id*='delivery']",
+        "select",
+    ],
+    "OFFER_SHIPPING_INPUT": [
+        "input[name*='shipping']",
+        "input[placeholder*='Versand']",
+        "input[id*='shipping']",
+    ],
+    "OFFER_NOTE_TEXTAREA": [
+        "textarea[name*='note']",
+        "textarea[placeholder*='Nachricht']",
+        "textarea[id*='note']",
+        "textarea",
+    ],
+    "OFFER_SUBMIT": [
+        "button:has-text('Angebot senden')",
+        "button:has-text('Angebot unterbreiten')",
+        "button:has-text('Senden')",
+        "button[type='submit']",
+        "[data-testid*='submit']",
+        "button:has-text('Absenden')",
+    ],
+    "SUCCESS_INDICATOR": [
+        "text=/erfolgreich/i",
+        "text=/gesendet/i",
+        "[class*='success']",
+        "[class*='confirmed']",
+    ],
+}
+

@@ -5,32 +5,22 @@ CLI entry point using Typer for command-line interface.
 
 import asyncio
 import sys
-from typing import Optional
 
 import typer
 from loguru import logger
 
-from src.bot import KleinanzeigenBot
-from src.config import (
-    EXIT_SUCCESS,
-    EXIT_LOGIN_FAILED,
-    EXIT_MESSAGE_FAILED,
-    EXIT_CONVERSATION_NOT_FOUND,
-    EXIT_OFFER_FAILED,
-    EXIT_BROWSER_FAILED,
-    EXIT_CAPTCHA_DETECTED,
-)
-from src.utils import setup_logging
+from src.core.bot import KleinanzeigenBot
+from src.utils.logger import setup_logger
+from src.config.constants import EXIT_CODES
 
 app = typer.Typer(
-    name="kleinanzeigen-bot",
-    help="eBay Kleinanzeigen Message & Offer Bot",
+    help="eBay Kleinanzeigen Bot v2.0",
     add_completion=False,
 )
 
 
-@app.command("send-and-offer")
-def send_and_offer(
+@app.command()
+def run(
     url: str = typer.Option(..., "--url", "-u", help="Kleinanzeigen listing URL"),
     email: str = typer.Option(..., "--email", "-e", help="Your Kleinanzeigen email"),
     password: str = typer.Option(..., "--password", "-p", help="Your Kleinanzeigen password"),
@@ -42,147 +32,37 @@ def send_and_offer(
         "-d",
         help='Delivery method: "pickup" / "shipping" / "both"',
     ),
-    shipping_cost: Optional[float] = typer.Option(
+    shipping_cost: float = typer.Option(
         None,
         "--shipping-cost",
         help="Shipping cost (optional, only if shipping selected)",
     ),
-    note: Optional[str] = typer.Option(
+    note: str = typer.Option(
         None,
         "--note",
         "-n",
         help="Additional offer note (optional)",
     ),
-    headless: bool = typer.Option(
-        True,
-        "--headless/--no-headless",
-        help="Run browser in headless mode (default: True)",
-    ),
-    no_cookies: bool = typer.Option(
-        False,
-        "--no-cookies",
-        help="Force fresh login (ignore saved cookies)",
-    ),
-    screenshot: bool = typer.Option(
-        False,
-        "--screenshot",
-        help="Save screenshot after success",
-    ),
-    timeout: int = typer.Option(
-        30,
-        "--timeout",
-        "-t",
-        help="Max wait time in seconds (default: 30)",
-    ),
-    debug: bool = typer.Option(
-        False,
-        "--debug",
-        help="Enable DEBUG logging",
-    ),
 ):
-    """
-    Send a message to a Kleinanzeigen listing and make an offer.
+    """Execute bot workflow."""
+    setup_logger()
     
-    This command performs the complete workflow:
-    1. Login (or use saved cookies)
-    2. Send message to listing
-    3. Navigate to conversation
-    4. Make offer with specified parameters
-    """
-    # Setup logging
-    setup_logging(debug=debug)
-    
-    # Validate delivery option
-    valid_deliveries = ["pickup", "shipping", "both"]
-    if delivery not in valid_deliveries:
-        logger.error(f"Invalid delivery option: {delivery}. Must be one of: {valid_deliveries}")
-        sys.exit(EXIT_BROWSER_FAILED)
-    
-    # Validate shipping cost
-    if shipping_cost and delivery == "pickup":
-        logger.warning("Shipping cost specified but delivery is 'pickup'. Ignoring shipping cost.")
-        shipping_cost = None
-    
-    # Print configuration
-    logger.info("=" * 60)
-    logger.info("Kleinanzeigen Message & Offer Bot")
-    logger.info("=" * 60)
+    logger.info("🚀 Kleinanzeigen Bot v2.0")
     logger.info(f"URL: {url}")
-    logger.info(f"Email: {email}")
-    logger.info(f"Message: {message[:50]}...")
-    logger.info(f"Offer: €{price}, Delivery: {delivery}")
-    if shipping_cost:
-        logger.info(f"Shipping Cost: €{shipping_cost}")
-    if note:
-        logger.info(f"Note: {note[:50]}...")
-    logger.info(f"Headless: {headless}")
-    logger.info("=" * 60)
+    logger.info(f"Offer: €{price} ({delivery})")
     
-    # Create bot instance
-    bot = KleinanzeigenBot(
-        email=email,
-        password=password,
-        headless=headless,
-        timeout=timeout,
+    bot = KleinanzeigenBot(email, password)
+    result = asyncio.run(
+        bot.execute_workflow(url, message, price, delivery, shipping_cost, note)
     )
     
-    # Set debug mode
-    bot.debug_mode = debug
-    
-    # Execute workflow
-    try:
-        result = asyncio.run(
-            bot.execute_full_workflow(
-                listing_url=url,
-                message=message,
-                price=price,
-                delivery=delivery,
-                shipping_cost=shipping_cost,
-                note=note,
-                force_fresh_login=no_cookies,
-                save_screenshot=screenshot,
-                debug_mode=debug,
-            )
-        )
-        
-        # Print results
-        logger.info("=" * 60)
-        logger.info("Workflow Results:")
-        logger.info("=" * 60)
-        logger.info(f"Success: {'✅' if result.get('success') else '❌'}")
-        logger.info(f"Steps Completed: {', '.join(result.get('steps_completed', []))}")
-        if result.get('errors'):
-            logger.error(f"Errors: {', '.join(result.get('errors', []))}")
-        logger.info("=" * 60)
-        
-        # Determine exit code based on result
-        if result.get('success'):
-            logger.info("✅✅✅ All steps completed successfully!")
-            exit_code = EXIT_SUCCESS
-        else:
-            errors = result.get('errors', [])
-            if 'Login fehlgeschlagen' in str(errors):
-                exit_code = EXIT_LOGIN_FAILED
-            elif 'Message senden fehlgeschlagen' in str(errors):
-                exit_code = EXIT_MESSAGE_FAILED
-            elif 'Conversation navigation fehlgeschlagen' in str(errors):
-                exit_code = EXIT_CONVERSATION_NOT_FOUND
-            elif 'Angebot machen fehlgeschlagen' in str(errors):
-                exit_code = EXIT_OFFER_FAILED
-            else:
-                exit_code = EXIT_BROWSER_FAILED
-            logger.error(f"❌ Workflow failed with exit code: {exit_code}")
-        
-        sys.exit(exit_code)
-        
-    except KeyboardInterrupt:
-        logger.warning("⚠️ Interrupted by user")
-        sys.exit(EXIT_BROWSER_FAILED)
-    except Exception as e:
-        logger.error(f"❌ Unexpected error: {e}")
-        sys.exit(EXIT_BROWSER_FAILED)
+    if result["success"]:
+        logger.info("✅ Workflow completed successfully")
+        sys.exit(EXIT_CODES["SUCCESS"])
+    else:
+        logger.error(f"❌ Workflow failed: {', '.join(result['errors'])}")
+        sys.exit(EXIT_CODES["BROWSER_FAILED"])
 
 
 if __name__ == "__main__":
     app()
-
