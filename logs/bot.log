@@ -236,3 +236,174 @@ Call log:
 2025-11-29 06:51:35 | INFO     | ✅✅✅ Workflow completed successfully ✅✅✅
 2025-11-29 06:51:35 | DEBUG    | Browser closed
 2025-11-29 06:51:35 | INFO     | ✅✅✅ Workflow completed successfully ✅✅✅
+2025-11-29 06:53:19 | INFO     | 🚀 Kleinanzeigen Bot v2.0
+2025-11-29 06:53:19 | INFO     | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:53:19 | INFO     | Offer: €100.0 (shipping)
+2025-11-29 06:53:19 | INFO     | Headless: False
+2025-11-29 06:53:19 | INFO     | ⚠️  Force login enabled
+2025-11-29 06:53:19 | INFO     | 🔧 Setting up browser with anti-detection...
+2025-11-29 06:53:21 | INFO     | ✅ Browser setup successful (Viewport: 1378x971)
+2025-11-29 06:53:21 | INFO     | ✅ Cookies loaded: 394 valid cookies
+2025-11-29 06:53:21 | INFO     | 🔐 Performing login...
+2025-11-29 06:53:21 | INFO     | 🔐 Logging in...
+2025-11-29 06:53:22 | DEBUG    | ⏳ 3.54s (navigating)
+2025-11-29 06:53:26 | DEBUG    | Cookies loaded - skipping cookie banner
+2025-11-29 06:53:26 | WARNING  | Not found: EMAIL_FIELD (tried 6 selectors)
+2025-11-29 06:53:26 | ERROR    | ❌ Email field not found
+2025-11-29 06:53:26 | ERROR    | Failed to take screenshot: Page.screenshot: Target page, context or browser has been closed
+2025-11-29 06:53:26 | DEBUG    | Browser closed
+2025-11-29 06:53:26 | ERROR    | ❌ Workflow failed: Authentication failed
+2025-11-29 06:56:53 | INFO     | 🚀 Kleinanzeigen Bot v2.0
+2025-11-29 06:56:53 | INFO     | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:56:53 | INFO     | Offer: €100.0 (shipping)
+2025-11-29 06:56:53 | INFO     | Headless: True
+2025-11-29 06:56:53 | INFO     | 🔧 Setting up browser with anti-detection...
+2025-11-29 06:56:54 | INFO     | ✅ Browser setup successful (Viewport: 1441x808)
+2025-11-29 06:56:54 | INFO     | ✅ Cookies loaded: 394 valid cookies
+2025-11-29 06:56:54 | INFO     | 🔐 Verifying session from cookies...
+2025-11-29 06:56:58 | DEBUG    | Cookie verification failed, performing login...
+2025-11-29 06:56:58 | INFO     | 🔐 Performing login...
+2025-11-29 06:56:58 | INFO     | 🔐 Logging in...
+2025-11-29 06:57:00 | DEBUG    | Cookies loaded - skipping cookie banner
+2025-11-29 06:57:10 | DEBUG    | Found: EMAIL_FIELD [2/6]
+2025-11-29 06:57:16 | DEBUG    | Found: PASSWORD_FIELD [1/6]
+2025-11-29 06:57:19 | DEBUG    | Found: LOGIN_SUBMIT [1/10]
+2025-11-29 06:57:28 | INFO     | ✅ Login successful
+2025-11-29 06:57:28 | INFO     | 💬 Sending message with offer to: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:57:28 | INFO     | Navigating to listing...
+2025-11-29 06:57:29 | DEBUG    | ⚡ 0.56s
+2025-11-29 06:57:29 | DEBUG    | ⚡ 0.72s
+2025-11-29 06:57:30 | INFO     | Searching for 'Nachricht schreiben' button...
+2025-11-29 06:57:30 | INFO     | ✅ Found button via role locator
+2025-11-29 06:57:30 | INFO     | ✅ Clicking 'Nachricht schreiben'...
+2025-11-29 06:57:30 | DEBUG    | ⚡ 0.62s
+2025-11-29 06:57:31 | INFO     | Waiting for modal to open...
+2025-11-29 06:57:35 | WARNING  | ⚠️  Modal not detected by role=dialog, continuing...
+2025-11-29 06:57:36 | INFO     | Filling 'Nachricht*' field...
+2025-11-29 06:57:36 | INFO     | ✅ Found textarea by ID
+2025-11-29 06:57:36 | DEBUG    | ⚡ 0.64s
+2025-11-29 06:57:37 | DEBUG    | ⚡ 0.66s
+2025-11-29 06:57:37 | INFO     | ✅ Nachricht filled
+2025-11-29 06:57:37 | INFO     | Filling 'Profilname*' field...
+2025-11-29 06:57:39 | DEBUG    | Profilname field not found or already filled
+2025-11-29 06:57:39 | DEBUG    | ⚡ 0.62s
+2025-11-29 06:57:40 | INFO     | Enabling 'Preisangebot mit Käuferschutz'...
+2025-11-29 06:57:40 | INFO     | ✅ Käuferschutz toggle enabled
+2025-11-29 06:57:40 | INFO     | Filling 'Betrag' field...
+2025-11-29 06:57:41 | INFO     | ✅ Betrag: 100,00 €
+2025-11-29 06:57:41 | DEBUG    | ⚡ 0.70s
+2025-11-29 06:57:42 | INFO     | Selecting 'Versandmethode*' (first option)...
+2025-11-29 06:57:42 | INFO     | ✅ Versandmethode: first real option selected (index 2)
+2025-11-29 06:57:42 | INFO     | Searching for final 'Senden' button in modal...
+2025-11-29 06:57:42 | INFO     | ✅ Found 'Senden' button via ID+data-testid
+2025-11-29 06:57:42 | INFO     | ✅ Clicking final 'Senden' button to submit offer...
+2025-11-29 06:57:45 | INFO     | ✅ Message + offer successfully submitted via modal
+2025-11-29 06:57:45 | INFO     | ✅✅✅ Full modal workflow completed ✅✅✅
+2025-11-29 06:57:45 | INFO     | ✅ Cookies saved: 412 cookies
+2025-11-29 06:57:45 | INFO     | ✅✅✅ Workflow completed successfully ✅✅✅
+2025-11-29 06:57:45 | DEBUG    | Browser closed
+2025-11-29 06:57:45 | INFO     | ✅✅✅ Workflow completed successfully ✅✅✅
+2025-11-29 06:59:36 | INFO     | 🚀 Kleinanzeigen Bot v2.0
+2025-11-29 06:59:36 | INFO     | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:59:36 | INFO     | Offer: €100.0 (shipping)
+2025-11-29 06:59:36 | INFO     | Headless: True
+2025-11-29 06:59:36 | INFO     | ⚠️  Force login enabled
+2025-11-29 06:59:36 | INFO     | 🔧 Setting up browser with anti-detection...
+2025-11-29 06:59:37 | INFO     | ✅ Browser setup successful (Viewport: 1368x897)
+2025-11-29 06:59:37 | INFO     | ✅ Cookies loaded: 403 valid cookies
+2025-11-29 06:59:37 | INFO     | 🔐 Performing login...
+2025-11-29 06:59:37 | INFO     | 🔐 Logging in...
+2025-11-29 06:59:39 | DEBUG    | ⏳ 2.87s (navigating)
+2025-11-29 06:59:41 | DEBUG    | Cookies loaded - skipping cookie banner
+2025-11-29 06:59:51 | DEBUG    | Found: EMAIL_FIELD [2/6]
+2025-11-29 06:59:56 | DEBUG    | Found: PASSWORD_FIELD [1/6]
+2025-11-29 06:59:58 | DEBUG    | ⏳ 2.80s (default)
+2025-11-29 07:00:01 | DEBUG    | Found: LOGIN_SUBMIT [1/10]
+2025-11-29 07:00:09 | INFO     | ✅ Login successful
+2025-11-29 07:00:09 | INFO     | 💬 Sending message with offer to: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 07:00:09 | INFO     | Navigating to listing...
+2025-11-29 07:00:09 | DEBUG    | ⚡ 0.50s
+2025-11-29 07:00:10 | DEBUG    | ⚡ 0.80s
+2025-11-29 07:00:11 | INFO     | Searching for 'Nachricht schreiben' button...
+2025-11-29 07:00:11 | INFO     | ✅ Found button via role locator
+2025-11-29 07:00:11 | INFO     | ✅ Clicking 'Nachricht schreiben'...
+2025-11-29 07:00:11 | INFO     | Waiting for modal to open...
+2025-11-29 07:00:16 | WARNING  | ⚠️  Modal not detected by role=dialog, continuing...
+2025-11-29 07:00:16 | INFO     | Filling 'Nachricht*' field...
+2025-11-29 07:00:16 | INFO     | ✅ Found textarea by ID
+2025-11-29 07:00:16 | DEBUG    | ⚡ 0.77s
+2025-11-29 07:00:17 | DEBUG    | ⚡ 0.53s
+2025-11-29 07:00:18 | INFO     | ✅ Nachricht filled
+2025-11-29 07:00:18 | INFO     | Filling 'Profilname*' field...
+2025-11-29 07:00:20 | DEBUG    | Profilname field not found or already filled
+2025-11-29 07:00:20 | DEBUG    | ⚡ 0.59s
+2025-11-29 07:00:20 | INFO     | Enabling 'Preisangebot mit Käuferschutz'...
+2025-11-29 07:00:20 | INFO     | ✅ Käuferschutz toggle enabled
+2025-11-29 07:00:20 | DEBUG    | ⚡ 0.75s
+2025-11-29 07:00:21 | INFO     | Filling 'Betrag' field...
+2025-11-29 07:00:23 | DEBUG    | ⚡ 0.77s
+2025-11-29 07:00:24 | INFO     | ✅ Betrag: 100,00 €
+2025-11-29 07:00:24 | INFO     | Selecting 'Versandmethode*' (first option)...
+2025-11-29 07:00:24 | INFO     | ✅ Versandmethode: first real option selected (index 2)
+2025-11-29 07:00:24 | DEBUG    | ⚡ 0.57s
+2025-11-29 07:00:25 | INFO     | Searching for final 'Senden' button in modal...
+2025-11-29 07:00:25 | INFO     | ✅ Found 'Senden' button via ID+data-testid
+2025-11-29 07:00:25 | INFO     | ✅ Clicking final 'Senden' button to submit offer...
+2025-11-29 07:00:25 | DEBUG    | ⚡ 0.56s
+2025-11-29 07:00:28 | INFO     | ✅ Message + offer successfully submitted via modal
+2025-11-29 07:00:28 | INFO     | ✅✅✅ Full modal workflow completed ✅✅✅
+2025-11-29 07:00:28 | INFO     | ✅ Cookies saved: 424 cookies
+2025-11-29 07:00:28 | INFO     | ✅✅✅ Workflow completed successfully ✅✅✅
+2025-11-29 07:00:28 | DEBUG    | Browser closed
+2025-11-29 07:00:28 | INFO     | ✅✅✅ Workflow completed successfully ✅✅✅
+2025-11-29 07:02:50 | INFO     | 🚀 Kleinanzeigen Bot v2.0
+2025-11-29 07:02:50 | INFO     | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 07:02:50 | INFO     | Offer: €101.0 (shipping)
+2025-11-29 07:02:50 | INFO     | Headless: True
+2025-11-29 07:02:50 | INFO     | ⚠️  Force login enabled
+2025-11-29 07:02:50 | INFO     | 🔧 Setting up browser with anti-detection...
+2025-11-29 07:02:51 | INFO     | ✅ Browser setup successful (Viewport: 1407x846)
+2025-11-29 07:02:51 | INFO     | ✅ Cookies loaded: 418 valid cookies
+2025-11-29 07:02:51 | INFO     | 🔐 Performing login...
+2025-11-29 07:02:51 | INFO     | 🔐 Logging in...
+2025-11-29 07:02:52 | DEBUG    | ⏳ 3.96s (navigating)
+2025-11-29 07:02:56 | DEBUG    | Cookies loaded - skipping cookie banner
+2025-11-29 07:03:06 | DEBUG    | Found: EMAIL_FIELD [2/6]
+2025-11-29 07:03:14 | DEBUG    | Found: PASSWORD_FIELD [1/6]
+2025-11-29 07:03:17 | DEBUG    | Found: LOGIN_SUBMIT [1/10]
+2025-11-29 07:03:26 | INFO     | ✅ Login successful
+2025-11-29 07:03:26 | INFO     | 💬 Sending message with offer to: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 07:03:26 | INFO     | Navigating to listing...
+2025-11-29 07:03:26 | DEBUG    | ⚡ 0.52s
+2025-11-29 07:03:27 | INFO     | Searching for 'Nachricht schreiben' button...
+2025-11-29 07:03:27 | INFO     | ✅ Found button via role locator
+2025-11-29 07:03:27 | INFO     | ✅ Clicking 'Nachricht schreiben'...
+2025-11-29 07:03:28 | DEBUG    | ⚡ 0.52s
+2025-11-29 07:03:28 | INFO     | Waiting for modal to open...
+2025-11-29 07:03:33 | WARNING  | ⚠️  Modal not detected by role=dialog, continuing...
+2025-11-29 07:03:33 | DEBUG    | ⚡ 0.54s
+2025-11-29 07:03:33 | INFO     | Filling 'Nachricht*' field...
+2025-11-29 07:03:34 | INFO     | ✅ Found textarea by ID
+2025-11-29 07:03:34 | DEBUG    | ⚡ 0.51s
+2025-11-29 07:03:35 | INFO     | ✅ Nachricht filled
+2025-11-29 07:03:35 | INFO     | Filling 'Profilname*' field...
+2025-11-29 07:03:37 | DEBUG    | Profilname field not found or already filled
+2025-11-29 07:03:37 | INFO     | Enabling 'Preisangebot mit Käuferschutz'...
+2025-11-29 07:03:37 | INFO     | ✅ Käuferschutz toggle enabled
+2025-11-29 07:03:37 | DEBUG    | ⚡ 0.54s
+2025-11-29 07:03:38 | INFO     | Filling 'Betrag' field...
+2025-11-29 07:03:38 | INFO     | ✅ Betrag: 101,00 €
+2025-11-29 07:03:38 | DEBUG    | ⚡ 0.51s
+2025-11-29 07:03:39 | INFO     | Selecting 'Versandmethode*' (first option)...
+2025-11-29 07:03:39 | INFO     | ✅ Versandmethode: first real option selected (index 2)
+2025-11-29 07:03:39 | DEBUG    | ⚡ 0.58s
+2025-11-29 07:03:39 | INFO     | Searching for final 'Senden' button in modal...
+2025-11-29 07:03:39 | INFO     | ✅ Found 'Senden' button via ID+data-testid
+2025-11-29 07:03:39 | INFO     | ✅ Clicking final 'Senden' button to submit offer...
+2025-11-29 07:03:39 | DEBUG    | ⚡ 0.61s
+2025-11-29 07:03:42 | INFO     | ✅ Message + offer successfully submitted via modal
+2025-11-29 07:03:42 | INFO     | ✅✅✅ Full modal workflow completed ✅✅✅
+2025-11-29 07:03:42 | INFO     | ✅ Cookies saved: 433 cookies
+2025-11-29 07:03:42 | INFO     | ✅✅✅ Workflow completed successfully ✅✅✅
+2025-11-29 07:03:42 | DEBUG    | Browser closed
+2025-11-29 07:03:42 | INFO     | ✅✅✅ Workflow completed successfully ✅✅✅
