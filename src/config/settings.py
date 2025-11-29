@@ -2,6 +2,7 @@
 Application settings using Pydantic for environment-based configuration.
 """
 
+import os
 from pathlib import Path
 from typing import List
 from pydantic_settings import BaseSettings
@@ -16,7 +17,8 @@ class Settings(BaseSettings):
     screenshots_dir: Path = Path("./screenshots")
     
     # Browser
-    headless: bool = False  # Changed default to False for better anti-detection
+    # Auto-detect: headless=True if no DISPLAY (server), False if DISPLAY exists (local)
+    headless: bool = os.environ.get("DISPLAY") is None
     browser_timeout: int = 30
     
     # Delays (human-like ranges in seconds)
