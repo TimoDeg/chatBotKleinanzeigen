@@ -10,7 +10,7 @@ from loguru import logger
 from src.core.browser import BrowserManager
 from src.core.session import SessionManager
 from src.stealth.human_behavior import HumanBehavior
-from src.stealth.vpn import vpn
+# from src.stealth.vpn import vpn  # VPN disabled
 from src.modules.auth import login
 from src.modules.messaging import MessageManager
 from src.modules.offers import OfferManager
@@ -53,9 +53,9 @@ class KleinanzeigenBot:
             True if setup successful, False otherwise
         """
         try:
-            # VPN rotation (30% chance)
-            if await vpn.should_rotate():
-                await vpn.rotate_ip()
+            # VPN rotation disabled
+            # if await vpn.should_rotate():
+            #     await vpn.rotate_ip()
             
             # Launch browser
             self.browser, self.context, self.page = await self.browser_manager.launch()

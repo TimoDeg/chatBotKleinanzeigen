@@ -18,6 +18,32 @@ class VPNManager:
     def __init__(self):
         """Initialize VPNManager."""
         self.current_ip: Optional[str] = None
+        self._mullvad_available: Optional[bool] = None
+    
+    async def _check_mullvad_available(self) -> bool:
+        """
+        Check if Mullvad CLI is available.
+        
+        Returns:
+            True if Mullvad CLI is available, False otherwise
+        """
+        if self._mullvad_available is not None:
+            return self._mullvad_available
+        
+        try:
+            proc = await asyncio.create_subprocess_exec(
+                "mullvad", "version",
+                stdout=asyncio.subprocess.DEVNULL,
+                stderr=asyncio.subprocess.DEVNULL
+            )
+            await proc.wait()
+            self._mullvad_available = (proc.returncode == 0)
+        except FileNotFoundError:
+            self._mullvad_available = False
+        except Exception:
+            self._mullvad_available = False
+        
+        return self._mullvad_available
     
     async def rotate_ip(self) -> bool:
         """
