@@ -80,44 +80,88 @@ ALL_SELECTORS: Dict[str, List[str]] = {
         "[data-qa*='login-submit']",
     ],
     "MESSAGE_BUTTON": [
-        "button:has-text('Nachricht schreiben')",
-        "a:has-text('Nachricht schreiben')",
-        "button:has-text('Nachricht senden')",
-        "a:has-text('Nachricht senden')",
-        "button:has-text('Kontakt')",
-        "a:has-text('Kontakt')",
-        "a[href*='nachricht']",
-        "button[class*='contact']",
-        "button[class*='message']",
+        # Primary selectors (most reliable)
+        "a#viewad-contact",
+        "a[id*='viewad-contact']",
+        "a[href='#contact']",
+        "button#viewad-contact-button",
+        # Text-based selectors (Playwright :text-is and :text)
+        "a:text-is('Nachricht schreiben')",
+        "button:text-is('Nachricht schreiben')",
+        "a:text('Nachricht')",
+        "button:text('Nachricht')",
+        # Class-based selectors
+        "a.viewad-contact",
         "a[class*='contact']",
+        "button[class*='contact']",
         "a[class*='message']",
-        "[data-testid*='contact']",
-        "[data-qa*='contact']",
-        "[data-gaaction*='contact']",
+        "button[class*='message']",
+        # Data attributes
+        "a[data-testid*='contact']",
+        "button[data-testid*='contact']",
+        "a[data-qa*='contact']",
+        "button[data-qa*='contact']",
+        # Legacy fallbacks
+        "a:has-text('Nachricht schreiben')",
+        "button:has-text('Nachricht schreiben')",
+        "a:has-text('Nachricht senden')",
+        "a:has-text('Kontakt')",
+        "button:has-text('Kontakt')",
+        "a[href*='nachricht']",
         "button[id*='contact']",
         "a[id*='contact']",
     ],
     "MESSAGE_TEXTAREA": [
+        # ID-based (most specific)
+        "textarea#message-text",
+        "textarea[id*='message']",
+        "textarea[id*='text']",
+        # Name attribute
+        "textarea[name='message']",
+        "textarea[name*='message']",
+        "textarea[name*='text']",
+        # Class-based
+        "textarea.message-text",
+        "textarea[class*='message']",
+        "textarea[class*='contact']",
+        # Placeholder-based
         "textarea[placeholder*='Nachricht']",
+        "textarea[placeholder*='Deine Nachricht']",
         "textarea[placeholder*='Ihre Nachricht']",
         "textarea[placeholder*='Nachricht an']",
-        "textarea[name*='message']",
-        "textarea[id*='message']",
-        "textarea[class*='message']",
-        "textarea[data-testid*='message']",
-        "textarea[data-qa*='message']",
-        "iframe >> textarea",
-        "div[contenteditable='true']",
+        "textarea[placeholder*='Text']",
+        "textarea[placeholder*='Schreib']",
+        # Generic (catch-all)
         "textarea",
+        # Contenteditable fallback
+        "div[contenteditable='true'][role='textbox']",
+        "[contenteditable='true']",
+        # Iframe fallback
+        "iframe >> textarea",
     ],
     "MESSAGE_SEND": [
-        "button:has-text('Nachricht senden')",
-        "button:has-text('Senden')",
-        "button[type='submit']",
+        # Text-based (most reliable)
+        "button:text-is('Senden')",
+        "button:text-is('Nachricht senden')",
+        "button:text-is('Absenden')",
+        "button:text('Senden')",
+        "button:text('Absenden')",
+        # ID/Name-based
+        "button#message-send",
+        "button[id*='send']",
+        "button[name*='send']",
+        # Class-based
         "button[class*='send']",
+        "button[class*='submit']",
+        # Form submit buttons
+        "button[type='submit']",
+        "input[type='submit']",
+        # Legacy fallbacks
+        "button:has-text('Senden')",
+        "button:has-text('Absenden')",
+        "button:has-text('Nachricht senden')",
         "[data-testid*='send']",
         "[data-qa*='send']",
-        "button:has-text('Absenden')",
     ],
     "CONVERSATIONS_PAGE": [
         "a[href*='/nachrichtenbox']",

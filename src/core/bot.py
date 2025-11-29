@@ -44,6 +44,7 @@ class KleinanzeigenBot:
         self.message_manager: Optional[MessageManager] = None
         self.offer_manager: Optional[OfferManager] = None
         self.nav_manager: Optional[NavigationManager] = None
+        self.cookies_loaded: bool = False
     
     async def setup(self) -> bool:
         """
@@ -60,8 +61,8 @@ class KleinanzeigenBot:
             # Launch browser
             self.browser, self.context, self.page = await self.browser_manager.launch()
             
-            # Load cookies
-            await self.session_manager.load_cookies(self.context)
+            # Load cookies and track if successful
+            self.cookies_loaded = await self.session_manager.load_cookies(self.context)
             
             # Initialize managers
             self.message_manager = MessageManager(self.page, self.human)
@@ -88,20 +89,13 @@ class KleinanzeigenBot:
             logger.error("❌ Browser not initialized")
             return False
         
-        # Quick check if already logged in (if cookies loaded)
-        if not force_fresh:
-            try:
-                logged_in = await self.page.wait_for_selector(
-                    "a[href*='/nachrichtenbox'], [class*='user-menu'], a:has-text('Meine Anzeigen')",
-                    timeout=2000
-                )
-                if logged_in:
-                    logger.info("✅ Already authenticated")
-                    return True
-            except:
-                pass
+        # If cookies were loaded and not forcing fresh login, skip verification
+        if self.cookies_loaded and not force_fresh:
+            logger.info("✅ Cookies loaded - skipping login verification")
+            return True
         
-        # Perform login
+        # If no cookies loaded or force_fresh, perform login
+        logger.info("🔐 Performing login...")
         return await login(self.page, self.email, self.password, self.human)
     
     async def execute_workflow(
@@ -179,4 +173,62 @@ class KleinanzeigenBot:
             await self.browser_manager.close()
         
         return result
+    
+    async def debug_page_elements(self) -> None:
+        """
+        Debug helper: Log all interactive elements on current page.
+        Call this when selectors are not working to discover correct ones.
+        """
+        if not self.page:
+            logger.error("Page not initialized")
+            return
+        
+        logger.info("=" * 60)
+        logger.info("🔍 PAGE ELEMENTS DEBUG")
+        logger.info("=" * 60)
+        
+        # All buttons
+        buttons = await self.page.query_selector_all("button")
+        logger.info(f"BUTTONS: {len(buttons)} found")
+        for i, btn in enumerate(buttons[:20]):  # Log first 20
+            try:
+                text = await btn.inner_text()
+                id_attr = await btn.get_attribute("id")
+                class_attr = await btn.get_attribute("class")
+                type_attr = await btn.get_attribute("type")
+                logger.info(f"  [{i}] text='{text[:30]}' id='{id_attr}' class='{class_attr}' type='{type_attr}'")
+            except:
+                continue
+        
+        logger.info("-" * 60)
+        
+        # All links
+        links = await self.page.query_selector_all("a")
+        logger.info(f"LINKS: {len(links)} found")
+        for i, link in enumerate(links[:20]):  # Log first 20
+            try:
+                text = await link.inner_text()
+                href = await link.get_attribute("href")
+                id_attr = await link.get_attribute("id")
+                class_attr = await link.get_attribute("class")
+                logger.info(f"  [{i}] text='{text[:30]}' href='{href}' id='{id_attr}' class='{class_attr}'")
+            except:
+                continue
+        
+        logger.info("-" * 60)
+        
+        # All textareas
+        textareas = await self.page.query_selector_all("textarea")
+        logger.info(f"TEXTAREAS: {len(textareas)} found")
+        for i, ta in enumerate(textareas):
+            try:
+                id_attr = await ta.get_attribute("id")
+                name_attr = await ta.get_attribute("name")
+                placeholder = await ta.get_attribute("placeholder")
+                class_attr = await ta.get_attribute("class")
+                logger.info(f"  [{i}] id='{id_attr}' name='{name_attr}' placeholder='{placeholder}' class='{class_attr}'")
+            except:
+                continue
+        
+        logger.info("=" * 60)
 
