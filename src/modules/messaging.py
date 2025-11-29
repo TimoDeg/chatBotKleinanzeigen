@@ -27,243 +27,184 @@ class MessageManager:
         self.human = human
         self.selectors = SelectorManager()
     
-    async def send_message(self, listing_url: str, message: str) -> Dict:
+    async def send_message(
+        self,
+        listing_url: str,
+        message: str,
+        offer_price: float,
+        delivery: str,
+        profile_name: str = "User",
+        shipping_cost: Optional[float] = None,
+        enable_buyer_protection: bool = True,
+        fast_mode: bool = True,
+    ) -> Dict:
         """
-        Send message to listing with improved modal handling and debugging.
-        
-        Args:
-            listing_url: URL of the listing
-            message: Message text to send
-            
-        Returns:
-            Dict with success status and conversation URL
+        Send message with offer via modal dialog.
         """
-        logger.info(f"💬 Sending message to: {listing_url}")
+        result: Dict[str, Optional[str]] = {"success": False, "message_sent": False}
         
         try:
-            # 1. Navigate to listing
-            logger.info("Navigating to listing...")
+            logger.info(f"💬 Sending message to: {listing_url}")
+            
+            # Navigate
+            logger.info("Navigating...")
             await self.page.goto(listing_url, wait_until="domcontentloaded")
-            await self.human.delay("navigating")
+            await self.human.delay("navigating", fast_mode=fast_mode)
             
-            # 2. Scroll down to trigger lazy-loading (IMPORTANT!)
-            logger.info("Scrolling to trigger lazy-loaded content...")
+            # Scroll
             await self.page.evaluate("window.scrollBy(0, 300)")
-            await self.human.delay("default")
+            await self.human.delay("default", fast_mode=fast_mode)
             
-            # Additional wait for dynamic content
-            await self.page.wait_for_timeout(2000)
-            
-            # 3. Find message button
+            # Find message button
             logger.info("Searching for message button...")
             msg_btn = await self.selectors.find(
                 self.page,
                 "MESSAGE_BUTTON",
-                timeout=15000
+                timeout=10000,
             )
             
             if not msg_btn:
                 logger.error("❌ Message button not found")
-                await take_screenshot(self.page, "error_message_button_not_found")
-                
-                # DEBUG: Call debug_page_elements if available
-                try:
-                    # Try to get bot instance to call debug method
-                    # This is a workaround - we'll do manual debugging here
-                    logger.warning("🔍 DEBUG: Analyzing page elements...")
-                    
-                    # Get all buttons and links
-                    all_links = await self.page.query_selector_all("a, button")
-                    logger.warning(f"Found {len(all_links)} total links/buttons on page")
-                    
-                    # Search for elements with "nachricht" or "contact"
-                    nachricht_elements = []
-                    contact_elements = []
-                    
-                    for link in all_links:
-                        try:
-                            text = await link.inner_text()
-                            href = await link.get_attribute("href") or ""
-                            id_attr = await link.get_attribute("id") or ""
-                            class_attr = await link.get_attribute("class") or ""
-                            tag_name = await link.evaluate("el => el.tagName")
-                            
-                            if text:
-                                text_lower = text.lower()
-                                if "nachricht" in text_lower or "kontakt" in text_lower or "contact" in text_lower:
-                                    nachricht_elements.append({
-                                        "tag": tag_name,
-                                        "text": text.strip()[:50],
-                                        "href": href[:50],
-                                        "id": id_attr,
-                                        "class": class_attr[:50]
-                                    })
-                            
-                            # Also check IDs and classes
-                            if id_attr and ("contact" in id_attr.lower() or "nachricht" in id_attr.lower() or "message" in id_attr.lower()):
-                                contact_elements.append({
-                                    "tag": tag_name,
-                                    "type": "id",
-                                    "value": id_attr,
-                                    "text": text.strip()[:50] if text else None,
-                                    "href": href[:50],
-                                    "class": class_attr[:50]
-                                })
-                            
-                            if class_attr and ("contact" in class_attr.lower() or "nachricht" in class_attr.lower() or "message" in class_attr.lower()):
-                                contact_elements.append({
-                                    "tag": tag_name,
-                                    "type": "class",
-                                    "value": class_attr[:50],
-                                    "text": text.strip()[:50] if text else None,
-                                    "href": href[:50],
-                                    "id": id_attr
-                                })
-                        except:
-                            continue
-                    
-                    if nachricht_elements:
-                        logger.warning(f"Found {len(nachricht_elements)} candidate elements with 'nachricht'/'kontakt' in text:")
-                        for i, elem in enumerate(nachricht_elements[:10]):
-                            logger.warning(f"  [{i}] <{elem['tag']}> text='{elem['text']}' id='{elem['id']}' class='{elem['class']}' href='{elem['href']}'")
-                    
-                    if contact_elements:
-                        logger.warning(f"Found {len(contact_elements)} candidate elements with 'contact'/'nachricht' in id/class:")
-                        for i, elem in enumerate(contact_elements[:10]):
-                            logger.warning(f"  [{i}] <{elem['tag']}> {elem['type']}='{elem['value']}' text='{elem['text']}' id='{elem.get('id')}' class='{elem.get('class')}' href='{elem.get('href', '')}'")
-                    
-                    if not nachricht_elements and not contact_elements:
-                        logger.error("❌ NO elements with 'nachricht' or 'kontakt' found!")
-                        logger.error("This listing might not allow messages (e.g., expired listing)")
-                        logger.warning("🔍 Listing first 30 buttons/links for manual inspection:")
-                        for i, link in enumerate(all_links[:30]):
-                            try:
-                                text = await link.inner_text()
-                                href = await link.get_attribute("href") or ""
-                                id_attr = await link.get_attribute("id") or ""
-                                class_attr = await link.get_attribute("class") or ""
-                                tag_name = await link.evaluate("el => el.tagName")
-                                logger.warning(f"  [{i}] <{tag_name}> text='{text[:40] if text else 'N/A'}' id='{id_attr}' class='{class_attr}' href='{href[:50]}'")
-                            except:
-                                continue
-                    
-                    # Keep browser open for 15 seconds for manual inspection
-                    logger.warning("⏸️  Keeping browser open for 15 seconds for manual inspection...")
-                    await self.page.wait_for_timeout(15000)
-                    
-                except Exception as debug_error:
-                    logger.error(f"Debug analysis failed: {debug_error}")
-                
-                return {"success": False, "conversation_url": None}
+                await take_screenshot(self.page, "error_message_button")
+                return result
             
-            # 4. Click message button
-            logger.info("✅ Message button found, clicking...")
-            await self.human.scroll_into_view(self.page, msg_btn)
-            await self.human.delay("default")
-            await self.human.human_click(self.page, msg_btn)
+            logger.info("✅ Button found, clicking...")
+            await msg_btn.scroll_into_view_if_needed()
+            await self.human.delay("default", fast_mode=fast_mode)
+            await msg_btn.click()
             
-            # 5. Wait for modal/form to appear
-            logger.info("Waiting for message form to load...")
-            await self.human.delay("navigating")
+            # Wait for modal
+            logger.info("Waiting for modal...")
+            await self.human.delay("navigating", fast_mode=fast_mode)
             
-            # 6. Find textarea
-            logger.info("Searching for message textarea...")
+            modal = await self.selectors.find(
+                self.page,
+                "MODAL_CONTAINER",
+                timeout=5000,
+            )
+            
+            if modal:
+                logger.info("✅ Modal detected")
+            else:
+                logger.warning("⚠️  Modal not detected, continuing...")
+            
+            # Fill message textarea IN MODAL
+            logger.info("Filling message...")
             textarea = await self.selectors.find(
                 self.page,
-                "MESSAGE_TEXTAREA",
-                timeout=10000
+                "MODAL_MESSAGE_TEXTAREA",
+                timeout=5000,
             )
             
             if not textarea:
-                logger.error("❌ Message textarea not found")
-                await take_screenshot(self.page, "error_textarea_not_found")
-                
-                # DEBUG: Log all textareas
-                logger.warning("🔍 DEBUG: Searching for all textareas...")
-                all_textareas = await self.page.query_selector_all("textarea")
-                logger.warning(f"Found {len(all_textareas)} textareas on page")
-                
-                for i, ta in enumerate(all_textareas):
-                    try:
-                        id_attr = await ta.get_attribute("id")
-                        name_attr = await ta.get_attribute("name")
-                        placeholder = await ta.get_attribute("placeholder")
-                        logger.warning(f"  Textarea {i}: id='{id_attr}' name='{name_attr}' placeholder='{placeholder}'")
-                    except:
-                        continue
-                
-                return {"success": False, "conversation_url": None}
+                logger.error("❌ Textarea not found in modal")
+                await take_screenshot(self.page, "error_modal_textarea")
+                return result
             
-            # 7. Fill textarea
-            logger.info("✅ Textarea found, filling message...")
-            await self.human.scroll_into_view(self.page, textarea)
-            await textarea.click()  # Focus first
-            await self.human.delay("default")
+            await textarea.click()
+            await self.human.delay("default", fast_mode=fast_mode)
             await self.human.human_type(textarea, message)
-            await self.human.delay("thinking")
+            await self.human.delay("default", fast_mode=fast_mode)
+            logger.info("✅ Message filled")
             
-            # 8. Find and click send button
-            logger.info("Searching for send button...")
+            # Fill profile name
+            try:
+                profile_input = await self.selectors.find(
+                    self.page,
+                    "MODAL_PROFILE_NAME_INPUT",
+                    timeout=2000,
+                )
+                if profile_input:
+                    await profile_input.fill(profile_name)
+                    logger.info(f"✅ Profile name: {profile_name}")
+            except Exception:
+                logger.debug("Profile name field not required")
+            
+            # Fill offer amount
+            logger.info("Filling offer amount...")
+            amount_input = await self.selectors.find(
+                self.page,
+                "MODAL_OFFER_AMOUNT_INPUT",
+                timeout=5000,
+            )
+            
+            if not amount_input:
+                logger.error("❌ Amount input not found")
+                await take_screenshot(self.page, "error_modal_amount")
+                return result
+            
+            await amount_input.click()
+            await amount_input.fill("")
+            await self.human.delay("default", fast_mode=fast_mode)
+            
+            # German format: 100,00
+            amount_str = f"{offer_price:.2f}".replace(".", ",")
+            await amount_input.fill(amount_str)
+            logger.info(f"✅ Amount: {amount_str} €")
+            
+            # Select shipping if needed
+            if delivery in ["shipping", "both"] and shipping_cost:
+                try:
+                    shipping_select = await self.selectors.find(
+                        self.page,
+                        "MODAL_SHIPPING_SELECT",
+                        timeout=3000,
+                    )
+                    if shipping_select:
+                        await shipping_select.select_option(index=1)
+                        logger.info("✅ Shipping selected")
+                except Exception:
+                    logger.warning("⚠️  Shipping selection failed")
+            
+            # Toggle buyer protection
+            if enable_buyer_protection:
+                try:
+                    toggle = await self.selectors.find(
+                        self.page,
+                        "MODAL_BUYER_PROTECTION_TOGGLE",
+                        timeout=2000,
+                    )
+                    if toggle:
+                        is_checked = await toggle.is_checked()
+                        if not is_checked:
+                            await toggle.click()
+                            logger.info("✅ Käuferschutz enabled")
+                except Exception:
+                    logger.debug("Buyer protection not found")
+            
+            # Wait before submit
+            await self.human.delay("thinking", fast_mode=fast_mode)
+            
+            # Click send in modal
+            logger.info("Clicking send button...")
             send_btn = await self.selectors.find(
                 self.page,
-                "MESSAGE_SEND",
-                timeout=10000
+                "MODAL_SEND_BUTTON",
+                timeout=5000,
             )
             
             if not send_btn:
-                logger.warning("⚠️  Send button not found, trying Enter key fallback...")
-                await take_screenshot(self.page, "warning_send_button_not_found")
-                
-                # Fallback: Press Enter
-                await textarea.press("Enter")
-                await self.page.wait_for_timeout(2000)
-            else:
-                logger.info("✅ Send button found, clicking...")
-                await self.human.scroll_into_view(self.page, send_btn)
-                await self.human.delay("default")
-                await self.human.human_click(self.page, send_btn)
-                await self.page.wait_for_timeout(2000)
+                logger.error("❌ Send button not found")
+                await take_screenshot(self.page, "error_modal_send_button")
+                return result
             
-            # 9. Verify message sent
-            logger.info("Verifying message sent...")
-            await self.human.delay("navigating")
-            current_url = self.page.url
-            logger.info(f"Current URL after send: {current_url}")
+            await send_btn.scroll_into_view_if_needed()
+            await self.human.delay("default", fast_mode=fast_mode)
+            await send_btn.click()
             
-            # Check if redirected to nachrichtenbox
-            if "nachricht" in current_url.lower() or "messages" in current_url.lower():
-                logger.info("✅ Message sent successfully (URL redirect detected)")
-                return {"success": True, "conversation_url": current_url}
-            else:
-                # Check for success indicators on page
-                logger.info("Checking for success indicators...")
-                success_selectors = [
-                    "text=/erfolgreich/i",
-                    "text=/gesendet/i",
-                    "[class*='success']",
-                    "[class*='confirmed']",
-                ]
-                
-                for selector in success_selectors:
-                    try:
-                        element = await self.page.wait_for_selector(selector, timeout=2000)
-                        if element:
-                            logger.info(f"✅ Success indicator found: {selector}")
-                            return {"success": True, "conversation_url": current_url}
-                    except:
-                        continue
-                
-                # Assume success if no errors
-                logger.warning("⚠️  Could not verify success, assuming message sent")
-                return {"success": True, "conversation_url": current_url}
+            await self.page.wait_for_timeout(2000)
             
+            logger.info("✅ Message with offer sent!")
+            result["success"] = True
+            result["message_sent"] = True
+            
+            return result
+        
         except Exception as e:
-            logger.error(f"❌ Message sending failed: {e}")
-            await take_screenshot(self.page, "error_send_message")
-            
-            # Log full traceback for debugging
+            logger.error(f"❌ Exception: {e}")
+            await take_screenshot(self.page, "error_send_exception")
             import traceback
             logger.debug(traceback.format_exc())
-            
-            return {"success": False, "conversation_url": None}
+            return result
+
 
