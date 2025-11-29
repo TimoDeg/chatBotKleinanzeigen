@@ -202,3 +202,359 @@
 2025-11-29 04:29:02 | DEBUG    | ⏳ Delay: 2.98s (default)
 2025-11-29 04:29:07 | INFO     | Searching for message button...
 2025-11-29 04:32:32 | ERROR    | Error closing browser: Browser.close: Connection closed while reading from the driver
+2025-11-29 05:57:49 | INFO     | 🚀 Kleinanzeigen Bot v2.0
+2025-11-29 05:57:49 | INFO     | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 05:57:49 | INFO     | Offer: €100.0 (pickup)
+2025-11-29 05:57:49 | INFO     | Headless: False
+2025-11-29 05:57:49 | INFO     | ⚠️  Force login enabled
+2025-11-29 05:57:49 | INFO     | 🔧 Setting up browser with anti-detection...
+2025-11-29 05:57:52 | INFO     | ✅ Browser setup successful (Viewport: 1227x990)
+2025-11-29 05:57:52 | INFO     | ✅ Cookies loaded: 323 valid cookies
+2025-11-29 05:57:52 | INFO     | 🔐 Performing login...
+2025-11-29 05:57:52 | INFO     | 🔐 Logging in...
+2025-11-29 05:57:54 | DEBUG    | Cookies loaded - skipping cookie banner
+2025-11-29 05:58:04 | DEBUG    | Found: EMAIL_FIELD [2/6]
+2025-11-29 05:58:10 | DEBUG    | Found: PASSWORD_FIELD [1/6]
+2025-11-29 05:58:14 | DEBUG    | Found: LOGIN_SUBMIT [1/10]
+2025-11-29 05:58:15 | DEBUG    | Human click failed, using fallback: ElementHandle.click: Element is not attached to the DOM
+Call log:
+  - attempting click action
+    - waiting for element to be visible, enabled and stable
+
+2025-11-29 05:58:23 | INFO     | ✅ Login successful
+2025-11-29 05:58:23 | INFO     | 💬 Sending message to: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 05:58:23 | INFO     | Navigating...
+2025-11-29 05:58:24 | DEBUG    | ⚡ 0.66s
+2025-11-29 05:58:24 | DEBUG    | ⚡ 0.71s
+2025-11-29 05:58:25 | INFO     | Searching for message button...
+2025-11-29 06:01:26 | DEBUG    | Found: MESSAGE_BUTTON [19/35]
+2025-11-29 06:01:26 | INFO     | ✅ Button found, clicking...
+2025-11-29 06:01:27 | INFO     | Waiting for modal...
+2025-11-29 06:02:02 | WARNING  | Not found: MODAL_CONTAINER (tried 7 selectors)
+2025-11-29 06:02:02 | WARNING  | ⚠️  Modal not detected, continuing...
+2025-11-29 06:02:02 | INFO     | Filling message...
+2025-11-29 06:02:22 | DEBUG    | Found: MODAL_MESSAGE_TEXTAREA [5/8]
+2025-11-29 06:02:22 | DEBUG    | ⚡ 0.62s
+2025-11-29 06:02:27 | DEBUG    | ⚡ 0.68s
+2025-11-29 06:02:28 | INFO     | ✅ Message filled
+2025-11-29 06:02:38 | WARNING  | Not found: MODAL_PROFILE_NAME_INPUT (tried 5 selectors)
+2025-11-29 06:02:38 | INFO     | Filling offer amount...
+2025-11-29 06:03:09 | WARNING  | Not found: MODAL_OFFER_AMOUNT_INPUT (tried 6 selectors)
+2025-11-29 06:03:09 | ERROR    | ❌ Amount input not found
+2025-11-29 06:03:10 | DEBUG    | Screenshot saved: screenshots/error_modal_amount_20251129_060309.png
+2025-11-29 06:03:11 | DEBUG    | Browser closed
+2025-11-29 06:03:11 | ERROR    | ❌ Workflow failed: Message failed
+2025-11-29 06:19:21 | INFO     | 🚀 Kleinanzeigen Bot v2.0
+2025-11-29 06:19:21 | INFO     | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:19:21 | INFO     | Offer: €100.0 (pickup)
+2025-11-29 06:19:21 | INFO     | Headless: False
+2025-11-29 06:19:21 | INFO     | ⚠️  Force login enabled
+2025-11-29 06:19:21 | INFO     | 🔧 Setting up browser with anti-detection...
+2025-11-29 06:19:24 | INFO     | ✅ Browser setup successful (Viewport: 1513x871)
+2025-11-29 06:19:24 | INFO     | ✅ Cookies loaded: 323 valid cookies
+2025-11-29 06:19:24 | INFO     | 🔐 Performing login...
+2025-11-29 06:19:24 | INFO     | 🔐 Logging in...
+2025-11-29 06:19:27 | DEBUG    | Cookies loaded - skipping cookie banner
+2025-11-29 06:19:37 | DEBUG    | Found: EMAIL_FIELD [2/6]
+2025-11-29 06:19:43 | DEBUG    | Found: PASSWORD_FIELD [1/6]
+2025-11-29 06:19:45 | DEBUG    | Found: LOGIN_SUBMIT [1/10]
+2025-11-29 06:19:54 | INFO     | ✅ Login successful
+2025-11-29 06:19:54 | INFO     | 💬 Sending message to: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:19:54 | INFO     | Navigating...
+2025-11-29 06:19:56 | INFO     | Searching for message button (primary locator)...
+2025-11-29 06:19:56 | INFO     | ✅ Found message button via role locator
+2025-11-29 06:19:56 | INFO     | ✅ Button found, clicking...
+2025-11-29 06:19:56 | DEBUG    | ⚡ 0.74s
+2025-11-29 06:20:01 | INFO     | Waiting for modal...
+2025-11-29 06:20:06 | DEBUG    | Found: MODAL_CONTAINER [2/7]
+2025-11-29 06:20:06 | INFO     | ✅ Modal detected
+2025-11-29 06:20:06 | INFO     | Filling message...
+2025-11-29 06:20:06 | DEBUG    | Found: MODAL_MESSAGE_TEXTAREA [1/11]
+2025-11-29 06:20:36 | ERROR    | ❌ Exception: ElementHandle.click: Timeout 30000ms exceeded.
+Call log:
+  - attempting click action
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <textarea rows="4" data-empty="true" id="message-textarea-input" aria-describedby="message-textarea-input-help-text" class="peer size-full rounded-medium border border-solid text-bodyRegular text-onSurface m-none box-border resize-y  px-medium outline-none min-h-[98px] focus:outline-none focus:ring-0 bg-surface scroll-pt-[1.3125rem] pt-[1.3125rem] border-utility hover:border-onSurface focus:border-onSurface focus:outline focus:outline-2 focus:outline-offset-[-1px] focus:outline-onSurface"></textarea> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  - retrying click action
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  - retrying click action
+    - waiting 20ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <textarea rows="4" data-empty="true" id="message-textarea-input" aria-describedby="message-textarea-input-help-text" class="peer size-full rounded-medium border border-solid text-bodyRegular text-onSurface m-none box-border resize-y  px-medium outline-none min-h-[98px] focus:outline-none focus:ring-0 bg-surface scroll-pt-[1.3125rem] pt-[1.3125rem] border-utility hover:border-onSurface focus:border-onSurface focus:outline focus:outline-2 focus:outline-offset-[-1px] focus:outline-onSurface"></textarea> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  2 × retrying click action
+      - waiting 100ms
+      - waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  13 × retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <textarea rows="4" data-empty="true" id="message-textarea-input" aria-describedby="message-textarea-input-help-text" class="peer size-full rounded-medium border border-solid text-bodyRegular text-onSurface m-none box-border resize-y  px-medium outline-none min-h-[98px] focus:outline-none focus:ring-0 bg-surface scroll-pt-[1.3125rem] pt-[1.3125rem] border-utility hover:border-onSurface focus:border-onSurface focus:outline focus:outline-2 focus:outline-offset-[-1px] focus:outline-onSurface"></textarea> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  - retrying click action
+    - waiting 500ms
+
+2025-11-29 06:20:37 | DEBUG    | Screenshot saved: screenshots/error_send_exception_20251129_062036.png
+2025-11-29 06:20:37 | DEBUG    | Traceback (most recent call last):
+  File "/Users/tima/Documents/ebayScraper/src/modules/messaging.py", line 115, in send_message
+    await textarea.click()
+  File "/Users/tima/Documents/ebayScraper/venv/lib/python3.13/site-packages/playwright/async_api/_generated.py", line 2132, in click
+    await self._impl_obj.click(
+    ...<9 lines>...
+    )
+  File "/Users/tima/Documents/ebayScraper/venv/lib/python3.13/site-packages/playwright/_impl/_element_handle.py", line 142, in click
+    await self._channel.send(
+        "click", self._frame._timeout, locals_to_params(locals())
+    )
+  File "/Users/tima/Documents/ebayScraper/venv/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/tima/Documents/ebayScraper/venv/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 559, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: ElementHandle.click: Timeout 30000ms exceeded.
+Call log:
+  - attempting click action
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <textarea rows="4" data-empty="true" id="message-textarea-input" aria-describedby="message-textarea-input-help-text" class="peer size-full rounded-medium border border-solid text-bodyRegular text-onSurface m-none box-border resize-y  px-medium outline-none min-h-[98px] focus:outline-none focus:ring-0 bg-surface scroll-pt-[1.3125rem] pt-[1.3125rem] border-utility hover:border-onSurface focus:border-onSurface focus:outline focus:outline-2 focus:outline-offset-[-1px] focus:outline-onSurface"></textarea> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  - retrying click action
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  - retrying click action
+    - waiting 20ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <textarea rows="4" data-empty="true" id="message-textarea-input" aria-describedby="message-textarea-input-help-text" class="peer size-full rounded-medium border border-solid text-bodyRegular text-onSurface m-none box-border resize-y  px-medium outline-none min-h-[98px] focus:outline-none focus:ring-0 bg-surface scroll-pt-[1.3125rem] pt-[1.3125rem] border-utility hover:border-onSurface focus:border-onSurface focus:outline focus:outline-2 focus:outline-offset-[-1px] focus:outline-onSurface"></textarea> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  2 × retrying click action
+      - waiting 100ms
+      - waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  13 × retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <textarea rows="4" data-empty="true" id="message-textarea-input" aria-describedby="message-textarea-input-help-text" class="peer size-full rounded-medium border border-solid text-bodyRegular text-onSurface m-none box-border resize-y  px-medium outline-none min-h-[98px] focus:outline-none focus:ring-0 bg-surface scroll-pt-[1.3125rem] pt-[1.3125rem] border-utility hover:border-onSurface focus:border-onSurface focus:outline focus:outline-2 focus:outline-offset-[-1px] focus:outline-onSurface"></textarea> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  - retrying click action
+    - waiting 500ms
+
+
+2025-11-29 06:20:38 | DEBUG    | Browser closed
+2025-11-29 06:20:38 | ERROR    | ❌ Workflow failed: Message failed
+2025-11-29 06:21:56 | INFO     | 🚀 Kleinanzeigen Bot v2.0
+2025-11-29 06:21:56 | INFO     | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:21:56 | INFO     | Offer: €100.0 (pickup)
+2025-11-29 06:21:56 | INFO     | Headless: False
+2025-11-29 06:21:56 | INFO     | ⚠️  Force login enabled
+2025-11-29 06:21:56 | INFO     | 🔧 Setting up browser with anti-detection...
+2025-11-29 06:21:59 | INFO     | ✅ Browser setup successful (Viewport: 1462x936)
+2025-11-29 06:21:59 | INFO     | ✅ Cookies loaded: 323 valid cookies
+2025-11-29 06:21:59 | INFO     | 🔐 Performing login...
+2025-11-29 06:21:59 | INFO     | 🔐 Logging in...
+2025-11-29 06:22:00 | DEBUG    | ⏳ 2.21s (navigating)
+2025-11-29 06:22:02 | DEBUG    | Cookies loaded - skipping cookie banner
+2025-11-29 06:22:12 | DEBUG    | Found: EMAIL_FIELD [2/6]
+2025-11-29 06:22:21 | DEBUG    | Found: PASSWORD_FIELD [1/6]
+2025-11-29 06:22:27 | DEBUG    | Found: LOGIN_SUBMIT [1/10]
+2025-11-29 06:22:35 | INFO     | ✅ Login successful
+2025-11-29 06:22:35 | INFO     | 💬 Sending message to: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:22:35 | INFO     | Navigating...
+2025-11-29 06:22:36 | DEBUG    | ⚡ 0.59s
+2025-11-29 06:22:37 | INFO     | Searching for message button (primary locator)...
+2025-11-29 06:22:37 | INFO     | ✅ Found message button via role locator
+2025-11-29 06:22:37 | INFO     | ✅ Button found, clicking...
+2025-11-29 06:22:37 | DEBUG    | ⚡ 0.77s
+2025-11-29 06:22:40 | INFO     | Waiting for modal...
+2025-11-29 06:22:40 | DEBUG    | ⚡ 0.73s
+2025-11-29 06:22:46 | DEBUG    | Found: MODAL_CONTAINER [2/7]
+2025-11-29 06:22:46 | INFO     | ✅ Modal detected
+2025-11-29 06:22:46 | INFO     | Filling message...
+2025-11-29 06:22:46 | DEBUG    | Found: MODAL_MESSAGE_TEXTAREA [1/11]
+2025-11-29 06:23:17 | DEBUG    | Human type failed, using fallback: ElementHandle.click: Timeout 30000ms exceeded.
+Call log:
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <textarea rows="4" data-empty="true" id="message-textarea-input" aria-describedby="message-textarea-input-help-text" class="peer size-full rounded-medium border border-solid text-bodyRegular text-onSurface m-none box-border resize-y  px-medium outline-none min-h-[98px] focus:outline-none focus:ring-0 bg-surface scroll-pt-[1.3125rem] pt-[1.3125rem] border-utility hover:border-onSurface focus:border-onSurface focus:outline focus:outline-2 focus:outline-offset-[-1px] focus:outline-onSurface"></textarea> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  2 × retrying click action
+      - waiting 100ms
+      - waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  12 × retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <textarea rows="4" data-empty="true" id="message-textarea-input" aria-describedby="message-textarea-input-help-text" class="peer size-full rounded-medium border border-solid text-bodyRegular text-onSurface m-none box-border resize-y  px-medium outline-none min-h-[98px] focus:outline-none focus:ring-0 bg-surface scroll-pt-[1.3125rem] pt-[1.3125rem] border-utility hover:border-onSurface focus:border-onSurface focus:outline focus:outline-2 focus:outline-offset-[-1px] focus:outline-onSurface"></textarea> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  - retrying click action
+    - waiting 500ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  - retrying click action
+    - waiting 500ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <textarea rows="4" data-empty="true" id="message-textarea-input" aria-describedby="message-textarea-input-help-text" class="peer size-full rounded-medium border border-solid text-bodyRegular text-onSurface m-none box-border resize-y  px-medium outline-none min-h-[98px] focus:outline-none focus:ring-0 bg-surface scroll-pt-[1.3125rem] pt-[1.3125rem] border-utility hover:border-onSurface focus:border-onSurface focus:outline focus:outline-2 focus:outline-offset-[-1px] focus:outline-onSurface"></textarea> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  - retrying click action
+    - waiting 500ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div aria-hidden="true" data-testid="modal-backdrop" class="fixed inset-none z-modal bg-dim opacity-high"></div> from <aside id="viewad-sidebar" class="a-span-8 l-col ">…</aside> subtree intercepts pointer events
+  - retrying click action
+    - waiting 500ms
+
+2025-11-29 06:23:17 | INFO     | ✅ Message filled
+2025-11-29 06:23:27 | WARNING  | Not found: MODAL_PROFILE_NAME_INPUT (tried 5 selectors)
+2025-11-29 06:23:27 | INFO     | Filling offer amount...
+2025-11-29 06:23:57 | WARNING  | Not found: MODAL_OFFER_AMOUNT_INPUT (tried 6 selectors)
+2025-11-29 06:23:57 | ERROR    | ❌ Amount input not found
+2025-11-29 06:23:59 | DEBUG    | Screenshot saved: screenshots/error_modal_amount_20251129_062357.png
+2025-11-29 06:23:59 | DEBUG    | Browser closed
+2025-11-29 06:23:59 | ERROR    | ❌ Workflow failed: Message failed
+2025-11-29 06:24:26 | INFO     | 🚀 Kleinanzeigen Bot v2.0
+2025-11-29 06:24:26 | INFO     | URL: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:24:26 | INFO     | Offer: €100.0 (pickup)
+2025-11-29 06:24:26 | INFO     | Headless: False
+2025-11-29 06:24:26 | INFO     | ⚠️  Force login enabled
+2025-11-29 06:24:26 | INFO     | 🔧 Setting up browser with anti-detection...
+2025-11-29 06:24:28 | INFO     | ✅ Browser setup successful (Viewport: 1508x974)
+2025-11-29 06:24:28 | INFO     | ✅ Cookies loaded: 323 valid cookies
+2025-11-29 06:24:28 | INFO     | 🔐 Performing login...
+2025-11-29 06:24:28 | INFO     | 🔐 Logging in...
+2025-11-29 06:24:29 | DEBUG    | ⏳ 2.71s (navigating)
+2025-11-29 06:24:32 | DEBUG    | Cookies loaded - skipping cookie banner
+2025-11-29 06:24:42 | DEBUG    | Found: EMAIL_FIELD [2/6]
+2025-11-29 06:24:50 | DEBUG    | Found: PASSWORD_FIELD [1/6]
+2025-11-29 06:24:53 | DEBUG    | Found: LOGIN_SUBMIT [1/10]
+2025-11-29 06:25:01 | INFO     | ✅ Login successful
+2025-11-29 06:25:01 | INFO     | 💬 Sending message to: https://www.kleinanzeigen.de/s-anzeige/baba-ddr5-ram/3259103117-225-4564
+2025-11-29 06:25:01 | INFO     | Navigating...
+2025-11-29 06:25:02 | DEBUG    | ⚡ 0.68s
+2025-11-29 06:25:03 | INFO     | Searching for message button (primary locator)...
+2025-11-29 06:25:03 | INFO     | ✅ Found message button via role locator
+2025-11-29 06:25:03 | INFO     | ✅ Button found, clicking...
+2025-11-29 06:25:03 | DEBUG    | ⚡ 0.61s
+2025-11-29 06:25:04 | INFO     | Waiting for modal...
+2025-11-29 06:25:09 | DEBUG    | Found: MODAL_CONTAINER [2/7]
+2025-11-29 06:25:09 | INFO     | ✅ Modal detected
+2025-11-29 06:25:09 | INFO     | Filling message...
+2025-11-29 06:25:09 | DEBUG    | Found: MODAL_MESSAGE_TEXTAREA [1/11]
+2025-11-29 06:25:26 | INFO     | ✅ Message filled
+2025-11-29 06:25:36 | WARNING  | Not found: MODAL_PROFILE_NAME_INPUT (tried 5 selectors)
+2025-11-29 06:25:36 | INFO     | Filling offer amount...
+2025-11-29 06:26:06 | WARNING  | Not found: MODAL_OFFER_AMOUNT_INPUT (tried 6 selectors)
+2025-11-29 06:26:06 | ERROR    | ❌ Amount input not found
+2025-11-29 06:26:07 | DEBUG    | Screenshot saved: screenshots/error_modal_amount_20251129_062606.png
+2025-11-29 06:26:07 | DEBUG    | Browser closed
+2025-11-29 06:26:07 | ERROR    | ❌ Workflow failed: Message failed

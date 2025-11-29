@@ -55,13 +55,24 @@ class MessageManager:
             await self.page.evaluate("window.scrollBy(0, 300)")
             await self.human.delay("default", fast_mode=fast_mode)
             
-            # Find message button
-            logger.info("Searching for message button...")
-            msg_btn = await self.selectors.find(
-                self.page,
-                "MESSAGE_BUTTON",
-                timeout=10000,
-            )
+            # 1st try: direct role-based locator (fast & robust)
+            logger.info("Searching for message button (primary locator)...")
+            msg_btn = None
+            try:
+                locator = self.page.get_by_role("button", name="Nachricht schreiben")
+                # wait_for ensures it is attached & visible
+                await locator.first.wait_for(timeout=5000)
+                msg_btn = locator.first
+                logger.info("✅ Found message button via role locator")
+            except Exception:
+                logger.debug("Primary role locator failed, falling back to selector list...")
+                # 2nd try: use selector manager with tuned timeout
+                logger.info("Searching for message button (fallback selectors)...")
+                msg_btn = await self.selectors.find(
+                    self.page,
+                    "MESSAGE_BUTTON",
+                    timeout=5000,
+                )
             
             if not msg_btn:
                 logger.error("❌ Message button not found")
@@ -101,7 +112,8 @@ class MessageManager:
                 await take_screenshot(self.page, "error_modal_textarea")
                 return result
             
-            await textarea.click()
+            # Use JS focus instead of click to avoid backdrop intercepting pointer events
+            await textarea.evaluate("el => el.focus()")
             await self.human.delay("default", fast_mode=fast_mode)
             await self.human.human_type(textarea, message)
             await self.human.delay("default", fast_mode=fast_mode)

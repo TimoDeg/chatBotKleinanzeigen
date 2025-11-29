@@ -14,7 +14,8 @@ async def login(
     page: Page,
     email: str,
     password: str,
-    human: HumanBehavior
+    human: HumanBehavior,
+    cookies_loaded: bool = False,
 ) -> bool:
     """
     Perform human-like login.
@@ -35,12 +36,16 @@ async def login(
         await page.goto("https://www.kleinanzeigen.de/m-einloggen.html", wait_until="domcontentloaded")
         await human.delay("navigating")
         
-        # Accept cookie banner (silent failure OK)
         selectors = SelectorManager()
-        cookie_btn = await selectors.find(page, "COOKIE_BANNER", timeout=3000)
-        if cookie_btn:
-            await human.human_click(page, cookie_btn)
-            await human.delay("default")
+        # Only search for cookie banner if this is a fresh login (no cookies)
+        if not cookies_loaded:
+            logger.info("Accepting cookie banner...")
+            cookie_btn = await selectors.find(page, "COOKIE_BANNER", timeout=3000)
+            if cookie_btn:
+                await human.human_click(page, cookie_btn)
+                await human.delay("default")
+        else:
+            logger.debug("Cookies loaded - skipping cookie banner")
         
         # Fill email
         email_field = await selectors.find(page, "EMAIL_FIELD", timeout=10000)
@@ -50,7 +55,7 @@ async def login(
             return False
         
         await human.human_type(email_field, email)
-        await human.delay("thinking")
+        await human.delay("default")
         
         # Fill password
         password_field = await selectors.find(page, "PASSWORD_FIELD", timeout=10000)
@@ -60,7 +65,7 @@ async def login(
             return False
         
         await human.human_type(password_field, password)
-        await human.delay("thinking")
+        await human.delay("default")
         
         # Click submit
         submit_btn = await selectors.find(page, "LOGIN_SUBMIT", timeout=10000)

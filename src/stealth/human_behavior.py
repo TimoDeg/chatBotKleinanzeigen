@@ -18,35 +18,47 @@ class HumanBehavior:
     """Simulates human-like behavior for bot actions."""
     
     @staticmethod
-    async def delay(action_type: ActionType = "default") -> None:
+    async def delay(
+        action_type: ActionType = "default",
+        fast_mode: bool = False,
+    ) -> None:
         """
-        Human-like delay with occasional longer pauses.
+        Human-like delay with optional fast mode.
         
         Args:
             action_type: Type of action for context-appropriate delay
+            fast_mode: If True, use minimal delays (0.3-0.8s)
         """
+        if fast_mode:
+            delay = random.uniform(0.3, 0.8)
+            # Only log if > 0.5s
+            if delay > 0.5:
+                logger.debug(f"⚡ {delay:.2f}s")
+            await asyncio.sleep(delay)
+            return
+        
+        # Normal mode: human-like delays
         delays = {
             "typing": (settings.delay_typing_min, settings.delay_typing_max),
             "reading": (settings.delay_reading_min, settings.delay_reading_max),
             "thinking": (settings.delay_thinking_min, settings.delay_thinking_max),
             "navigating": (settings.delay_navigating_min, settings.delay_navigating_max),
-            "default": (1.0, 3.0),
+            "default": (1.0, 2.0),
         }
         
         min_s, max_s = delays.get(action_type, delays["default"])
         
-        # 20% chance for longer "thinking pause"
-        if random.random() < 0.2:
-            min_s *= 2
-            max_s *= 2.5
+        # 10% chance for longer "thinking pause"
+        if random.random() < 0.1:
+            min_s *= 1.5
+            max_s *= 2.0
         
         delay = random.uniform(min_s, max_s)
         
-        # 15% chance for micro-pause (human hesitation)
-        if random.random() < 0.15:
-            delay += random.uniform(0.5, 2.0)
+        # Only log if > 2 seconds
+        if delay > 2.0:
+            logger.debug(f"⏳ {delay:.2f}s ({action_type})")
         
-        logger.debug(f"⏳ Delay: {delay:.2f}s ({action_type})")
         await asyncio.sleep(delay)
     
     @staticmethod

@@ -10,17 +10,18 @@ from loguru import logger
 from src.config.settings import settings
 
 
-def setup_logger() -> None:
+def setup_logger(debug: bool = False) -> None:
     """Configure loguru with clean, minimal output."""
     
     # Remove default handler
     logger.remove()
     
     # Console: Emoji-based, minimal
+    level = "DEBUG" if debug else settings.log_level
     logger.add(
         sys.stdout,
         format="<level>{level.icon}</level> <level>{message}</level>",
-        level=settings.log_level,
+        level=level,
         colorize=True,
     )
     

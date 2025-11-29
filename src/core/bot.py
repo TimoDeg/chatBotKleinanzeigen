@@ -92,14 +92,27 @@ class KleinanzeigenBot:
             logger.error("❌ Browser not initialized")
             return False
         
-        # If cookies were loaded and not forcing fresh login, skip verification
+        # If cookies were loaded and not forcing fresh login, try to verify them
         if self.cookies_loaded and not force_fresh:
-            logger.info("✅ Cookies loaded - skipping login verification")
-            return True
+            try:
+                logger.info("🔐 Verifying session from cookies...")
+                await self.page.goto("https://www.kleinanzeigen.de", wait_until="domcontentloaded")
+                await self.page.wait_for_timeout(500)
+
+                logged_in = await self.page.wait_for_selector(
+                    "a[href*='/nachrichtenbox'], [class*='user-menu']",
+                    timeout=2000,
+                )
+                if logged_in:
+                    logger.info("✅ Cookies loaded - skipping login")
+                    return True
+                logger.debug("Cookie verification did not find logged-in indicators, performing login...")
+            except Exception:
+                logger.debug("Cookie verification failed, performing login...")
         
         # If no cookies loaded or force_fresh, perform login
         logger.info("🔐 Performing login...")
-        return await login(self.page, self.email, self.password, self.human)
+        return await login(self.page, self.email, self.password, self.human, cookies_loaded=self.cookies_loaded)
     
     async def execute_workflow(
         self,
@@ -109,7 +122,10 @@ class KleinanzeigenBot:
         delivery: str,
         shipping_cost: Optional[float] = None,
         note: Optional[str] = None,
-        force_fresh_login: bool = False
+        profile_name: str = "User",
+        force_fresh_login: bool = False,
+        save_screenshot: bool = False,
+        debug_mode: bool = False,
     ) -> Dict:
         """
         Execute full workflow: message → navigate → offer.
@@ -121,6 +137,10 @@ class KleinanzeigenBot:
             delivery: Delivery method (pickup/shipping/both)
             shipping_cost: Optional shipping cost
             note: Optional note
+            profile_name: Profile name used in forms
+            force_fresh_login: Force login even if cookies exist
+            save_screenshot: (reserved for future use)
+            debug_mode: (reserved for future use)
             
         Returns:
             Dict with success status, steps completed, and errors
@@ -144,8 +164,16 @@ class KleinanzeigenBot:
                 return result
             result["steps_completed"].append("auth")
             
-            # Step 3: Send message
-            msg_result = await self.message_manager.send_message(listing_url, message)
+            # Step 3: Send message (with modal + offer)
+            msg_result = await self.message_manager.send_message(
+                listing_url=listing_url,
+                message=message,
+                offer_price=price,
+                delivery=delivery,
+                profile_name=profile_name,
+                shipping_cost=shipping_cost,
+                fast_mode=True,
+            )
             if not msg_result["success"]:
                 result["errors"].append("Message failed")
                 return result
